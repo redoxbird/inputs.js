@@ -14,12 +14,12 @@
         <form method="get" action="/" id="demoForm" class="container grid grid-cols-3 gap-12">
             <input-email
                 name="email"
-                label="Email Address"
+                label="Email"
                 placeholder="you@example.com"
+                autocomplete="email"
                 required
-                validate-on="input"
-                minlength="5"
-                maxlength="254">
+                validate-on="blur"
+            >
             </input-email>
 
             <input-text
@@ -28,16 +28,17 @@
               label="Email"
               description="Enter your email address"
               placeholder="user@example.com"
-              validate-on="input"
+              validate-on="blur"
               required
               min="5"
               min-message="Minimum length is 5 characters"
               max="100"
-              email
               regex="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+              includes="gmail"
+              lowercase="true"
               starts-with="user"
               action-button="copy"
-              prefix-icon="email">
+            >
             </input-text>
 
             <input-text
@@ -46,8 +47,111 @@
               placeholder="https://example.com"
               validate-on="blur"
               url
-              required>
+              required
+            >
             </input-text>
+
+            <input-text
+              name="emoji"
+              label="Emoji"
+              placeholder="😊"
+              validate-on="blur"
+              format="emoji"
+              required
+            >
+            </input-text>
+
+            <input-text
+              name="ip4"
+              label="IPv4"
+              placeholder="192.168.0.1"
+              validate-on="blur"
+              format="ipv4"
+              starts-with="192"
+              required
+            >
+            </input-text>
+
+            <input-text
+              name="date"
+              label="Date"
+              placeholder="2022-01-01"
+              validate-on="blur"
+              format="iso-date"
+              required
+            >
+            </input-text>
+
+            <input-text
+              name="date-time"
+              label="Date Time"
+              placeholder="2022-01-01T12:00:00"
+              validate-on="blur"
+              format="iso-datetime"
+              required
+            >
+            </input-text>
+
+            <input-text
+                name="base64"
+                label="Base64"
+                placeholder="SGVsbG8gd29ybGQ="
+                validate-on="blur"
+                format="base64"
+                required
+            >
+            </input-text>
+
+            <input-text
+                name="base64url"
+                label="Base64URL"
+                placeholder="SGVsbG8gd29ybGQ="
+                validate-on="blur"
+                format="base64url"
+                required
+            >
+            </input-text>
+
+            <input-text
+              name="uuid"
+              label="UUID"
+              placeholder="e1a6a0d3-3024-4158-a42b-8e2bb041f7f6"
+              validate-on="blur"
+              format="uuid"
+              required
+            >
+            </input-text>
+
+            <input-text
+              name="cuid"
+              label="CUID"
+              placeholder="c1a6a0d3-3024-4158-a42b-8e2bb041f7f6"
+              validate-on="blur"
+              format="cuid"
+              required
+            >
+            </input-text>
+
+            <input-text
+              name="cuid2"
+              label="CUID2"
+              placeholder="c1a6a0d3-3024-4158-a42b-8e2bb041f7f6"
+              validate-on="blur"
+              format="cuid2"
+              required
+            >
+            </input-text>
+
+            <input-number
+                name="amount"
+                label="Amount"
+                placeholder="100"
+                validate-on="blur"
+                format="number"
+                gt="10"
+                required
+            >
+            </input-number>
         </form>
     </div>
     <script src="./dist/index.js"></script>

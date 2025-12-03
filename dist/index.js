@@ -1,16 +1,10 @@
 (() => {
-  var __create = Object.create;
   var __defProp = Object.defineProperty;
   var __defProps = Object.defineProperties;
-  var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
   var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
   var __getOwnPropSymbols = Object.getOwnPropertySymbols;
   var __hasOwnProp = Object.prototype.hasOwnProperty;
   var __propIsEnum = Object.prototype.propertyIsEnumerable;
-  var __knownSymbol = (name, symbol) => (symbol = Symbol[name]) ? symbol : Symbol.for("Symbol." + name);
-  var __typeError = (msg) => {
-    throw TypeError(msg);
-  };
   var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
   var __spreadValues = (a3, b3) => {
     for (var prop in b3 || (b3 = {}))
@@ -24,53 +18,11 @@
     return a3;
   };
   var __spreadProps = (a3, b3) => __defProps(a3, __getOwnPropDescs(b3));
-  var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
   var __export = (target, all) => {
     for (var name in all)
       __defProp(target, name, { get: all[name], enumerable: true });
   };
-  var __decoratorStart = (base) => {
-    var _a8;
-    return [, , , __create((_a8 = base == null ? void 0 : base[__knownSymbol("metadata")]) != null ? _a8 : null)];
-  };
-  var __decoratorStrings = ["class", "method", "getter", "setter", "accessor", "field", "value", "get", "set"];
-  var __expectFn = (fn) => fn !== void 0 && typeof fn !== "function" ? __typeError("Function expected") : fn;
-  var __decoratorContext = (kind, name, done, metadata, fns) => ({ kind: __decoratorStrings[kind], name, metadata, addInitializer: (fn) => done._ ? __typeError("Already initialized") : fns.push(__expectFn(fn || null)) });
-  var __decoratorMetadata = (array2, target) => __defNormalProp(target, __knownSymbol("metadata"), array2[3]);
-  var __runInitializers = (array2, flags, self, value) => {
-    for (var i5 = 0, fns = array2[flags >> 1], n5 = fns && fns.length; i5 < n5; i5++) flags & 1 ? fns[i5].call(self) : value = fns[i5].call(self, value);
-    return value;
-  };
-  var __decorateElement = (array2, flags, name, decorators, target, extra) => {
-    var fn, it, done, ctx, access, k2 = flags & 7, s4 = !!(flags & 8), p3 = !!(flags & 16);
-    var j2 = k2 > 3 ? array2.length + 1 : k2 ? s4 ? 1 : 2 : 0, key = __decoratorStrings[k2 + 5];
-    var initializers = k2 > 3 && (array2[j2 - 1] = []), extraInitializers = array2[j2] || (array2[j2] = []);
-    var desc = k2 && (!p3 && !s4 && (target = target.prototype), k2 < 5 && (k2 > 3 || !p3) && __getOwnPropDesc(k2 < 4 ? target : { get [name]() {
-      return __privateGet(this, extra);
-    }, set [name](x2) {
-      return __privateSet(this, extra, x2);
-    } }, name));
-    k2 ? p3 && k2 < 4 && __name(extra, (k2 > 2 ? "set " : k2 > 1 ? "get " : "") + name) : __name(target, name);
-    for (var i5 = decorators.length - 1; i5 >= 0; i5--) {
-      ctx = __decoratorContext(k2, name, done = {}, array2[3], extraInitializers);
-      if (k2) {
-        ctx.static = s4, ctx.private = p3, access = ctx.access = { has: p3 ? (x2) => __privateIn(target, x2) : (x2) => name in x2 };
-        if (k2 ^ 3) access.get = p3 ? (x2) => (k2 ^ 1 ? __privateGet : __privateMethod)(x2, target, k2 ^ 4 ? extra : desc.get) : (x2) => x2[name];
-        if (k2 > 2) access.set = p3 ? (x2, y3) => __privateSet(x2, target, y3, k2 ^ 4 ? extra : desc.set) : (x2, y3) => x2[name] = y3;
-      }
-      it = (0, decorators[i5])(k2 ? k2 < 4 ? p3 ? extra : desc[key] : k2 > 4 ? void 0 : { get: desc.get, set: desc.set } : target, ctx), done._ = 1;
-      if (k2 ^ 4 || it === void 0) __expectFn(it) && (k2 > 4 ? initializers.unshift(it) : k2 ? p3 ? extra = it : desc[key] = it : target = it);
-      else if (typeof it !== "object" || it === null) __typeError("Object expected");
-      else __expectFn(fn = it.get) && (desc.get = fn), __expectFn(fn = it.set) && (desc.set = fn), __expectFn(fn = it.init) && initializers.unshift(fn);
-    }
-    return k2 || __decoratorMetadata(array2, target), desc && __defProp(target, name, desc), p3 ? k2 ^ 4 ? extra : desc : target;
-  };
   var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
-  var __accessCheck = (obj, member, msg) => member.has(obj) || __typeError("Cannot " + msg);
-  var __privateIn = (member, obj) => Object(obj) !== obj ? __typeError('Cannot use the "in" operator on this value') : member.has(obj);
-  var __privateGet = (obj, member, getter) => (__accessCheck(obj, member, "read from private field"), getter ? getter.call(obj) : member.get(obj));
-  var __privateSet = (obj, member, value, setter) => (__accessCheck(obj, member, "write to private field"), setter ? setter.call(obj, value) : member.set(obj, value), value);
-  var __privateMethod = (obj, member, method) => (__accessCheck(obj, member, "access private method"), method);
 
   // node_modules/@lit/reactive-element/css-tag.js
   var t = globalThis;
@@ -78,44 +30,44 @@
   var s = Symbol();
   var o = /* @__PURE__ */ new WeakMap();
   var n = class {
-    constructor(t4, e6, o5) {
+    constructor(t3, e4, o5) {
       if (this._$cssResult$ = true, o5 !== s) throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");
-      this.cssText = t4, this.t = e6;
+      this.cssText = t3, this.t = e4;
     }
     get styleSheet() {
-      let t4 = this.o;
+      let t3 = this.o;
       const s4 = this.t;
-      if (e && void 0 === t4) {
-        const e6 = void 0 !== s4 && 1 === s4.length;
-        e6 && (t4 = o.get(s4)), void 0 === t4 && ((this.o = t4 = new CSSStyleSheet()).replaceSync(this.cssText), e6 && o.set(s4, t4));
+      if (e && void 0 === t3) {
+        const e4 = void 0 !== s4 && 1 === s4.length;
+        e4 && (t3 = o.get(s4)), void 0 === t3 && ((this.o = t3 = new CSSStyleSheet()).replaceSync(this.cssText), e4 && o.set(s4, t3));
       }
-      return t4;
+      return t3;
     }
     toString() {
       return this.cssText;
     }
   };
-  var r = (t4) => new n("string" == typeof t4 ? t4 : t4 + "", void 0, s);
-  var i = (t4, ...e6) => {
-    const o5 = 1 === t4.length ? t4[0] : e6.reduce(((e7, s4, o6) => e7 + ((t5) => {
-      if (true === t5._$cssResult$) return t5.cssText;
-      if ("number" == typeof t5) return t5;
-      throw Error("Value passed to 'css' function must be a 'css' function result: " + t5 + ". Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.");
-    })(s4) + t4[o6 + 1]), t4[0]);
-    return new n(o5, t4, s);
+  var r = (t3) => new n("string" == typeof t3 ? t3 : t3 + "", void 0, s);
+  var i = (t3, ...e4) => {
+    const o5 = 1 === t3.length ? t3[0] : e4.reduce(((e5, s4, o6) => e5 + ((t4) => {
+      if (true === t4._$cssResult$) return t4.cssText;
+      if ("number" == typeof t4) return t4;
+      throw Error("Value passed to 'css' function must be a 'css' function result: " + t4 + ". Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.");
+    })(s4) + t3[o6 + 1]), t3[0]);
+    return new n(o5, t3, s);
   };
   var S = (s4, o5) => {
-    if (e) s4.adoptedStyleSheets = o5.map(((t4) => t4 instanceof CSSStyleSheet ? t4 : t4.styleSheet));
-    else for (const e6 of o5) {
-      const o6 = document.createElement("style"), n5 = t.litNonce;
-      void 0 !== n5 && o6.setAttribute("nonce", n5), o6.textContent = e6.cssText, s4.appendChild(o6);
+    if (e) s4.adoptedStyleSheets = o5.map(((t3) => t3 instanceof CSSStyleSheet ? t3 : t3.styleSheet));
+    else for (const e4 of o5) {
+      const o6 = document.createElement("style"), n4 = t.litNonce;
+      void 0 !== n4 && o6.setAttribute("nonce", n4), o6.textContent = e4.cssText, s4.appendChild(o6);
     }
   };
-  var c = e ? (t4) => t4 : (t4) => t4 instanceof CSSStyleSheet ? ((t5) => {
-    let e6 = "";
-    for (const s4 of t5.cssRules) e6 += s4.cssText;
-    return r(e6);
-  })(t4) : t4;
+  var c = e ? (t3) => t3 : (t3) => t3 instanceof CSSStyleSheet ? ((t4) => {
+    let e4 = "";
+    for (const s4 of t4.cssRules) e4 += s4.cssText;
+    return r(e4);
+  })(t3) : t3;
 
   // node_modules/@lit/reactive-element/reactive-element.js
   var { is: i2, defineProperty: e2, getOwnPropertyDescriptor: h, getOwnPropertyNames: r2, getOwnPropertySymbols: o2, getPrototypeOf: n2 } = Object;
@@ -123,227 +75,227 @@
   var c2 = a.trustedTypes;
   var l = c2 ? c2.emptyScript : "";
   var p = a.reactiveElementPolyfillSupport;
-  var d = (t4, s4) => t4;
-  var u = { toAttribute(t4, s4) {
+  var d = (t3, s4) => t3;
+  var u = { toAttribute(t3, s4) {
     switch (s4) {
       case Boolean:
-        t4 = t4 ? l : null;
+        t3 = t3 ? l : null;
         break;
       case Object:
       case Array:
-        t4 = null == t4 ? t4 : JSON.stringify(t4);
+        t3 = null == t3 ? t3 : JSON.stringify(t3);
     }
-    return t4;
-  }, fromAttribute(t4, s4) {
-    let i5 = t4;
+    return t3;
+  }, fromAttribute(t3, s4) {
+    let i5 = t3;
     switch (s4) {
       case Boolean:
-        i5 = null !== t4;
+        i5 = null !== t3;
         break;
       case Number:
-        i5 = null === t4 ? null : Number(t4);
+        i5 = null === t3 ? null : Number(t3);
         break;
       case Object:
       case Array:
         try {
-          i5 = JSON.parse(t4);
-        } catch (t5) {
+          i5 = JSON.parse(t3);
+        } catch (t4) {
           i5 = null;
         }
     }
     return i5;
   } };
-  var f = (t4, s4) => !i2(t4, s4);
+  var f = (t3, s4) => !i2(t3, s4);
   var b = { attribute: true, type: String, converter: u, reflect: false, useDefault: false, hasChanged: f };
   var _a, _b;
   (_a = Symbol.metadata) != null ? _a : Symbol.metadata = Symbol("metadata"), (_b = a.litPropertyMetadata) != null ? _b : a.litPropertyMetadata = /* @__PURE__ */ new WeakMap();
   var y = class extends HTMLElement {
-    static addInitializer(t4) {
-      var _a8;
-      this._$Ei(), ((_a8 = this.l) != null ? _a8 : this.l = []).push(t4);
+    static addInitializer(t3) {
+      var _a6;
+      this._$Ei(), ((_a6 = this.l) != null ? _a6 : this.l = []).push(t3);
     }
     static get observedAttributes() {
       return this.finalize(), this._$Eh && [...this._$Eh.keys()];
     }
-    static createProperty(t4, s4 = b) {
-      if (s4.state && (s4.attribute = false), this._$Ei(), this.prototype.hasOwnProperty(t4) && ((s4 = Object.create(s4)).wrapped = true), this.elementProperties.set(t4, s4), !s4.noAccessor) {
-        const i5 = Symbol(), h3 = this.getPropertyDescriptor(t4, i5, s4);
-        void 0 !== h3 && e2(this.prototype, t4, h3);
+    static createProperty(t3, s4 = b) {
+      if (s4.state && (s4.attribute = false), this._$Ei(), this.prototype.hasOwnProperty(t3) && ((s4 = Object.create(s4)).wrapped = true), this.elementProperties.set(t3, s4), !s4.noAccessor) {
+        const i5 = Symbol(), h3 = this.getPropertyDescriptor(t3, i5, s4);
+        void 0 !== h3 && e2(this.prototype, t3, h3);
       }
     }
-    static getPropertyDescriptor(t4, s4, i5) {
-      var _a8;
-      const { get: e6, set: r5 } = (_a8 = h(this.prototype, t4)) != null ? _a8 : { get() {
+    static getPropertyDescriptor(t3, s4, i5) {
+      var _a6;
+      const { get: e4, set: r4 } = (_a6 = h(this.prototype, t3)) != null ? _a6 : { get() {
         return this[s4];
-      }, set(t5) {
-        this[s4] = t5;
+      }, set(t4) {
+        this[s4] = t4;
       } };
-      return { get: e6, set(s5) {
-        const h3 = e6 == null ? void 0 : e6.call(this);
-        r5 == null ? void 0 : r5.call(this, s5), this.requestUpdate(t4, h3, i5);
+      return { get: e4, set(s5) {
+        const h3 = e4 == null ? void 0 : e4.call(this);
+        r4 == null ? void 0 : r4.call(this, s5), this.requestUpdate(t3, h3, i5);
       }, configurable: true, enumerable: true };
     }
-    static getPropertyOptions(t4) {
-      var _a8;
-      return (_a8 = this.elementProperties.get(t4)) != null ? _a8 : b;
+    static getPropertyOptions(t3) {
+      var _a6;
+      return (_a6 = this.elementProperties.get(t3)) != null ? _a6 : b;
     }
     static _$Ei() {
       if (this.hasOwnProperty(d("elementProperties"))) return;
-      const t4 = n2(this);
-      t4.finalize(), void 0 !== t4.l && (this.l = [...t4.l]), this.elementProperties = new Map(t4.elementProperties);
+      const t3 = n2(this);
+      t3.finalize(), void 0 !== t3.l && (this.l = [...t3.l]), this.elementProperties = new Map(t3.elementProperties);
     }
     static finalize() {
       if (this.hasOwnProperty(d("finalized"))) return;
       if (this.finalized = true, this._$Ei(), this.hasOwnProperty(d("properties"))) {
-        const t5 = this.properties, s4 = [...r2(t5), ...o2(t5)];
-        for (const i5 of s4) this.createProperty(i5, t5[i5]);
+        const t4 = this.properties, s4 = [...r2(t4), ...o2(t4)];
+        for (const i5 of s4) this.createProperty(i5, t4[i5]);
       }
-      const t4 = this[Symbol.metadata];
-      if (null !== t4) {
-        const s4 = litPropertyMetadata.get(t4);
-        if (void 0 !== s4) for (const [t5, i5] of s4) this.elementProperties.set(t5, i5);
+      const t3 = this[Symbol.metadata];
+      if (null !== t3) {
+        const s4 = litPropertyMetadata.get(t3);
+        if (void 0 !== s4) for (const [t4, i5] of s4) this.elementProperties.set(t4, i5);
       }
       this._$Eh = /* @__PURE__ */ new Map();
-      for (const [t5, s4] of this.elementProperties) {
-        const i5 = this._$Eu(t5, s4);
-        void 0 !== i5 && this._$Eh.set(i5, t5);
+      for (const [t4, s4] of this.elementProperties) {
+        const i5 = this._$Eu(t4, s4);
+        void 0 !== i5 && this._$Eh.set(i5, t4);
       }
       this.elementStyles = this.finalizeStyles(this.styles);
     }
     static finalizeStyles(s4) {
       const i5 = [];
       if (Array.isArray(s4)) {
-        const e6 = new Set(s4.flat(1 / 0).reverse());
-        for (const s5 of e6) i5.unshift(c(s5));
+        const e4 = new Set(s4.flat(1 / 0).reverse());
+        for (const s5 of e4) i5.unshift(c(s5));
       } else void 0 !== s4 && i5.push(c(s4));
       return i5;
     }
-    static _$Eu(t4, s4) {
+    static _$Eu(t3, s4) {
       const i5 = s4.attribute;
-      return false === i5 ? void 0 : "string" == typeof i5 ? i5 : "string" == typeof t4 ? t4.toLowerCase() : void 0;
+      return false === i5 ? void 0 : "string" == typeof i5 ? i5 : "string" == typeof t3 ? t3.toLowerCase() : void 0;
     }
     constructor() {
       super(), this._$Ep = void 0, this.isUpdatePending = false, this.hasUpdated = false, this._$Em = null, this._$Ev();
     }
     _$Ev() {
-      var _a8;
-      this._$ES = new Promise(((t4) => this.enableUpdating = t4)), this._$AL = /* @__PURE__ */ new Map(), this._$E_(), this.requestUpdate(), (_a8 = this.constructor.l) == null ? void 0 : _a8.forEach(((t4) => t4(this)));
+      var _a6;
+      this._$ES = new Promise(((t3) => this.enableUpdating = t3)), this._$AL = /* @__PURE__ */ new Map(), this._$E_(), this.requestUpdate(), (_a6 = this.constructor.l) == null ? void 0 : _a6.forEach(((t3) => t3(this)));
     }
-    addController(t4) {
-      var _a8, _b2;
-      ((_a8 = this._$EO) != null ? _a8 : this._$EO = /* @__PURE__ */ new Set()).add(t4), void 0 !== this.renderRoot && this.isConnected && ((_b2 = t4.hostConnected) == null ? void 0 : _b2.call(t4));
+    addController(t3) {
+      var _a6, _b2;
+      ((_a6 = this._$EO) != null ? _a6 : this._$EO = /* @__PURE__ */ new Set()).add(t3), void 0 !== this.renderRoot && this.isConnected && ((_b2 = t3.hostConnected) == null ? void 0 : _b2.call(t3));
     }
-    removeController(t4) {
-      var _a8;
-      (_a8 = this._$EO) == null ? void 0 : _a8.delete(t4);
+    removeController(t3) {
+      var _a6;
+      (_a6 = this._$EO) == null ? void 0 : _a6.delete(t3);
     }
     _$E_() {
-      const t4 = /* @__PURE__ */ new Map(), s4 = this.constructor.elementProperties;
-      for (const i5 of s4.keys()) this.hasOwnProperty(i5) && (t4.set(i5, this[i5]), delete this[i5]);
-      t4.size > 0 && (this._$Ep = t4);
+      const t3 = /* @__PURE__ */ new Map(), s4 = this.constructor.elementProperties;
+      for (const i5 of s4.keys()) this.hasOwnProperty(i5) && (t3.set(i5, this[i5]), delete this[i5]);
+      t3.size > 0 && (this._$Ep = t3);
     }
     createRenderRoot() {
-      var _a8;
-      const t4 = (_a8 = this.shadowRoot) != null ? _a8 : this.attachShadow(this.constructor.shadowRootOptions);
-      return S(t4, this.constructor.elementStyles), t4;
+      var _a6;
+      const t3 = (_a6 = this.shadowRoot) != null ? _a6 : this.attachShadow(this.constructor.shadowRootOptions);
+      return S(t3, this.constructor.elementStyles), t3;
     }
     connectedCallback() {
-      var _a8, _b2;
-      (_a8 = this.renderRoot) != null ? _a8 : this.renderRoot = this.createRenderRoot(), this.enableUpdating(true), (_b2 = this._$EO) == null ? void 0 : _b2.forEach(((t4) => {
-        var _a9;
-        return (_a9 = t4.hostConnected) == null ? void 0 : _a9.call(t4);
+      var _a6, _b2;
+      (_a6 = this.renderRoot) != null ? _a6 : this.renderRoot = this.createRenderRoot(), this.enableUpdating(true), (_b2 = this._$EO) == null ? void 0 : _b2.forEach(((t3) => {
+        var _a7;
+        return (_a7 = t3.hostConnected) == null ? void 0 : _a7.call(t3);
       }));
     }
-    enableUpdating(t4) {
+    enableUpdating(t3) {
     }
     disconnectedCallback() {
-      var _a8;
-      (_a8 = this._$EO) == null ? void 0 : _a8.forEach(((t4) => {
-        var _a9;
-        return (_a9 = t4.hostDisconnected) == null ? void 0 : _a9.call(t4);
+      var _a6;
+      (_a6 = this._$EO) == null ? void 0 : _a6.forEach(((t3) => {
+        var _a7;
+        return (_a7 = t3.hostDisconnected) == null ? void 0 : _a7.call(t3);
       }));
     }
-    attributeChangedCallback(t4, s4, i5) {
-      this._$AK(t4, i5);
+    attributeChangedCallback(t3, s4, i5) {
+      this._$AK(t3, i5);
     }
-    _$ET(t4, s4) {
-      var _a8;
-      const i5 = this.constructor.elementProperties.get(t4), e6 = this.constructor._$Eu(t4, i5);
-      if (void 0 !== e6 && true === i5.reflect) {
-        const h3 = (void 0 !== ((_a8 = i5.converter) == null ? void 0 : _a8.toAttribute) ? i5.converter : u).toAttribute(s4, i5.type);
-        this._$Em = t4, null == h3 ? this.removeAttribute(e6) : this.setAttribute(e6, h3), this._$Em = null;
+    _$ET(t3, s4) {
+      var _a6;
+      const i5 = this.constructor.elementProperties.get(t3), e4 = this.constructor._$Eu(t3, i5);
+      if (void 0 !== e4 && true === i5.reflect) {
+        const h3 = (void 0 !== ((_a6 = i5.converter) == null ? void 0 : _a6.toAttribute) ? i5.converter : u).toAttribute(s4, i5.type);
+        this._$Em = t3, null == h3 ? this.removeAttribute(e4) : this.setAttribute(e4, h3), this._$Em = null;
       }
     }
-    _$AK(t4, s4) {
-      var _a8, _b2, _c;
-      const i5 = this.constructor, e6 = i5._$Eh.get(t4);
-      if (void 0 !== e6 && this._$Em !== e6) {
-        const t5 = i5.getPropertyOptions(e6), h3 = "function" == typeof t5.converter ? { fromAttribute: t5.converter } : void 0 !== ((_a8 = t5.converter) == null ? void 0 : _a8.fromAttribute) ? t5.converter : u;
-        this._$Em = e6;
-        const r5 = h3.fromAttribute(s4, t5.type);
-        this[e6] = (_c = r5 != null ? r5 : (_b2 = this._$Ej) == null ? void 0 : _b2.get(e6)) != null ? _c : r5, this._$Em = null;
+    _$AK(t3, s4) {
+      var _a6, _b2, _c;
+      const i5 = this.constructor, e4 = i5._$Eh.get(t3);
+      if (void 0 !== e4 && this._$Em !== e4) {
+        const t4 = i5.getPropertyOptions(e4), h3 = "function" == typeof t4.converter ? { fromAttribute: t4.converter } : void 0 !== ((_a6 = t4.converter) == null ? void 0 : _a6.fromAttribute) ? t4.converter : u;
+        this._$Em = e4;
+        const r4 = h3.fromAttribute(s4, t4.type);
+        this[e4] = (_c = r4 != null ? r4 : (_b2 = this._$Ej) == null ? void 0 : _b2.get(e4)) != null ? _c : r4, this._$Em = null;
       }
     }
-    requestUpdate(t4, s4, i5) {
-      var _a8, _b2;
-      if (void 0 !== t4) {
-        const e6 = this.constructor, h3 = this[t4];
-        if (i5 != null ? i5 : i5 = e6.getPropertyOptions(t4), !(((_a8 = i5.hasChanged) != null ? _a8 : f)(h3, s4) || i5.useDefault && i5.reflect && h3 === ((_b2 = this._$Ej) == null ? void 0 : _b2.get(t4)) && !this.hasAttribute(e6._$Eu(t4, i5)))) return;
-        this.C(t4, s4, i5);
+    requestUpdate(t3, s4, i5) {
+      var _a6, _b2;
+      if (void 0 !== t3) {
+        const e4 = this.constructor, h3 = this[t3];
+        if (i5 != null ? i5 : i5 = e4.getPropertyOptions(t3), !(((_a6 = i5.hasChanged) != null ? _a6 : f)(h3, s4) || i5.useDefault && i5.reflect && h3 === ((_b2 = this._$Ej) == null ? void 0 : _b2.get(t3)) && !this.hasAttribute(e4._$Eu(t3, i5)))) return;
+        this.C(t3, s4, i5);
       }
       false === this.isUpdatePending && (this._$ES = this._$EP());
     }
-    C(t4, s4, { useDefault: i5, reflect: e6, wrapped: h3 }, r5) {
-      var _a8, _b2, _c;
-      i5 && !((_a8 = this._$Ej) != null ? _a8 : this._$Ej = /* @__PURE__ */ new Map()).has(t4) && (this._$Ej.set(t4, (_b2 = r5 != null ? r5 : s4) != null ? _b2 : this[t4]), true !== h3 || void 0 !== r5) || (this._$AL.has(t4) || (this.hasUpdated || i5 || (s4 = void 0), this._$AL.set(t4, s4)), true === e6 && this._$Em !== t4 && ((_c = this._$Eq) != null ? _c : this._$Eq = /* @__PURE__ */ new Set()).add(t4));
+    C(t3, s4, { useDefault: i5, reflect: e4, wrapped: h3 }, r4) {
+      var _a6, _b2, _c;
+      i5 && !((_a6 = this._$Ej) != null ? _a6 : this._$Ej = /* @__PURE__ */ new Map()).has(t3) && (this._$Ej.set(t3, (_b2 = r4 != null ? r4 : s4) != null ? _b2 : this[t3]), true !== h3 || void 0 !== r4) || (this._$AL.has(t3) || (this.hasUpdated || i5 || (s4 = void 0), this._$AL.set(t3, s4)), true === e4 && this._$Em !== t3 && ((_c = this._$Eq) != null ? _c : this._$Eq = /* @__PURE__ */ new Set()).add(t3));
     }
     async _$EP() {
       this.isUpdatePending = true;
       try {
         await this._$ES;
-      } catch (t5) {
-        Promise.reject(t5);
+      } catch (t4) {
+        Promise.reject(t4);
       }
-      const t4 = this.scheduleUpdate();
-      return null != t4 && await t4, !this.isUpdatePending;
+      const t3 = this.scheduleUpdate();
+      return null != t3 && await t3, !this.isUpdatePending;
     }
     scheduleUpdate() {
       return this.performUpdate();
     }
     performUpdate() {
-      var _a8, _b2;
+      var _a6, _b2;
       if (!this.isUpdatePending) return;
       if (!this.hasUpdated) {
-        if ((_a8 = this.renderRoot) != null ? _a8 : this.renderRoot = this.createRenderRoot(), this._$Ep) {
-          for (const [t6, s5] of this._$Ep) this[t6] = s5;
+        if ((_a6 = this.renderRoot) != null ? _a6 : this.renderRoot = this.createRenderRoot(), this._$Ep) {
+          for (const [t5, s5] of this._$Ep) this[t5] = s5;
           this._$Ep = void 0;
         }
-        const t5 = this.constructor.elementProperties;
-        if (t5.size > 0) for (const [s5, i5] of t5) {
-          const { wrapped: t6 } = i5, e6 = this[s5];
-          true !== t6 || this._$AL.has(s5) || void 0 === e6 || this.C(s5, void 0, i5, e6);
+        const t4 = this.constructor.elementProperties;
+        if (t4.size > 0) for (const [s5, i5] of t4) {
+          const { wrapped: t5 } = i5, e4 = this[s5];
+          true !== t5 || this._$AL.has(s5) || void 0 === e4 || this.C(s5, void 0, i5, e4);
         }
       }
-      let t4 = false;
+      let t3 = false;
       const s4 = this._$AL;
       try {
-        t4 = this.shouldUpdate(s4), t4 ? (this.willUpdate(s4), (_b2 = this._$EO) == null ? void 0 : _b2.forEach(((t5) => {
-          var _a9;
-          return (_a9 = t5.hostUpdate) == null ? void 0 : _a9.call(t5);
+        t3 = this.shouldUpdate(s4), t3 ? (this.willUpdate(s4), (_b2 = this._$EO) == null ? void 0 : _b2.forEach(((t4) => {
+          var _a7;
+          return (_a7 = t4.hostUpdate) == null ? void 0 : _a7.call(t4);
         })), this.update(s4)) : this._$EM();
       } catch (s5) {
-        throw t4 = false, this._$EM(), s5;
+        throw t3 = false, this._$EM(), s5;
       }
-      t4 && this._$AE(s4);
+      t3 && this._$AE(s4);
     }
-    willUpdate(t4) {
+    willUpdate(t3) {
     }
-    _$AE(t4) {
-      var _a8;
-      (_a8 = this._$EO) == null ? void 0 : _a8.forEach(((t5) => {
-        var _a9;
-        return (_a9 = t5.hostUpdated) == null ? void 0 : _a9.call(t5);
-      })), this.hasUpdated || (this.hasUpdated = true, this.firstUpdated(t4)), this.updated(t4);
+    _$AE(t3) {
+      var _a6;
+      (_a6 = this._$EO) == null ? void 0 : _a6.forEach(((t4) => {
+        var _a7;
+        return (_a7 = t4.hostUpdated) == null ? void 0 : _a7.call(t4);
+      })), this.hasUpdated || (this.hasUpdated = true, this.firstUpdated(t3)), this.updated(t3);
     }
     _$EM() {
       this._$AL = /* @__PURE__ */ new Map(), this.isUpdatePending = false;
@@ -354,15 +306,15 @@
     getUpdateComplete() {
       return this._$ES;
     }
-    shouldUpdate(t4) {
+    shouldUpdate(t3) {
       return true;
     }
-    update(t4) {
-      this._$Eq && (this._$Eq = this._$Eq.forEach(((t5) => this._$ET(t5, this[t5])))), this._$EM();
+    update(t3) {
+      this._$Eq && (this._$Eq = this._$Eq.forEach(((t4) => this._$ET(t4, this[t4])))), this._$EM();
     }
-    updated(t4) {
+    updated(t3) {
     }
-    firstUpdated(t4) {
+    firstUpdated(t3) {
     }
   };
   var _a2;
@@ -371,16 +323,16 @@
   // node_modules/lit-html/lit-html.js
   var t2 = globalThis;
   var i3 = t2.trustedTypes;
-  var s2 = i3 ? i3.createPolicy("lit-html", { createHTML: (t4) => t4 }) : void 0;
+  var s2 = i3 ? i3.createPolicy("lit-html", { createHTML: (t3) => t3 }) : void 0;
   var e3 = "$lit$";
   var h2 = `lit$${Math.random().toFixed(9).slice(2)}$`;
   var o3 = "?" + h2;
   var n3 = `<${o3}>`;
   var r3 = document;
   var l2 = () => r3.createComment("");
-  var c3 = (t4) => null === t4 || "object" != typeof t4 && "function" != typeof t4;
+  var c3 = (t3) => null === t3 || "object" != typeof t3 && "function" != typeof t3;
   var a2 = Array.isArray;
-  var u2 = (t4) => a2(t4) || "function" == typeof (t4 == null ? void 0 : t4[Symbol.iterator]);
+  var u2 = (t3) => a2(t3) || "function" == typeof (t3 == null ? void 0 : t3[Symbol.iterator]);
   var d2 = "[ 	\n\f\r]";
   var f2 = /<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g;
   var v = /-->/g;
@@ -390,7 +342,7 @@
   var p2 = /'/g;
   var g = /"/g;
   var $ = /^(?:script|style|textarea|title)$/i;
-  var y2 = (t4) => (i5, ...s4) => ({ _$litType$: t4, strings: i5, values: s4 });
+  var y2 = (t3) => (i5, ...s4) => ({ _$litType$: t3, strings: i5, values: s4 });
   var x = y2(1);
   var b2 = y2(2);
   var w = y2(3);
@@ -398,69 +350,69 @@
   var E = Symbol.for("lit-nothing");
   var A = /* @__PURE__ */ new WeakMap();
   var C = r3.createTreeWalker(r3, 129);
-  function P(t4, i5) {
-    if (!a2(t4) || !t4.hasOwnProperty("raw")) throw Error("invalid template strings array");
+  function P(t3, i5) {
+    if (!a2(t3) || !t3.hasOwnProperty("raw")) throw Error("invalid template strings array");
     return void 0 !== s2 ? s2.createHTML(i5) : i5;
   }
-  var V = (t4, i5) => {
-    const s4 = t4.length - 1, o5 = [];
-    let r5, l3 = 2 === i5 ? "<svg>" : 3 === i5 ? "<math>" : "", c4 = f2;
+  var V = (t3, i5) => {
+    const s4 = t3.length - 1, o5 = [];
+    let r4, l3 = 2 === i5 ? "<svg>" : 3 === i5 ? "<math>" : "", c4 = f2;
     for (let i6 = 0; i6 < s4; i6++) {
-      const s5 = t4[i6];
+      const s5 = t3[i6];
       let a3, u3, d3 = -1, y3 = 0;
-      for (; y3 < s5.length && (c4.lastIndex = y3, u3 = c4.exec(s5), null !== u3); ) y3 = c4.lastIndex, c4 === f2 ? "!--" === u3[1] ? c4 = v : void 0 !== u3[1] ? c4 = _ : void 0 !== u3[2] ? ($.test(u3[2]) && (r5 = RegExp("</" + u3[2], "g")), c4 = m) : void 0 !== u3[3] && (c4 = m) : c4 === m ? ">" === u3[0] ? (c4 = r5 != null ? r5 : f2, d3 = -1) : void 0 === u3[1] ? d3 = -2 : (d3 = c4.lastIndex - u3[2].length, a3 = u3[1], c4 = void 0 === u3[3] ? m : '"' === u3[3] ? g : p2) : c4 === g || c4 === p2 ? c4 = m : c4 === v || c4 === _ ? c4 = f2 : (c4 = m, r5 = void 0);
-      const x2 = c4 === m && t4[i6 + 1].startsWith("/>") ? " " : "";
+      for (; y3 < s5.length && (c4.lastIndex = y3, u3 = c4.exec(s5), null !== u3); ) y3 = c4.lastIndex, c4 === f2 ? "!--" === u3[1] ? c4 = v : void 0 !== u3[1] ? c4 = _ : void 0 !== u3[2] ? ($.test(u3[2]) && (r4 = RegExp("</" + u3[2], "g")), c4 = m) : void 0 !== u3[3] && (c4 = m) : c4 === m ? ">" === u3[0] ? (c4 = r4 != null ? r4 : f2, d3 = -1) : void 0 === u3[1] ? d3 = -2 : (d3 = c4.lastIndex - u3[2].length, a3 = u3[1], c4 = void 0 === u3[3] ? m : '"' === u3[3] ? g : p2) : c4 === g || c4 === p2 ? c4 = m : c4 === v || c4 === _ ? c4 = f2 : (c4 = m, r4 = void 0);
+      const x2 = c4 === m && t3[i6 + 1].startsWith("/>") ? " " : "";
       l3 += c4 === f2 ? s5 + n3 : d3 >= 0 ? (o5.push(a3), s5.slice(0, d3) + e3 + s5.slice(d3) + h2 + x2) : s5 + h2 + (-2 === d3 ? i6 : x2);
     }
-    return [P(t4, l3 + (t4[s4] || "<?>") + (2 === i5 ? "</svg>" : 3 === i5 ? "</math>" : "")), o5];
+    return [P(t3, l3 + (t3[s4] || "<?>") + (2 === i5 ? "</svg>" : 3 === i5 ? "</math>" : "")), o5];
   };
   var N = class _N {
-    constructor({ strings: t4, _$litType$: s4 }, n5) {
-      let r5;
+    constructor({ strings: t3, _$litType$: s4 }, n4) {
+      let r4;
       this.parts = [];
       let c4 = 0, a3 = 0;
-      const u3 = t4.length - 1, d3 = this.parts, [f3, v2] = V(t4, s4);
-      if (this.el = _N.createElement(f3, n5), C.currentNode = this.el.content, 2 === s4 || 3 === s4) {
-        const t5 = this.el.content.firstChild;
-        t5.replaceWith(...t5.childNodes);
+      const u3 = t3.length - 1, d3 = this.parts, [f3, v2] = V(t3, s4);
+      if (this.el = _N.createElement(f3, n4), C.currentNode = this.el.content, 2 === s4 || 3 === s4) {
+        const t4 = this.el.content.firstChild;
+        t4.replaceWith(...t4.childNodes);
       }
-      for (; null !== (r5 = C.nextNode()) && d3.length < u3; ) {
-        if (1 === r5.nodeType) {
-          if (r5.hasAttributes()) for (const t5 of r5.getAttributeNames()) if (t5.endsWith(e3)) {
-            const i5 = v2[a3++], s5 = r5.getAttribute(t5).split(h2), e6 = /([.?@])?(.*)/.exec(i5);
-            d3.push({ type: 1, index: c4, name: e6[2], strings: s5, ctor: "." === e6[1] ? H : "?" === e6[1] ? I : "@" === e6[1] ? L : k }), r5.removeAttribute(t5);
-          } else t5.startsWith(h2) && (d3.push({ type: 6, index: c4 }), r5.removeAttribute(t5));
-          if ($.test(r5.tagName)) {
-            const t5 = r5.textContent.split(h2), s5 = t5.length - 1;
+      for (; null !== (r4 = C.nextNode()) && d3.length < u3; ) {
+        if (1 === r4.nodeType) {
+          if (r4.hasAttributes()) for (const t4 of r4.getAttributeNames()) if (t4.endsWith(e3)) {
+            const i5 = v2[a3++], s5 = r4.getAttribute(t4).split(h2), e4 = /([.?@])?(.*)/.exec(i5);
+            d3.push({ type: 1, index: c4, name: e4[2], strings: s5, ctor: "." === e4[1] ? H : "?" === e4[1] ? I : "@" === e4[1] ? L : k }), r4.removeAttribute(t4);
+          } else t4.startsWith(h2) && (d3.push({ type: 6, index: c4 }), r4.removeAttribute(t4));
+          if ($.test(r4.tagName)) {
+            const t4 = r4.textContent.split(h2), s5 = t4.length - 1;
             if (s5 > 0) {
-              r5.textContent = i3 ? i3.emptyScript : "";
-              for (let i5 = 0; i5 < s5; i5++) r5.append(t5[i5], l2()), C.nextNode(), d3.push({ type: 2, index: ++c4 });
-              r5.append(t5[s5], l2());
+              r4.textContent = i3 ? i3.emptyScript : "";
+              for (let i5 = 0; i5 < s5; i5++) r4.append(t4[i5], l2()), C.nextNode(), d3.push({ type: 2, index: ++c4 });
+              r4.append(t4[s5], l2());
             }
           }
-        } else if (8 === r5.nodeType) if (r5.data === o3) d3.push({ type: 2, index: c4 });
+        } else if (8 === r4.nodeType) if (r4.data === o3) d3.push({ type: 2, index: c4 });
         else {
-          let t5 = -1;
-          for (; -1 !== (t5 = r5.data.indexOf(h2, t5 + 1)); ) d3.push({ type: 7, index: c4 }), t5 += h2.length - 1;
+          let t4 = -1;
+          for (; -1 !== (t4 = r4.data.indexOf(h2, t4 + 1)); ) d3.push({ type: 7, index: c4 }), t4 += h2.length - 1;
         }
         c4++;
       }
     }
-    static createElement(t4, i5) {
+    static createElement(t3, i5) {
       const s4 = r3.createElement("template");
-      return s4.innerHTML = t4, s4;
+      return s4.innerHTML = t3, s4;
     }
   };
-  function S2(t4, i5, s4 = t4, e6) {
-    var _a8, _b2, _c;
+  function S2(t3, i5, s4 = t3, e4) {
+    var _a6, _b2, _c;
     if (i5 === T) return i5;
-    let h3 = void 0 !== e6 ? (_a8 = s4._$Co) == null ? void 0 : _a8[e6] : s4._$Cl;
+    let h3 = void 0 !== e4 ? (_a6 = s4._$Co) == null ? void 0 : _a6[e4] : s4._$Cl;
     const o5 = c3(i5) ? void 0 : i5._$litDirective$;
-    return (h3 == null ? void 0 : h3.constructor) !== o5 && ((_b2 = h3 == null ? void 0 : h3._$AO) == null ? void 0 : _b2.call(h3, false), void 0 === o5 ? h3 = void 0 : (h3 = new o5(t4), h3._$AT(t4, s4, e6)), void 0 !== e6 ? ((_c = s4._$Co) != null ? _c : s4._$Co = [])[e6] = h3 : s4._$Cl = h3), void 0 !== h3 && (i5 = S2(t4, h3._$AS(t4, i5.values), h3, e6)), i5;
+    return (h3 == null ? void 0 : h3.constructor) !== o5 && ((_b2 = h3 == null ? void 0 : h3._$AO) == null ? void 0 : _b2.call(h3, false), void 0 === o5 ? h3 = void 0 : (h3 = new o5(t3), h3._$AT(t3, s4, e4)), void 0 !== e4 ? ((_c = s4._$Co) != null ? _c : s4._$Co = [])[e4] = h3 : s4._$Cl = h3), void 0 !== h3 && (i5 = S2(t3, h3._$AS(t3, i5.values), h3, e4)), i5;
   }
   var M = class {
-    constructor(t4, i5) {
-      this._$AV = [], this._$AN = void 0, this._$AD = t4, this._$AM = i5;
+    constructor(t3, i5) {
+      this._$AV = [], this._$AN = void 0, this._$AD = t3, this._$AM = i5;
     }
     get parentNode() {
       return this._$AM.parentNode;
@@ -468,38 +420,38 @@
     get _$AU() {
       return this._$AM._$AU;
     }
-    u(t4) {
-      var _a8;
-      const { el: { content: i5 }, parts: s4 } = this._$AD, e6 = ((_a8 = t4 == null ? void 0 : t4.creationScope) != null ? _a8 : r3).importNode(i5, true);
-      C.currentNode = e6;
-      let h3 = C.nextNode(), o5 = 0, n5 = 0, l3 = s4[0];
+    u(t3) {
+      var _a6;
+      const { el: { content: i5 }, parts: s4 } = this._$AD, e4 = ((_a6 = t3 == null ? void 0 : t3.creationScope) != null ? _a6 : r3).importNode(i5, true);
+      C.currentNode = e4;
+      let h3 = C.nextNode(), o5 = 0, n4 = 0, l3 = s4[0];
       for (; void 0 !== l3; ) {
         if (o5 === l3.index) {
           let i6;
-          2 === l3.type ? i6 = new R(h3, h3.nextSibling, this, t4) : 1 === l3.type ? i6 = new l3.ctor(h3, l3.name, l3.strings, this, t4) : 6 === l3.type && (i6 = new z(h3, this, t4)), this._$AV.push(i6), l3 = s4[++n5];
+          2 === l3.type ? i6 = new R(h3, h3.nextSibling, this, t3) : 1 === l3.type ? i6 = new l3.ctor(h3, l3.name, l3.strings, this, t3) : 6 === l3.type && (i6 = new z(h3, this, t3)), this._$AV.push(i6), l3 = s4[++n4];
         }
         o5 !== (l3 == null ? void 0 : l3.index) && (h3 = C.nextNode(), o5++);
       }
-      return C.currentNode = r3, e6;
+      return C.currentNode = r3, e4;
     }
-    p(t4) {
+    p(t3) {
       let i5 = 0;
-      for (const s4 of this._$AV) void 0 !== s4 && (void 0 !== s4.strings ? (s4._$AI(t4, s4, i5), i5 += s4.strings.length - 2) : s4._$AI(t4[i5])), i5++;
+      for (const s4 of this._$AV) void 0 !== s4 && (void 0 !== s4.strings ? (s4._$AI(t3, s4, i5), i5 += s4.strings.length - 2) : s4._$AI(t3[i5])), i5++;
     }
   };
   var R = class _R {
     get _$AU() {
-      var _a8, _b2;
-      return (_b2 = (_a8 = this._$AM) == null ? void 0 : _a8._$AU) != null ? _b2 : this._$Cv;
+      var _a6, _b2;
+      return (_b2 = (_a6 = this._$AM) == null ? void 0 : _a6._$AU) != null ? _b2 : this._$Cv;
     }
-    constructor(t4, i5, s4, e6) {
-      var _a8;
-      this.type = 2, this._$AH = E, this._$AN = void 0, this._$AA = t4, this._$AB = i5, this._$AM = s4, this.options = e6, this._$Cv = (_a8 = e6 == null ? void 0 : e6.isConnected) != null ? _a8 : true;
+    constructor(t3, i5, s4, e4) {
+      var _a6;
+      this.type = 2, this._$AH = E, this._$AN = void 0, this._$AA = t3, this._$AB = i5, this._$AM = s4, this.options = e4, this._$Cv = (_a6 = e4 == null ? void 0 : e4.isConnected) != null ? _a6 : true;
     }
     get parentNode() {
-      let t4 = this._$AA.parentNode;
+      let t3 = this._$AA.parentNode;
       const i5 = this._$AM;
-      return void 0 !== i5 && 11 === (t4 == null ? void 0 : t4.nodeType) && (t4 = i5.parentNode), t4;
+      return void 0 !== i5 && 11 === (t3 == null ? void 0 : t3.nodeType) && (t3 = i5.parentNode), t3;
     }
     get startNode() {
       return this._$AA;
@@ -507,48 +459,48 @@
     get endNode() {
       return this._$AB;
     }
-    _$AI(t4, i5 = this) {
-      t4 = S2(this, t4, i5), c3(t4) ? t4 === E || null == t4 || "" === t4 ? (this._$AH !== E && this._$AR(), this._$AH = E) : t4 !== this._$AH && t4 !== T && this._(t4) : void 0 !== t4._$litType$ ? this.$(t4) : void 0 !== t4.nodeType ? this.T(t4) : u2(t4) ? this.k(t4) : this._(t4);
+    _$AI(t3, i5 = this) {
+      t3 = S2(this, t3, i5), c3(t3) ? t3 === E || null == t3 || "" === t3 ? (this._$AH !== E && this._$AR(), this._$AH = E) : t3 !== this._$AH && t3 !== T && this._(t3) : void 0 !== t3._$litType$ ? this.$(t3) : void 0 !== t3.nodeType ? this.T(t3) : u2(t3) ? this.k(t3) : this._(t3);
     }
-    O(t4) {
-      return this._$AA.parentNode.insertBefore(t4, this._$AB);
+    O(t3) {
+      return this._$AA.parentNode.insertBefore(t3, this._$AB);
     }
-    T(t4) {
-      this._$AH !== t4 && (this._$AR(), this._$AH = this.O(t4));
+    T(t3) {
+      this._$AH !== t3 && (this._$AR(), this._$AH = this.O(t3));
     }
-    _(t4) {
-      this._$AH !== E && c3(this._$AH) ? this._$AA.nextSibling.data = t4 : this.T(r3.createTextNode(t4)), this._$AH = t4;
+    _(t3) {
+      this._$AH !== E && c3(this._$AH) ? this._$AA.nextSibling.data = t3 : this.T(r3.createTextNode(t3)), this._$AH = t3;
     }
-    $(t4) {
-      var _a8;
-      const { values: i5, _$litType$: s4 } = t4, e6 = "number" == typeof s4 ? this._$AC(t4) : (void 0 === s4.el && (s4.el = N.createElement(P(s4.h, s4.h[0]), this.options)), s4);
-      if (((_a8 = this._$AH) == null ? void 0 : _a8._$AD) === e6) this._$AH.p(i5);
+    $(t3) {
+      var _a6;
+      const { values: i5, _$litType$: s4 } = t3, e4 = "number" == typeof s4 ? this._$AC(t3) : (void 0 === s4.el && (s4.el = N.createElement(P(s4.h, s4.h[0]), this.options)), s4);
+      if (((_a6 = this._$AH) == null ? void 0 : _a6._$AD) === e4) this._$AH.p(i5);
       else {
-        const t5 = new M(e6, this), s5 = t5.u(this.options);
-        t5.p(i5), this.T(s5), this._$AH = t5;
+        const t4 = new M(e4, this), s5 = t4.u(this.options);
+        t4.p(i5), this.T(s5), this._$AH = t4;
       }
     }
-    _$AC(t4) {
-      let i5 = A.get(t4.strings);
-      return void 0 === i5 && A.set(t4.strings, i5 = new N(t4)), i5;
+    _$AC(t3) {
+      let i5 = A.get(t3.strings);
+      return void 0 === i5 && A.set(t3.strings, i5 = new N(t3)), i5;
     }
-    k(t4) {
+    k(t3) {
       a2(this._$AH) || (this._$AH = [], this._$AR());
       const i5 = this._$AH;
-      let s4, e6 = 0;
-      for (const h3 of t4) e6 === i5.length ? i5.push(s4 = new _R(this.O(l2()), this.O(l2()), this, this.options)) : s4 = i5[e6], s4._$AI(h3), e6++;
-      e6 < i5.length && (this._$AR(s4 && s4._$AB.nextSibling, e6), i5.length = e6);
+      let s4, e4 = 0;
+      for (const h3 of t3) e4 === i5.length ? i5.push(s4 = new _R(this.O(l2()), this.O(l2()), this, this.options)) : s4 = i5[e4], s4._$AI(h3), e4++;
+      e4 < i5.length && (this._$AR(s4 && s4._$AB.nextSibling, e4), i5.length = e4);
     }
-    _$AR(t4 = this._$AA.nextSibling, i5) {
-      var _a8;
-      for ((_a8 = this._$AP) == null ? void 0 : _a8.call(this, false, true, i5); t4 !== this._$AB; ) {
-        const i6 = t4.nextSibling;
-        t4.remove(), t4 = i6;
+    _$AR(t3 = this._$AA.nextSibling, i5) {
+      var _a6;
+      for ((_a6 = this._$AP) == null ? void 0 : _a6.call(this, false, true, i5); t3 !== this._$AB; ) {
+        const i6 = t3.nextSibling;
+        t3.remove(), t3 = i6;
       }
     }
-    setConnected(t4) {
-      var _a8;
-      void 0 === this._$AM && (this._$Cv = t4, (_a8 = this._$AP) == null ? void 0 : _a8.call(this, t4));
+    setConnected(t3) {
+      var _a6;
+      void 0 === this._$AM && (this._$Cv = t3, (_a6 = this._$AP) == null ? void 0 : _a6.call(this, t3));
     }
   };
   var k = class {
@@ -558,78 +510,78 @@
     get _$AU() {
       return this._$AM._$AU;
     }
-    constructor(t4, i5, s4, e6, h3) {
-      this.type = 1, this._$AH = E, this._$AN = void 0, this.element = t4, this.name = i5, this._$AM = e6, this.options = h3, s4.length > 2 || "" !== s4[0] || "" !== s4[1] ? (this._$AH = Array(s4.length - 1).fill(new String()), this.strings = s4) : this._$AH = E;
+    constructor(t3, i5, s4, e4, h3) {
+      this.type = 1, this._$AH = E, this._$AN = void 0, this.element = t3, this.name = i5, this._$AM = e4, this.options = h3, s4.length > 2 || "" !== s4[0] || "" !== s4[1] ? (this._$AH = Array(s4.length - 1).fill(new String()), this.strings = s4) : this._$AH = E;
     }
-    _$AI(t4, i5 = this, s4, e6) {
+    _$AI(t3, i5 = this, s4, e4) {
       const h3 = this.strings;
       let o5 = false;
-      if (void 0 === h3) t4 = S2(this, t4, i5, 0), o5 = !c3(t4) || t4 !== this._$AH && t4 !== T, o5 && (this._$AH = t4);
+      if (void 0 === h3) t3 = S2(this, t3, i5, 0), o5 = !c3(t3) || t3 !== this._$AH && t3 !== T, o5 && (this._$AH = t3);
       else {
-        const e7 = t4;
-        let n5, r5;
-        for (t4 = h3[0], n5 = 0; n5 < h3.length - 1; n5++) r5 = S2(this, e7[s4 + n5], i5, n5), r5 === T && (r5 = this._$AH[n5]), o5 || (o5 = !c3(r5) || r5 !== this._$AH[n5]), r5 === E ? t4 = E : t4 !== E && (t4 += (r5 != null ? r5 : "") + h3[n5 + 1]), this._$AH[n5] = r5;
+        const e5 = t3;
+        let n4, r4;
+        for (t3 = h3[0], n4 = 0; n4 < h3.length - 1; n4++) r4 = S2(this, e5[s4 + n4], i5, n4), r4 === T && (r4 = this._$AH[n4]), o5 || (o5 = !c3(r4) || r4 !== this._$AH[n4]), r4 === E ? t3 = E : t3 !== E && (t3 += (r4 != null ? r4 : "") + h3[n4 + 1]), this._$AH[n4] = r4;
       }
-      o5 && !e6 && this.j(t4);
+      o5 && !e4 && this.j(t3);
     }
-    j(t4) {
-      t4 === E ? this.element.removeAttribute(this.name) : this.element.setAttribute(this.name, t4 != null ? t4 : "");
+    j(t3) {
+      t3 === E ? this.element.removeAttribute(this.name) : this.element.setAttribute(this.name, t3 != null ? t3 : "");
     }
   };
   var H = class extends k {
     constructor() {
       super(...arguments), this.type = 3;
     }
-    j(t4) {
-      this.element[this.name] = t4 === E ? void 0 : t4;
+    j(t3) {
+      this.element[this.name] = t3 === E ? void 0 : t3;
     }
   };
   var I = class extends k {
     constructor() {
       super(...arguments), this.type = 4;
     }
-    j(t4) {
-      this.element.toggleAttribute(this.name, !!t4 && t4 !== E);
+    j(t3) {
+      this.element.toggleAttribute(this.name, !!t3 && t3 !== E);
     }
   };
   var L = class extends k {
-    constructor(t4, i5, s4, e6, h3) {
-      super(t4, i5, s4, e6, h3), this.type = 5;
+    constructor(t3, i5, s4, e4, h3) {
+      super(t3, i5, s4, e4, h3), this.type = 5;
     }
-    _$AI(t4, i5 = this) {
-      var _a8;
-      if ((t4 = (_a8 = S2(this, t4, i5, 0)) != null ? _a8 : E) === T) return;
-      const s4 = this._$AH, e6 = t4 === E && s4 !== E || t4.capture !== s4.capture || t4.once !== s4.once || t4.passive !== s4.passive, h3 = t4 !== E && (s4 === E || e6);
-      e6 && this.element.removeEventListener(this.name, this, s4), h3 && this.element.addEventListener(this.name, this, t4), this._$AH = t4;
+    _$AI(t3, i5 = this) {
+      var _a6;
+      if ((t3 = (_a6 = S2(this, t3, i5, 0)) != null ? _a6 : E) === T) return;
+      const s4 = this._$AH, e4 = t3 === E && s4 !== E || t3.capture !== s4.capture || t3.once !== s4.once || t3.passive !== s4.passive, h3 = t3 !== E && (s4 === E || e4);
+      e4 && this.element.removeEventListener(this.name, this, s4), h3 && this.element.addEventListener(this.name, this, t3), this._$AH = t3;
     }
-    handleEvent(t4) {
-      var _a8, _b2;
-      "function" == typeof this._$AH ? this._$AH.call((_b2 = (_a8 = this.options) == null ? void 0 : _a8.host) != null ? _b2 : this.element, t4) : this._$AH.handleEvent(t4);
+    handleEvent(t3) {
+      var _a6, _b2;
+      "function" == typeof this._$AH ? this._$AH.call((_b2 = (_a6 = this.options) == null ? void 0 : _a6.host) != null ? _b2 : this.element, t3) : this._$AH.handleEvent(t3);
     }
   };
   var z = class {
-    constructor(t4, i5, s4) {
-      this.element = t4, this.type = 6, this._$AN = void 0, this._$AM = i5, this.options = s4;
+    constructor(t3, i5, s4) {
+      this.element = t3, this.type = 6, this._$AN = void 0, this._$AM = i5, this.options = s4;
     }
     get _$AU() {
       return this._$AM._$AU;
     }
-    _$AI(t4) {
-      S2(this, t4);
+    _$AI(t3) {
+      S2(this, t3);
     }
   };
   var j = t2.litHtmlPolyfillSupport;
   var _a3;
   j == null ? void 0 : j(N, R), ((_a3 = t2.litHtmlVersions) != null ? _a3 : t2.litHtmlVersions = []).push("3.3.1");
-  var B = (t4, i5, s4) => {
-    var _a8, _b2;
-    const e6 = (_a8 = s4 == null ? void 0 : s4.renderBefore) != null ? _a8 : i5;
-    let h3 = e6._$litPart$;
+  var B = (t3, i5, s4) => {
+    var _a6, _b2;
+    const e4 = (_a6 = s4 == null ? void 0 : s4.renderBefore) != null ? _a6 : i5;
+    let h3 = e4._$litPart$;
     if (void 0 === h3) {
-      const t5 = (_b2 = s4 == null ? void 0 : s4.renderBefore) != null ? _b2 : null;
-      e6._$litPart$ = h3 = new R(i5.insertBefore(l2(), t5), t5, void 0, s4 != null ? s4 : {});
+      const t4 = (_b2 = s4 == null ? void 0 : s4.renderBefore) != null ? _b2 : null;
+      e4._$litPart$ = h3 = new R(i5.insertBefore(l2(), t4), t4, void 0, s4 != null ? s4 : {});
     }
-    return h3._$AI(t4), h3;
+    return h3._$AI(t3), h3;
   };
 
   // node_modules/lit-element/lit-element.js
@@ -639,21 +591,21 @@
       super(...arguments), this.renderOptions = { host: this }, this._$Do = void 0;
     }
     createRenderRoot() {
-      var _a8, _b2;
-      const t4 = super.createRenderRoot();
-      return (_b2 = (_a8 = this.renderOptions).renderBefore) != null ? _b2 : _a8.renderBefore = t4.firstChild, t4;
+      var _a6, _b2;
+      const t3 = super.createRenderRoot();
+      return (_b2 = (_a6 = this.renderOptions).renderBefore) != null ? _b2 : _a6.renderBefore = t3.firstChild, t3;
     }
-    update(t4) {
-      const r5 = this.render();
-      this.hasUpdated || (this.renderOptions.isConnected = this.isConnected), super.update(t4), this._$Do = B(r5, this.renderRoot, this.renderOptions);
+    update(t3) {
+      const r4 = this.render();
+      this.hasUpdated || (this.renderOptions.isConnected = this.isConnected), super.update(t3), this._$Do = B(r4, this.renderRoot, this.renderOptions);
     }
     connectedCallback() {
-      var _a8;
-      super.connectedCallback(), (_a8 = this._$Do) == null ? void 0 : _a8.setConnected(true);
+      var _a6;
+      super.connectedCallback(), (_a6 = this._$Do) == null ? void 0 : _a6.setConnected(true);
     }
     disconnectedCallback() {
-      var _a8;
-      super.disconnectedCallback(), (_a8 = this._$Do) == null ? void 0 : _a8.setConnected(false);
+      var _a6;
+      super.disconnectedCallback(), (_a6 = this._$Do) == null ? void 0 : _a6.setConnected(false);
     }
     render() {
       return T;
@@ -666,28 +618,21 @@
   var _a5;
   ((_a5 = s3.litElementVersions) != null ? _a5 : s3.litElementVersions = []).push("4.2.1");
 
-  // node_modules/@lit/reactive-element/decorators/custom-element.js
-  var t3 = (t4) => (e6, o5) => {
-    void 0 !== o5 ? o5.addInitializer((() => {
-      customElements.define(t4, e6);
-    })) : customElements.define(t4, e6);
-  };
-
   // node_modules/zod/v4/core/core.js
   var NEVER = Object.freeze({
     status: "aborted"
   });
   // @__NO_SIDE_EFFECTS__
   function $constructor(name, initializer3, params) {
-    var _a8;
+    var _a6;
     function init(inst, def) {
-      var _a10, _b2;
-      var _a9;
+      var _a8, _b2;
+      var _a7;
       Object.defineProperty(inst, "_zod", {
-        value: (_a10 = inst._zod) != null ? _a10 : {},
+        value: (_a8 = inst._zod) != null ? _a8 : {},
         enumerable: false
       });
-      (_b2 = (_a9 = inst._zod).traits) != null ? _b2 : _a9.traits = /* @__PURE__ */ new Set();
+      (_b2 = (_a7 = inst._zod).traits) != null ? _b2 : _a7.traits = /* @__PURE__ */ new Set();
       inst._zod.traits.add(name);
       initializer3(inst, def);
       for (const k2 in _2.prototype) {
@@ -697,16 +642,16 @@
       inst._zod.constr = _2;
       inst._zod.def = def;
     }
-    const Parent = (_a8 = params == null ? void 0 : params.Parent) != null ? _a8 : Object;
+    const Parent = (_a6 = params == null ? void 0 : params.Parent) != null ? _a6 : Object;
     class Definition extends Parent {
     }
     Object.defineProperty(Definition, "name", { value: name });
     function _2(def) {
-      var _a10;
-      var _a9;
+      var _a8;
+      var _a7;
       const inst = (params == null ? void 0 : params.Parent) ? new Definition() : this;
       init(inst, def);
-      (_a10 = (_a9 = inst._zod).deferred) != null ? _a10 : _a9.deferred = [];
+      (_a8 = (_a7 = inst._zod).deferred) != null ? _a8 : _a7.deferred = [];
       for (const fn of inst._zod.deferred) {
         fn();
       }
@@ -715,10 +660,10 @@
     Object.defineProperty(_2, "init", { value: init });
     Object.defineProperty(_2, Symbol.hasInstance, {
       value: (inst) => {
-        var _a9, _b2;
+        var _a7, _b2;
         if ((params == null ? void 0 : params.Parent) && inst instanceof params.Parent)
           return true;
-        return (_b2 = (_a9 = inst == null ? void 0 : inst._zod) == null ? void 0 : _a9.traits) == null ? void 0 : _b2.has(name);
+        return (_b2 = (_a7 = inst == null ? void 0 : inst._zod) == null ? void 0 : _a7.traits) == null ? void 0 : _b2.has(name);
       }
     });
     Object.defineProperty(_2, "name", { value: name });
@@ -906,8 +851,8 @@
     return typeof data === "object" && data !== null && !Array.isArray(data);
   }
   var allowsEval = cached(() => {
-    var _a8;
-    if (typeof navigator !== "undefined" && ((_a8 = navigator == null ? void 0 : navigator.userAgent) == null ? void 0 : _a8.includes("Cloudflare"))) {
+    var _a6;
+    if (typeof navigator !== "undefined" && ((_a6 = navigator == null ? void 0 : navigator.userAgent) == null ? void 0 : _a6.includes("Cloudflare"))) {
       return false;
     }
     try {
@@ -942,8 +887,8 @@
     return keyCount;
   }
   var getParsedType = (data) => {
-    const t4 = typeof data;
-    switch (t4) {
+    const t3 = typeof data;
+    switch (t3) {
       case "undefined":
         return "undefined";
       case "string":
@@ -982,7 +927,7 @@
         }
         return "object";
       default:
-        throw new Error(`Unknown data type: ${t4}`);
+        throw new Error(`Unknown data type: ${t3}`);
     }
   };
   var propertyKeyTypes = /* @__PURE__ */ new Set(["string", "number", "symbol"]);
@@ -1185,18 +1130,18 @@
     }));
   }
   function aborted(x2, startIndex = 0) {
-    var _a8;
+    var _a6;
     for (let i5 = startIndex; i5 < x2.issues.length; i5++) {
-      if (((_a8 = x2.issues[i5]) == null ? void 0 : _a8.continue) !== true)
+      if (((_a6 = x2.issues[i5]) == null ? void 0 : _a6.continue) !== true)
         return true;
     }
     return false;
   }
   function prefixIssues(path, issues) {
     return issues.map((iss) => {
-      var _a9;
-      var _a8;
-      (_a9 = (_a8 = iss).path) != null ? _a9 : _a8.path = [];
+      var _a7;
+      var _a6;
+      (_a7 = (_a6 = iss).path) != null ? _a7 : _a6.path = [];
       iss.path.unshift(path);
       return iss;
     });
@@ -1205,8 +1150,8 @@
     return typeof message === "string" ? message : message == null ? void 0 : message.message;
   }
   function finalizeIssue(iss, ctx, config2) {
-    var _a8, _b2, _c, _d, _e, _f, _g, _h, _i, _j, _k;
-    const full = __spreadProps(__spreadValues({}, iss), { path: (_a8 = iss.path) != null ? _a8 : [] });
+    var _a6, _b2, _c, _d, _e, _f, _g, _h, _i, _j, _k;
+    const full = __spreadProps(__spreadValues({}, iss), { path: (_a6 = iss.path) != null ? _a6 : [] });
     if (!iss.message) {
       const message = (_k = (_j = (_h = (_f = unwrapMessage((_d = (_c = (_b2 = iss.inst) == null ? void 0 : _b2._zod.def) == null ? void 0 : _c.error) == null ? void 0 : _d.call(_c, iss))) != null ? _f : unwrapMessage((_e = ctx == null ? void 0 : ctx.error) == null ? void 0 : _e.call(ctx, iss))) != null ? _h : unwrapMessage((_g = config2.customError) == null ? void 0 : _g.call(config2, iss))) != null ? _j : unwrapMessage((_i = config2.localeError) == null ? void 0 : _i.call(config2, iss))) != null ? _k : "Invalid input";
       full.message = message;
@@ -1281,10 +1226,10 @@
   };
   var $ZodError = $constructor("$ZodError", initializer);
   var $ZodRealError = $constructor("$ZodError", initializer, { Parent: Error });
-  function flattenError(error, mapper = (issue2) => issue2.message) {
+  function flattenError(error2, mapper = (issue2) => issue2.message) {
     const fieldErrors = {};
     const formErrors = [];
-    for (const sub of error.issues) {
+    for (const sub of error2.issues) {
       if (sub.path.length > 0) {
         fieldErrors[sub.path[0]] = fieldErrors[sub.path[0]] || [];
         fieldErrors[sub.path[0]].push(mapper(sub));
@@ -1294,13 +1239,13 @@
     }
     return { formErrors, fieldErrors };
   }
-  function formatError(error, _mapper) {
+  function formatError(error2, _mapper) {
     const mapper = _mapper || function(issue2) {
       return issue2.message;
     };
     const fieldErrors = { _errors: [] };
-    const processError = (error2) => {
-      for (const issue2 of error2.issues) {
+    const processError = (error3) => {
+      for (const issue2 of error3.issues) {
         if (issue2.code === "invalid_union" && issue2.errors.length) {
           issue2.errors.map((issues) => processError({ issues }));
         } else if (issue2.code === "invalid_key") {
@@ -1327,35 +1272,35 @@
         }
       }
     };
-    processError(error);
+    processError(error2);
     return fieldErrors;
   }
 
   // node_modules/zod/v4/core/parse.js
   var _parse = (_Err) => (schema, value, _ctx, _params) => {
-    var _a8;
+    var _a6;
     const ctx = _ctx ? Object.assign(_ctx, { async: false }) : { async: false };
     const result = schema._zod.run({ value, issues: [] }, ctx);
     if (result instanceof Promise) {
       throw new $ZodAsyncError();
     }
     if (result.issues.length) {
-      const e6 = new ((_a8 = _params == null ? void 0 : _params.Err) != null ? _a8 : _Err)(result.issues.map((iss) => finalizeIssue(iss, ctx, config())));
-      captureStackTrace(e6, _params == null ? void 0 : _params.callee);
-      throw e6;
+      const e4 = new ((_a6 = _params == null ? void 0 : _params.Err) != null ? _a6 : _Err)(result.issues.map((iss) => finalizeIssue(iss, ctx, config())));
+      captureStackTrace(e4, _params == null ? void 0 : _params.callee);
+      throw e4;
     }
     return result.value;
   };
   var _parseAsync = (_Err) => async (schema, value, _ctx, params) => {
-    var _a8;
+    var _a6;
     const ctx = _ctx ? Object.assign(_ctx, { async: true }) : { async: true };
     let result = schema._zod.run({ value, issues: [] }, ctx);
     if (result instanceof Promise)
       result = await result;
     if (result.issues.length) {
-      const e6 = new ((_a8 = params == null ? void 0 : params.Err) != null ? _a8 : _Err)(result.issues.map((iss) => finalizeIssue(iss, ctx, config())));
-      captureStackTrace(e6, params == null ? void 0 : params.callee);
-      throw e6;
+      const e4 = new ((_a6 = params == null ? void 0 : params.Err) != null ? _a6 : _Err)(result.issues.map((iss) => finalizeIssue(iss, ctx, config())));
+      captureStackTrace(e4, params == null ? void 0 : params.callee);
+      throw e4;
     }
     return result.value;
   };
@@ -1431,32 +1376,195 @@
     return new RegExp(`^${dateSource}T(?:${timeRegex})$`);
   }
   var string = (params) => {
-    var _a8, _b2;
-    const regex = params ? `[\\s\\S]{${(_a8 = params == null ? void 0 : params.minimum) != null ? _a8 : 0},${(_b2 = params == null ? void 0 : params.maximum) != null ? _b2 : ""}}` : `[\\s\\S]*`;
+    var _a6, _b2;
+    const regex = params ? `[\\s\\S]{${(_a6 = params == null ? void 0 : params.minimum) != null ? _a6 : 0},${(_b2 = params == null ? void 0 : params.maximum) != null ? _b2 : ""}}` : `[\\s\\S]*`;
     return new RegExp(`^${regex}$`);
   };
+  var integer = /^\d+$/;
+  var number = /^-?\d+(?:\.\d+)?/i;
   var lowercase = /^[^A-Z]*$/;
   var uppercase = /^[^a-z]*$/;
 
   // node_modules/zod/v4/core/checks.js
   var $ZodCheck = /* @__PURE__ */ $constructor("$ZodCheck", (inst, def) => {
-    var _a9, _b2;
-    var _a8;
-    (_a9 = inst._zod) != null ? _a9 : inst._zod = {};
+    var _a7, _b2;
+    var _a6;
+    (_a7 = inst._zod) != null ? _a7 : inst._zod = {};
     inst._zod.def = def;
-    (_b2 = (_a8 = inst._zod).onattach) != null ? _b2 : _a8.onattach = [];
+    (_b2 = (_a6 = inst._zod).onattach) != null ? _b2 : _a6.onattach = [];
+  });
+  var numericOriginMap = {
+    number: "number",
+    bigint: "bigint",
+    object: "date"
+  };
+  var $ZodCheckLessThan = /* @__PURE__ */ $constructor("$ZodCheckLessThan", (inst, def) => {
+    $ZodCheck.init(inst, def);
+    const origin = numericOriginMap[typeof def.value];
+    inst._zod.onattach.push((inst2) => {
+      var _a6;
+      const bag = inst2._zod.bag;
+      const curr = (_a6 = def.inclusive ? bag.maximum : bag.exclusiveMaximum) != null ? _a6 : Number.POSITIVE_INFINITY;
+      if (def.value < curr) {
+        if (def.inclusive)
+          bag.maximum = def.value;
+        else
+          bag.exclusiveMaximum = def.value;
+      }
+    });
+    inst._zod.check = (payload) => {
+      if (def.inclusive ? payload.value <= def.value : payload.value < def.value) {
+        return;
+      }
+      payload.issues.push({
+        origin,
+        code: "too_big",
+        maximum: def.value,
+        input: payload.value,
+        inclusive: def.inclusive,
+        inst,
+        continue: !def.abort
+      });
+    };
+  });
+  var $ZodCheckGreaterThan = /* @__PURE__ */ $constructor("$ZodCheckGreaterThan", (inst, def) => {
+    $ZodCheck.init(inst, def);
+    const origin = numericOriginMap[typeof def.value];
+    inst._zod.onattach.push((inst2) => {
+      var _a6;
+      const bag = inst2._zod.bag;
+      const curr = (_a6 = def.inclusive ? bag.minimum : bag.exclusiveMinimum) != null ? _a6 : Number.NEGATIVE_INFINITY;
+      if (def.value > curr) {
+        if (def.inclusive)
+          bag.minimum = def.value;
+        else
+          bag.exclusiveMinimum = def.value;
+      }
+    });
+    inst._zod.check = (payload) => {
+      if (def.inclusive ? payload.value >= def.value : payload.value > def.value) {
+        return;
+      }
+      payload.issues.push({
+        origin,
+        code: "too_small",
+        minimum: def.value,
+        input: payload.value,
+        inclusive: def.inclusive,
+        inst,
+        continue: !def.abort
+      });
+    };
+  });
+  var $ZodCheckMultipleOf = /* @__PURE__ */ $constructor("$ZodCheckMultipleOf", (inst, def) => {
+    $ZodCheck.init(inst, def);
+    inst._zod.onattach.push((inst2) => {
+      var _a7;
+      var _a6;
+      (_a7 = (_a6 = inst2._zod.bag).multipleOf) != null ? _a7 : _a6.multipleOf = def.value;
+    });
+    inst._zod.check = (payload) => {
+      if (typeof payload.value !== typeof def.value)
+        throw new Error("Cannot mix number and bigint in multiple_of check.");
+      const isMultiple = typeof payload.value === "bigint" ? payload.value % def.value === BigInt(0) : floatSafeRemainder(payload.value, def.value) === 0;
+      if (isMultiple)
+        return;
+      payload.issues.push({
+        origin: typeof payload.value,
+        code: "not_multiple_of",
+        divisor: def.value,
+        input: payload.value,
+        inst,
+        continue: !def.abort
+      });
+    };
+  });
+  var $ZodCheckNumberFormat = /* @__PURE__ */ $constructor("$ZodCheckNumberFormat", (inst, def) => {
+    var _a6;
+    $ZodCheck.init(inst, def);
+    def.format = def.format || "float64";
+    const isInt = (_a6 = def.format) == null ? void 0 : _a6.includes("int");
+    const origin = isInt ? "int" : "number";
+    const [minimum, maximum] = NUMBER_FORMAT_RANGES[def.format];
+    inst._zod.onattach.push((inst2) => {
+      const bag = inst2._zod.bag;
+      bag.format = def.format;
+      bag.minimum = minimum;
+      bag.maximum = maximum;
+      if (isInt)
+        bag.pattern = integer;
+    });
+    inst._zod.check = (payload) => {
+      const input = payload.value;
+      if (isInt) {
+        if (!Number.isInteger(input)) {
+          payload.issues.push({
+            expected: origin,
+            format: def.format,
+            code: "invalid_type",
+            input,
+            inst
+          });
+          return;
+        }
+        if (!Number.isSafeInteger(input)) {
+          if (input > 0) {
+            payload.issues.push({
+              input,
+              code: "too_big",
+              maximum: Number.MAX_SAFE_INTEGER,
+              note: "Integers must be within the safe integer range.",
+              inst,
+              origin,
+              continue: !def.abort
+            });
+          } else {
+            payload.issues.push({
+              input,
+              code: "too_small",
+              minimum: Number.MIN_SAFE_INTEGER,
+              note: "Integers must be within the safe integer range.",
+              inst,
+              origin,
+              continue: !def.abort
+            });
+          }
+          return;
+        }
+      }
+      if (input < minimum) {
+        payload.issues.push({
+          origin: "number",
+          input,
+          code: "too_small",
+          minimum,
+          inclusive: true,
+          inst,
+          continue: !def.abort
+        });
+      }
+      if (input > maximum) {
+        payload.issues.push({
+          origin: "number",
+          input,
+          code: "too_big",
+          maximum,
+          inst
+        });
+      }
+    };
   });
   var $ZodCheckMaxLength = /* @__PURE__ */ $constructor("$ZodCheckMaxLength", (inst, def) => {
-    var _a9;
-    var _a8;
+    var _a7;
+    var _a6;
     $ZodCheck.init(inst, def);
-    (_a9 = (_a8 = inst._zod.def).when) != null ? _a9 : _a8.when = (payload) => {
+    (_a7 = (_a6 = inst._zod.def).when) != null ? _a7 : _a6.when = (payload) => {
       const val = payload.value;
       return !nullish(val) && val.length !== void 0;
     };
     inst._zod.onattach.push((inst2) => {
-      var _a10;
-      const curr = (_a10 = inst2._zod.bag.maximum) != null ? _a10 : Number.POSITIVE_INFINITY;
+      var _a8;
+      const curr = (_a8 = inst2._zod.bag.maximum) != null ? _a8 : Number.POSITIVE_INFINITY;
       if (def.maximum < curr)
         inst2._zod.bag.maximum = def.maximum;
     });
@@ -1478,16 +1586,16 @@
     };
   });
   var $ZodCheckMinLength = /* @__PURE__ */ $constructor("$ZodCheckMinLength", (inst, def) => {
-    var _a9;
-    var _a8;
+    var _a7;
+    var _a6;
     $ZodCheck.init(inst, def);
-    (_a9 = (_a8 = inst._zod.def).when) != null ? _a9 : _a8.when = (payload) => {
+    (_a7 = (_a6 = inst._zod.def).when) != null ? _a7 : _a6.when = (payload) => {
       const val = payload.value;
       return !nullish(val) && val.length !== void 0;
     };
     inst._zod.onattach.push((inst2) => {
-      var _a10;
-      const curr = (_a10 = inst2._zod.bag.minimum) != null ? _a10 : Number.NEGATIVE_INFINITY;
+      var _a8;
+      const curr = (_a8 = inst2._zod.bag.minimum) != null ? _a8 : Number.NEGATIVE_INFINITY;
       if (def.minimum > curr)
         inst2._zod.bag.minimum = def.minimum;
     });
@@ -1509,10 +1617,10 @@
     };
   });
   var $ZodCheckLengthEquals = /* @__PURE__ */ $constructor("$ZodCheckLengthEquals", (inst, def) => {
-    var _a9;
-    var _a8;
+    var _a7;
+    var _a6;
     $ZodCheck.init(inst, def);
-    (_a9 = (_a8 = inst._zod.def).when) != null ? _a9 : _a8.when = (payload) => {
+    (_a7 = (_a6 = inst._zod.def).when) != null ? _a7 : _a6.when = (payload) => {
       const val = payload.value;
       return !nullish(val) && val.length !== void 0;
     };
@@ -1541,20 +1649,20 @@
     };
   });
   var $ZodCheckStringFormat = /* @__PURE__ */ $constructor("$ZodCheckStringFormat", (inst, def) => {
-    var _a9, _b3;
-    var _a8, _b2;
+    var _a7, _b3;
+    var _a6, _b2;
     $ZodCheck.init(inst, def);
     inst._zod.onattach.push((inst2) => {
-      var _a10;
+      var _a8;
       const bag = inst2._zod.bag;
       bag.format = def.format;
       if (def.pattern) {
-        (_a10 = bag.patterns) != null ? _a10 : bag.patterns = /* @__PURE__ */ new Set();
+        (_a8 = bag.patterns) != null ? _a8 : bag.patterns = /* @__PURE__ */ new Set();
         bag.patterns.add(def.pattern);
       }
     });
     if (def.pattern)
-      (_a9 = (_a8 = inst._zod).check) != null ? _a9 : _a8.check = (payload) => {
+      (_a7 = (_a6 = inst._zod).check) != null ? _a7 : _a6.check = (payload) => {
         def.pattern.lastIndex = 0;
         if (def.pattern.test(payload.value))
           return;
@@ -1590,13 +1698,13 @@
     };
   });
   var $ZodCheckLowerCase = /* @__PURE__ */ $constructor("$ZodCheckLowerCase", (inst, def) => {
-    var _a8;
-    (_a8 = def.pattern) != null ? _a8 : def.pattern = lowercase;
+    var _a6;
+    (_a6 = def.pattern) != null ? _a6 : def.pattern = lowercase;
     $ZodCheckStringFormat.init(inst, def);
   });
   var $ZodCheckUpperCase = /* @__PURE__ */ $constructor("$ZodCheckUpperCase", (inst, def) => {
-    var _a8;
-    (_a8 = def.pattern) != null ? _a8 : def.pattern = uppercase;
+    var _a6;
+    (_a6 = def.pattern) != null ? _a6 : def.pattern = uppercase;
     $ZodCheckStringFormat.init(inst, def);
   });
   var $ZodCheckIncludes = /* @__PURE__ */ $constructor("$ZodCheckIncludes", (inst, def) => {
@@ -1605,9 +1713,9 @@
     const pattern = new RegExp(typeof def.position === "number" ? `^.{${def.position}}${escapedRegex}` : escapedRegex);
     def.pattern = pattern;
     inst._zod.onattach.push((inst2) => {
-      var _a8;
+      var _a6;
       const bag = inst2._zod.bag;
-      (_a8 = bag.patterns) != null ? _a8 : bag.patterns = /* @__PURE__ */ new Set();
+      (_a6 = bag.patterns) != null ? _a6 : bag.patterns = /* @__PURE__ */ new Set();
       bag.patterns.add(pattern);
     });
     inst._zod.check = (payload) => {
@@ -1625,14 +1733,14 @@
     };
   });
   var $ZodCheckStartsWith = /* @__PURE__ */ $constructor("$ZodCheckStartsWith", (inst, def) => {
-    var _a8;
+    var _a6;
     $ZodCheck.init(inst, def);
     const pattern = new RegExp(`^${escapeRegex(def.prefix)}.*`);
-    (_a8 = def.pattern) != null ? _a8 : def.pattern = pattern;
+    (_a6 = def.pattern) != null ? _a6 : def.pattern = pattern;
     inst._zod.onattach.push((inst2) => {
-      var _a9;
+      var _a7;
       const bag = inst2._zod.bag;
-      (_a9 = bag.patterns) != null ? _a9 : bag.patterns = /* @__PURE__ */ new Set();
+      (_a7 = bag.patterns) != null ? _a7 : bag.patterns = /* @__PURE__ */ new Set();
       bag.patterns.add(pattern);
     });
     inst._zod.check = (payload) => {
@@ -1650,14 +1758,14 @@
     };
   });
   var $ZodCheckEndsWith = /* @__PURE__ */ $constructor("$ZodCheckEndsWith", (inst, def) => {
-    var _a8;
+    var _a6;
     $ZodCheck.init(inst, def);
     const pattern = new RegExp(`.*${escapeRegex(def.suffix)}$`);
-    (_a8 = def.pattern) != null ? _a8 : def.pattern = pattern;
+    (_a6 = def.pattern) != null ? _a6 : def.pattern = pattern;
     inst._zod.onattach.push((inst2) => {
-      var _a9;
+      var _a7;
       const bag = inst2._zod.bag;
-      (_a9 = bag.patterns) != null ? _a9 : bag.patterns = /* @__PURE__ */ new Set();
+      (_a7 = bag.patterns) != null ? _a7 : bag.patterns = /* @__PURE__ */ new Set();
       bag.patterns.add(pattern);
     });
     inst._zod.check = (payload) => {
@@ -1690,13 +1798,13 @@
 
   // node_modules/zod/v4/core/schemas.js
   var $ZodType = /* @__PURE__ */ $constructor("$ZodType", (inst, def) => {
-    var _a9, _b2, _c;
-    var _a8;
+    var _a7, _b2, _c;
+    var _a6;
     inst != null ? inst : inst = {};
     inst._zod.def = def;
     inst._zod.bag = inst._zod.bag || {};
     inst._zod.version = version;
-    const checks = [...(_a9 = inst._zod.def.checks) != null ? _a9 : []];
+    const checks = [...(_a7 = inst._zod.def.checks) != null ? _a7 : []];
     if (inst._zod.traits.has("$ZodCheck")) {
       checks.unshift(inst);
     }
@@ -1706,7 +1814,7 @@
       }
     }
     if (checks.length === 0) {
-      (_b2 = (_a8 = inst._zod).deferred) != null ? _b2 : _a8.deferred = [];
+      (_b2 = (_a6 = inst._zod).deferred) != null ? _b2 : _a6.deferred = [];
       (_c = inst._zod.deferred) == null ? void 0 : _c.push(() => {
         inst._zod.run = inst._zod.parse;
       });
@@ -1763,14 +1871,14 @@
     }
     inst["~standard"] = {
       validate: (value) => {
-        var _a10;
+        var _a8;
         try {
-          const r5 = safeParse(inst, value);
-          return r5.success ? { value: r5.data } : { issues: (_a10 = r5.error) == null ? void 0 : _a10.issues };
+          const r4 = safeParse(inst, value);
+          return r4.success ? { value: r4.data } : { issues: (_a8 = r4.error) == null ? void 0 : _a8.issues };
         } catch (_2) {
-          return safeParseAsync(inst, value).then((r5) => {
-            var _a11;
-            return r5.success ? { value: r5.data } : { issues: (_a11 = r5.error) == null ? void 0 : _a11.issues };
+          return safeParseAsync(inst, value).then((r4) => {
+            var _a9;
+            return r4.success ? { value: r4.data } : { issues: (_a9 = r4.error) == null ? void 0 : _a9.issues };
           });
         }
       },
@@ -1779,9 +1887,9 @@
     };
   });
   var $ZodString = /* @__PURE__ */ $constructor("$ZodString", (inst, def) => {
-    var _a8, _b2, _c;
+    var _a6, _b2, _c;
     $ZodType.init(inst, def);
-    inst._zod.pattern = (_c = [...(_b2 = (_a8 = inst == null ? void 0 : inst._zod.bag) == null ? void 0 : _a8.patterns) != null ? _b2 : []].pop()) != null ? _c : string(inst._zod.bag);
+    inst._zod.pattern = (_c = [...(_b2 = (_a6 = inst == null ? void 0 : inst._zod.bag) == null ? void 0 : _a6.patterns) != null ? _b2 : []].pop()) != null ? _c : string(inst._zod.bag);
     inst._zod.parse = (payload, _2) => {
       if (def.coerce)
         try {
@@ -1804,12 +1912,12 @@
     $ZodString.init(inst, def);
   });
   var $ZodGUID = /* @__PURE__ */ $constructor("$ZodGUID", (inst, def) => {
-    var _a8;
-    (_a8 = def.pattern) != null ? _a8 : def.pattern = guid;
+    var _a6;
+    (_a6 = def.pattern) != null ? _a6 : def.pattern = guid;
     $ZodStringFormat.init(inst, def);
   });
   var $ZodUUID = /* @__PURE__ */ $constructor("$ZodUUID", (inst, def) => {
-    var _a8, _b2;
+    var _a6, _b2;
     if (def.version) {
       const versionMap = {
         v1: 1,
@@ -1824,14 +1932,14 @@
       const v2 = versionMap[def.version];
       if (v2 === void 0)
         throw new Error(`Invalid UUID version: "${def.version}"`);
-      (_a8 = def.pattern) != null ? _a8 : def.pattern = uuid(v2);
+      (_a6 = def.pattern) != null ? _a6 : def.pattern = uuid(v2);
     } else
       (_b2 = def.pattern) != null ? _b2 : def.pattern = uuid();
     $ZodStringFormat.init(inst, def);
   });
   var $ZodEmail = /* @__PURE__ */ $constructor("$ZodEmail", (inst, def) => {
-    var _a8;
-    (_a8 = def.pattern) != null ? _a8 : def.pattern = email;
+    var _a6;
+    (_a6 = def.pattern) != null ? _a6 : def.pattern = email;
     $ZodStringFormat.init(inst, def);
   });
   var $ZodURL = /* @__PURE__ */ $constructor("$ZodURL", (inst, def) => {
@@ -1887,63 +1995,63 @@
     };
   });
   var $ZodEmoji = /* @__PURE__ */ $constructor("$ZodEmoji", (inst, def) => {
-    var _a8;
-    (_a8 = def.pattern) != null ? _a8 : def.pattern = emoji();
+    var _a6;
+    (_a6 = def.pattern) != null ? _a6 : def.pattern = emoji();
     $ZodStringFormat.init(inst, def);
   });
   var $ZodNanoID = /* @__PURE__ */ $constructor("$ZodNanoID", (inst, def) => {
-    var _a8;
-    (_a8 = def.pattern) != null ? _a8 : def.pattern = nanoid;
+    var _a6;
+    (_a6 = def.pattern) != null ? _a6 : def.pattern = nanoid;
     $ZodStringFormat.init(inst, def);
   });
   var $ZodCUID = /* @__PURE__ */ $constructor("$ZodCUID", (inst, def) => {
-    var _a8;
-    (_a8 = def.pattern) != null ? _a8 : def.pattern = cuid;
+    var _a6;
+    (_a6 = def.pattern) != null ? _a6 : def.pattern = cuid;
     $ZodStringFormat.init(inst, def);
   });
   var $ZodCUID2 = /* @__PURE__ */ $constructor("$ZodCUID2", (inst, def) => {
-    var _a8;
-    (_a8 = def.pattern) != null ? _a8 : def.pattern = cuid2;
+    var _a6;
+    (_a6 = def.pattern) != null ? _a6 : def.pattern = cuid2;
     $ZodStringFormat.init(inst, def);
   });
   var $ZodULID = /* @__PURE__ */ $constructor("$ZodULID", (inst, def) => {
-    var _a8;
-    (_a8 = def.pattern) != null ? _a8 : def.pattern = ulid;
+    var _a6;
+    (_a6 = def.pattern) != null ? _a6 : def.pattern = ulid;
     $ZodStringFormat.init(inst, def);
   });
   var $ZodXID = /* @__PURE__ */ $constructor("$ZodXID", (inst, def) => {
-    var _a8;
-    (_a8 = def.pattern) != null ? _a8 : def.pattern = xid;
+    var _a6;
+    (_a6 = def.pattern) != null ? _a6 : def.pattern = xid;
     $ZodStringFormat.init(inst, def);
   });
   var $ZodKSUID = /* @__PURE__ */ $constructor("$ZodKSUID", (inst, def) => {
-    var _a8;
-    (_a8 = def.pattern) != null ? _a8 : def.pattern = ksuid;
+    var _a6;
+    (_a6 = def.pattern) != null ? _a6 : def.pattern = ksuid;
     $ZodStringFormat.init(inst, def);
   });
   var $ZodISODateTime = /* @__PURE__ */ $constructor("$ZodISODateTime", (inst, def) => {
-    var _a8;
-    (_a8 = def.pattern) != null ? _a8 : def.pattern = datetime(def);
+    var _a6;
+    (_a6 = def.pattern) != null ? _a6 : def.pattern = datetime(def);
     $ZodStringFormat.init(inst, def);
   });
   var $ZodISODate = /* @__PURE__ */ $constructor("$ZodISODate", (inst, def) => {
-    var _a8;
-    (_a8 = def.pattern) != null ? _a8 : def.pattern = date;
+    var _a6;
+    (_a6 = def.pattern) != null ? _a6 : def.pattern = date;
     $ZodStringFormat.init(inst, def);
   });
   var $ZodISOTime = /* @__PURE__ */ $constructor("$ZodISOTime", (inst, def) => {
-    var _a8;
-    (_a8 = def.pattern) != null ? _a8 : def.pattern = time(def);
+    var _a6;
+    (_a6 = def.pattern) != null ? _a6 : def.pattern = time(def);
     $ZodStringFormat.init(inst, def);
   });
   var $ZodISODuration = /* @__PURE__ */ $constructor("$ZodISODuration", (inst, def) => {
-    var _a8;
-    (_a8 = def.pattern) != null ? _a8 : def.pattern = duration;
+    var _a6;
+    (_a6 = def.pattern) != null ? _a6 : def.pattern = duration;
     $ZodStringFormat.init(inst, def);
   });
   var $ZodIPv4 = /* @__PURE__ */ $constructor("$ZodIPv4", (inst, def) => {
-    var _a8;
-    (_a8 = def.pattern) != null ? _a8 : def.pattern = ipv4;
+    var _a6;
+    (_a6 = def.pattern) != null ? _a6 : def.pattern = ipv4;
     $ZodStringFormat.init(inst, def);
     inst._zod.onattach.push((inst2) => {
       const bag = inst2._zod.bag;
@@ -1951,8 +2059,8 @@
     });
   });
   var $ZodIPv6 = /* @__PURE__ */ $constructor("$ZodIPv6", (inst, def) => {
-    var _a8;
-    (_a8 = def.pattern) != null ? _a8 : def.pattern = ipv6;
+    var _a6;
+    (_a6 = def.pattern) != null ? _a6 : def.pattern = ipv6;
     $ZodStringFormat.init(inst, def);
     inst._zod.onattach.push((inst2) => {
       const bag = inst2._zod.bag;
@@ -1961,7 +2069,7 @@
     inst._zod.check = (payload) => {
       try {
         new URL(`http://[${payload.value}]`);
-      } catch (e6) {
+      } catch (e4) {
         payload.issues.push({
           code: "invalid_format",
           format: "ipv6",
@@ -1973,13 +2081,13 @@
     };
   });
   var $ZodCIDRv4 = /* @__PURE__ */ $constructor("$ZodCIDRv4", (inst, def) => {
-    var _a8;
-    (_a8 = def.pattern) != null ? _a8 : def.pattern = cidrv4;
+    var _a6;
+    (_a6 = def.pattern) != null ? _a6 : def.pattern = cidrv4;
     $ZodStringFormat.init(inst, def);
   });
   var $ZodCIDRv6 = /* @__PURE__ */ $constructor("$ZodCIDRv6", (inst, def) => {
-    var _a8;
-    (_a8 = def.pattern) != null ? _a8 : def.pattern = cidrv6;
+    var _a6;
+    (_a6 = def.pattern) != null ? _a6 : def.pattern = cidrv6;
     $ZodStringFormat.init(inst, def);
     inst._zod.check = (payload) => {
       const [address, prefix] = payload.value.split("/");
@@ -1992,7 +2100,7 @@
         if (prefixNum < 0 || prefixNum > 128)
           throw new Error();
         new URL(`http://[${address}]`);
-      } catch (e6) {
+      } catch (e4) {
         payload.issues.push({
           code: "invalid_format",
           format: "cidrv6",
@@ -2011,13 +2119,13 @@
     try {
       atob(data);
       return true;
-    } catch (e6) {
+    } catch (e4) {
       return false;
     }
   }
   var $ZodBase64 = /* @__PURE__ */ $constructor("$ZodBase64", (inst, def) => {
-    var _a8;
-    (_a8 = def.pattern) != null ? _a8 : def.pattern = base64;
+    var _a6;
+    (_a6 = def.pattern) != null ? _a6 : def.pattern = base64;
     $ZodStringFormat.init(inst, def);
     inst._zod.onattach.push((inst2) => {
       inst2._zod.bag.contentEncoding = "base64";
@@ -2042,8 +2150,8 @@
     return isValidBase64(padded);
   }
   var $ZodBase64URL = /* @__PURE__ */ $constructor("$ZodBase64URL", (inst, def) => {
-    var _a8;
-    (_a8 = def.pattern) != null ? _a8 : def.pattern = base64url;
+    var _a6;
+    (_a6 = def.pattern) != null ? _a6 : def.pattern = base64url;
     $ZodStringFormat.init(inst, def);
     inst._zod.onattach.push((inst2) => {
       inst2._zod.bag.contentEncoding = "base64url";
@@ -2061,8 +2169,8 @@
     };
   });
   var $ZodE164 = /* @__PURE__ */ $constructor("$ZodE164", (inst, def) => {
-    var _a8;
-    (_a8 = def.pattern) != null ? _a8 : def.pattern = e164;
+    var _a6;
+    (_a6 = def.pattern) != null ? _a6 : def.pattern = e164;
     $ZodStringFormat.init(inst, def);
   });
   function isValidJWT(token, algorithm = null) {
@@ -2081,7 +2189,7 @@
       if (algorithm && (!("alg" in parsedHeader) || parsedHeader.alg !== algorithm))
         return false;
       return true;
-    } catch (e6) {
+    } catch (e4) {
       return false;
     }
   }
@@ -2098,6 +2206,34 @@
         continue: !def.abort
       });
     };
+  });
+  var $ZodNumber = /* @__PURE__ */ $constructor("$ZodNumber", (inst, def) => {
+    var _a6;
+    $ZodType.init(inst, def);
+    inst._zod.pattern = (_a6 = inst._zod.bag.pattern) != null ? _a6 : number;
+    inst._zod.parse = (payload, _ctx) => {
+      if (def.coerce)
+        try {
+          payload.value = Number(payload.value);
+        } catch (_2) {
+        }
+      const input = payload.value;
+      if (typeof input === "number" && !Number.isNaN(input) && Number.isFinite(input)) {
+        return payload;
+      }
+      const received = typeof input === "number" ? Number.isNaN(input) ? "NaN" : !Number.isFinite(input) ? "Infinity" : void 0 : void 0;
+      payload.issues.push(__spreadValues({
+        expected: "number",
+        code: "invalid_type",
+        input,
+        inst
+      }, received ? { received } : {}));
+      return payload;
+    };
+  });
+  var $ZodNumberFormat = /* @__PURE__ */ $constructor("$ZodNumber", (inst, def) => {
+    $ZodCheckNumberFormat.init(inst, def);
+    $ZodNumber.init(inst, def);
   });
   function handleArrayResult(result, final, index) {
     if (result.issues.length) {
@@ -2463,23 +2599,23 @@
     };
     inst._zod.check = (payload) => {
       const input = payload.value;
-      const r5 = def.fn(input);
-      if (r5 instanceof Promise) {
-        return r5.then((r6) => handleRefineResult(r6, payload, input, inst));
+      const r4 = def.fn(input);
+      if (r4 instanceof Promise) {
+        return r4.then((r5) => handleRefineResult(r5, payload, input, inst));
       }
-      handleRefineResult(r5, payload, input, inst);
+      handleRefineResult(r4, payload, input, inst);
       return;
     };
   });
   function handleRefineResult(result, payload, input, inst) {
-    var _a8;
+    var _a6;
     if (!result) {
       const _iss = {
         code: "custom",
         input,
         inst,
         // incorporates params.error into issue reporting
-        path: [...(_a8 = inst._zod.def.path) != null ? _a8 : []],
+        path: [...(_a6 = inst._zod.def.path) != null ? _a6 : []],
         // incorporates params.error into issue reporting
         continue: !inst._zod.def.abort
         // params: inst._zod.def.params,
@@ -2488,6 +2624,126 @@
         _iss.params = inst._zod.def.params;
       payload.issues.push(issue(_iss));
     }
+  }
+
+  // node_modules/zod/v4/locales/en.js
+  var parsedType = (data) => {
+    const t3 = typeof data;
+    switch (t3) {
+      case "number": {
+        return Number.isNaN(data) ? "NaN" : "number";
+      }
+      case "object": {
+        if (Array.isArray(data)) {
+          return "array";
+        }
+        if (data === null) {
+          return "null";
+        }
+        if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+          return data.constructor.name;
+        }
+      }
+    }
+    return t3;
+  };
+  var error = () => {
+    const Sizable = {
+      string: { unit: "characters", verb: "to have" },
+      file: { unit: "bytes", verb: "to have" },
+      array: { unit: "items", verb: "to have" },
+      set: { unit: "items", verb: "to have" }
+    };
+    function getSizing(origin) {
+      var _a6;
+      return (_a6 = Sizable[origin]) != null ? _a6 : null;
+    }
+    const Nouns = {
+      regex: "input",
+      email: "email address",
+      url: "URL",
+      emoji: "emoji",
+      uuid: "UUID",
+      uuidv4: "UUIDv4",
+      uuidv6: "UUIDv6",
+      nanoid: "nanoid",
+      guid: "GUID",
+      cuid: "cuid",
+      cuid2: "cuid2",
+      ulid: "ULID",
+      xid: "XID",
+      ksuid: "KSUID",
+      datetime: "ISO datetime",
+      date: "ISO date",
+      time: "ISO time",
+      duration: "ISO duration",
+      ipv4: "IPv4 address",
+      ipv6: "IPv6 address",
+      cidrv4: "IPv4 range",
+      cidrv6: "IPv6 range",
+      base64: "base64-encoded string",
+      base64url: "base64url-encoded string",
+      json_string: "JSON string",
+      e164: "E.164 number",
+      jwt: "JWT",
+      template_literal: "input"
+    };
+    return (issue2) => {
+      var _a6, _b2, _c, _d;
+      switch (issue2.code) {
+        case "invalid_type":
+          return `Invalid input: expected ${issue2.expected}, received ${parsedType(issue2.input)}`;
+        case "invalid_value":
+          if (issue2.values.length === 1)
+            return `Invalid input: expected ${stringifyPrimitive(issue2.values[0])}`;
+          return `Invalid option: expected one of ${joinValues(issue2.values, "|")}`;
+        case "too_big": {
+          const adj = issue2.inclusive ? "<=" : "<";
+          const sizing = getSizing(issue2.origin);
+          if (sizing)
+            return `Too big: expected ${(_a6 = issue2.origin) != null ? _a6 : "value"} to have ${adj}${issue2.maximum.toString()} ${(_b2 = sizing.unit) != null ? _b2 : "elements"}`;
+          return `Too big: expected ${(_c = issue2.origin) != null ? _c : "value"} to be ${adj}${issue2.maximum.toString()}`;
+        }
+        case "too_small": {
+          const adj = issue2.inclusive ? ">=" : ">";
+          const sizing = getSizing(issue2.origin);
+          if (sizing) {
+            return `Too small: expected ${issue2.origin} to have ${adj}${issue2.minimum.toString()} ${sizing.unit}`;
+          }
+          return `Too small: expected ${issue2.origin} to be ${adj}${issue2.minimum.toString()}`;
+        }
+        case "invalid_format": {
+          const _issue = issue2;
+          if (_issue.format === "starts_with") {
+            return `Invalid string: must start with "${_issue.prefix}"`;
+          }
+          if (_issue.format === "ends_with")
+            return `Invalid string: must end with "${_issue.suffix}"`;
+          if (_issue.format === "includes")
+            return `Invalid string: must include "${_issue.includes}"`;
+          if (_issue.format === "regex")
+            return `Invalid string: must match pattern ${_issue.pattern}`;
+          return `Invalid ${(_d = Nouns[_issue.format]) != null ? _d : issue2.format}`;
+        }
+        case "not_multiple_of":
+          return `Invalid number: must be a multiple of ${issue2.divisor}`;
+        case "unrecognized_keys":
+          return `Unrecognized key${issue2.keys.length > 1 ? "s" : ""}: ${joinValues(issue2.keys, ", ")}`;
+        case "invalid_key":
+          return `Invalid key in ${issue2.origin}`;
+        case "invalid_union":
+          return "Invalid input";
+        case "invalid_element":
+          return `Invalid value in ${issue2.origin}`;
+        default:
+          return `Invalid input`;
+      }
+    };
+  };
+  function en_default() {
+    return {
+      localeError: error()
+    };
   }
 
   // node_modules/zod/v4/core/registries.js
@@ -2523,10 +2779,10 @@
       return this;
     }
     get(schema) {
-      var _a8;
+      var _a6;
       const p3 = schema._zod.parent;
       if (p3) {
-        const pm = __spreadValues({}, (_a8 = this.get(p3)) != null ? _a8 : {});
+        const pm = __spreadValues({}, (_a6 = this.get(p3)) != null ? _a6 : {});
         delete pm.id;
         return __spreadValues(__spreadValues({}, pm), this._map.get(schema));
       }
@@ -2758,6 +3014,59 @@
       check: "string_format"
     }, normalizeParams(params)));
   }
+  function _number(Class2, params) {
+    return new Class2(__spreadValues({
+      type: "number",
+      checks: []
+    }, normalizeParams(params)));
+  }
+  function _int(Class2, params) {
+    return new Class2(__spreadValues({
+      type: "number",
+      check: "number_format",
+      abort: false,
+      format: "safeint"
+    }, normalizeParams(params)));
+  }
+  function _lt(value, params) {
+    return new $ZodCheckLessThan(__spreadProps(__spreadValues({
+      check: "less_than"
+    }, normalizeParams(params)), {
+      value,
+      inclusive: false
+    }));
+  }
+  function _lte(value, params) {
+    return new $ZodCheckLessThan(__spreadProps(__spreadValues({
+      check: "less_than"
+    }, normalizeParams(params)), {
+      value,
+      inclusive: true
+    }));
+  }
+  function _gt(value, params) {
+    return new $ZodCheckGreaterThan(__spreadProps(__spreadValues({
+      check: "greater_than"
+    }, normalizeParams(params)), {
+      value,
+      inclusive: false
+    }));
+  }
+  function _gte(value, params) {
+    return new $ZodCheckGreaterThan(__spreadProps(__spreadValues({
+      check: "greater_than"
+    }, normalizeParams(params)), {
+      value,
+      inclusive: true
+    }));
+  }
+  function _multipleOf(value, params) {
+    return new $ZodCheckMultipleOf(__spreadProps(__spreadValues({
+      check: "multiple_of"
+    }, normalizeParams(params)), {
+      value
+    }));
+  }
   function _maxLength(maximum, params) {
     const ch = new $ZodCheckMaxLength(__spreadProps(__spreadValues({
       check: "max_length"
@@ -2858,6 +3167,17 @@
   }
 
   // node_modules/zod/v4/classic/iso.js
+  var iso_exports = {};
+  __export(iso_exports, {
+    ZodISODate: () => ZodISODate,
+    ZodISODateTime: () => ZodISODateTime,
+    ZodISODuration: () => ZodISODuration,
+    ZodISOTime: () => ZodISOTime,
+    date: () => date2,
+    datetime: () => datetime2,
+    duration: () => duration2,
+    time: () => time2
+  });
   var ZodISODateTime = /* @__PURE__ */ $constructor("ZodISODateTime", (inst, def) => {
     $ZodISODateTime.init(inst, def);
     ZodStringFormat.init(inst, def);
@@ -2933,11 +3253,11 @@
     inst.def = def;
     Object.defineProperty(inst, "_def", { value: def });
     inst.check = (...checks) => {
-      var _a8;
+      var _a6;
       return inst.clone(
         __spreadProps(__spreadValues({}, def), {
           checks: [
-            ...(_a8 = def.checks) != null ? _a8 : [],
+            ...(_a6 = def.checks) != null ? _a6 : [],
             ...checks.map((ch) => typeof ch === "function" ? { _zod: { check: ch, def: { check: "custom" }, onattach: [] } } : ch)
           ]
         })
@@ -2978,8 +3298,8 @@
     };
     Object.defineProperty(inst, "description", {
       get() {
-        var _a8;
-        return (_a8 = globalRegistry.get(inst)) == null ? void 0 : _a8.description;
+        var _a6;
+        return (_a6 = globalRegistry.get(inst)) == null ? void 0 : _a6.description;
       },
       configurable: true
     });
@@ -2996,11 +3316,11 @@
     return inst;
   });
   var _ZodString = /* @__PURE__ */ $constructor("_ZodString", (inst, def) => {
-    var _a8, _b2, _c;
+    var _a6, _b2, _c;
     $ZodString.init(inst, def);
     ZodType.init(inst, def);
     const bag = inst._zod.bag;
-    inst.format = (_a8 = bag.format) != null ? _a8 : null;
+    inst.format = (_a6 = bag.format) != null ? _a6 : null;
     inst.minLength = (_b2 = bag.minimum) != null ? _b2 : null;
     inst.maxLength = (_c = bag.maximum) != null ? _c : null;
     inst.regex = (...args) => inst.check(_regex(...args));
@@ -3132,6 +3452,42 @@
     $ZodJWT.init(inst, def);
     ZodStringFormat.init(inst, def);
   });
+  var ZodNumber = /* @__PURE__ */ $constructor("ZodNumber", (inst, def) => {
+    var _a6, _b2, _c, _d, _e, _f, _g, _h, _i;
+    $ZodNumber.init(inst, def);
+    ZodType.init(inst, def);
+    inst.gt = (value, params) => inst.check(_gt(value, params));
+    inst.gte = (value, params) => inst.check(_gte(value, params));
+    inst.min = (value, params) => inst.check(_gte(value, params));
+    inst.lt = (value, params) => inst.check(_lt(value, params));
+    inst.lte = (value, params) => inst.check(_lte(value, params));
+    inst.max = (value, params) => inst.check(_lte(value, params));
+    inst.int = (params) => inst.check(int(params));
+    inst.safe = (params) => inst.check(int(params));
+    inst.positive = (params) => inst.check(_gt(0, params));
+    inst.nonnegative = (params) => inst.check(_gte(0, params));
+    inst.negative = (params) => inst.check(_lt(0, params));
+    inst.nonpositive = (params) => inst.check(_lte(0, params));
+    inst.multipleOf = (value, params) => inst.check(_multipleOf(value, params));
+    inst.step = (value, params) => inst.check(_multipleOf(value, params));
+    inst.finite = () => inst;
+    const bag = inst._zod.bag;
+    inst.minValue = (_c = Math.max((_a6 = bag.minimum) != null ? _a6 : Number.NEGATIVE_INFINITY, (_b2 = bag.exclusiveMinimum) != null ? _b2 : Number.NEGATIVE_INFINITY)) != null ? _c : null;
+    inst.maxValue = (_f = Math.min((_d = bag.maximum) != null ? _d : Number.POSITIVE_INFINITY, (_e = bag.exclusiveMaximum) != null ? _e : Number.POSITIVE_INFINITY)) != null ? _f : null;
+    inst.isInt = ((_g = bag.format) != null ? _g : "").includes("int") || Number.isSafeInteger((_h = bag.multipleOf) != null ? _h : 0.5);
+    inst.isFinite = true;
+    inst.format = (_i = bag.format) != null ? _i : null;
+  });
+  function number2(params) {
+    return _number(ZodNumber, params);
+  }
+  var ZodNumberFormat = /* @__PURE__ */ $constructor("ZodNumberFormat", (inst, def) => {
+    $ZodNumberFormat.init(inst, def);
+    ZodNumber.init(inst, def);
+  });
+  function int(params) {
+    return _int(ZodNumberFormat, params);
+  }
   var ZodArray = /* @__PURE__ */ $constructor("ZodArray", (inst, def) => {
     $ZodArray.init(inst, def);
     ZodType.init(inst, def);
@@ -3172,14 +3528,14 @@
     ZodType.init(inst, def);
     inst._zod.parse = (payload, _ctx) => {
       payload.addIssue = (issue2) => {
-        var _a8, _b2, _c, _d;
+        var _a6, _b2, _c, _d;
         if (typeof issue2 === "string") {
           payload.issues.push(util_exports.issue(issue2, payload.value, def));
         } else {
           const _issue = issue2;
           if (_issue.fatal)
             _issue.continue = false;
-          (_a8 = _issue.code) != null ? _a8 : _issue.code = "custom";
+          (_a6 = _issue.code) != null ? _a6 : _issue.code = "custom";
           (_b2 = _issue.input) != null ? _b2 : _issue.input = payload.value;
           (_c = _issue.inst) != null ? _c : _issue.inst = inst;
           (_d = _issue.continue) != null ? _d : _issue.continue = true;
@@ -3320,14 +3676,14 @@
   function superRefine(fn) {
     const ch = check((payload) => {
       payload.addIssue = (issue2) => {
-        var _a8, _b2, _c, _d;
+        var _a6, _b2, _c, _d;
         if (typeof issue2 === "string") {
           payload.issues.push(util_exports.issue(issue2, payload.value, ch._zod.def));
         } else {
           const _issue = issue2;
           if (_issue.fatal)
             _issue.continue = false;
-          (_a8 = _issue.code) != null ? _a8 : _issue.code = "custom";
+          (_a6 = _issue.code) != null ? _a6 : _issue.code = "custom";
           (_b2 = _issue.input) != null ? _b2 : _issue.input = payload.value;
           (_c = _issue.inst) != null ? _c : _issue.inst = ch;
           (_d = _issue.continue) != null ? _d : _issue.continue = !ch._zod.def.abort;
@@ -3339,316 +3695,667 @@
     return ch;
   }
 
-  // package/inputs/input-text.js
-  var _BaseTextInput_decorators, _init, _a6;
-  _BaseTextInput_decorators = [t3("base-text-input")];
-  var BaseTextInput = class extends (_a6 = i4) {
-    // Form-associated per spec [1]
-    static get properties() {
-      return {
-        name: { type: String },
-        value: { type: String },
-        label: { type: String },
-        placeholder: { type: String },
-        required: { type: Boolean },
-        disabled: { type: Boolean },
-        readonly: { type: Boolean },
-        inline: { type: Boolean },
-        error: { type: String },
-        description: { type: String },
-        validateOn: { type: String },
-        actionButton: { type: String },
-        prefixIcon: { type: String },
-        inputType: { type: String },
-        // Zod validators [1]
-        min: { type: String },
-        max: { type: String },
-        email: { type: Boolean },
-        url: { type: Boolean },
-        regex: { type: String },
-        startsWith: { attribute: "starts-with", type: String },
-        endsWith: { attribute: "ends-with", type: String },
-        gt: { type: String },
-        lt: { type: String },
-        positive: { type: Boolean },
-        minMessage: { attribute: "min-message", type: String },
-        maxMessage: { attribute: "max-message", type: String },
-        emailMessage: { attribute: "email-message", type: String },
-        // States
-        internalError: { type: String, state: true },
-        isValid: { type: Boolean, state: true }
-      };
-    }
-    static get styles() {
-      return i`
-        /* Minimal defaults per exact structure [1] */
-        .input-wrapper { display: block; }
-        .input-label { display: block; font-weight: bold; margin-bottom: 0.25rem; }
-        .input-input {
-          width: 100%;
-          box-sizing: border-box;
-          border: 1px solid #ccc;
-          padding: 0.5rem;
-          border-radius: 4px;
-        }
-        .input-description { font-size: 0.875rem; color: #666; margin-top: 0.25rem; }
-        .input-error { display: none; color: #dc2626; font-size: 0.875rem; margin-top: 0.25rem; }
-        .input-error-visible { display: block; } /* Required [1] */
-        .input-input-error {
-          border-color: #dc2626;
-          box-shadow: 0 0 0 1px #dc2626; /* Error states [1] */
-        }
-        .input-wrapper.input-inline { display: inline-block; width: auto; } /* inline attr [1] */
-        .input-prefix, .input-action { /* External styling [1] */ }
-      `;
-    }
+  // node_modules/zod/v4/classic/external.js
+  config(en_default());
+
+  // package/inputs/input-text-base.js
+  var InputTextBase = class extends i4 {
     constructor() {
       super();
       this.internals = this.attachInternals();
-      this.name = "";
       this.value = "";
-      this.label = "";
-      this.placeholder = "";
-      this.required = false;
-      this.disabled = false;
-      this.readonly = false;
-      this.inline = false;
+      this.valid = true;
       this.error = "";
-      this.description = "";
+      this._initialized = false;
+      this._timeout = null;
+      this._inputId = "";
+      this._descId = "";
+      this._errorId = "";
       this.validateOn = "blur";
-      this.actionButton = "";
-      this.prefixIcon = "";
-      this.inputType = "text";
-      this.min = "";
-      this.max = "";
-      this.email = false;
-      this.url = false;
-      this.regex = "";
-      this.startsWith = "";
-      this.endsWith = "";
-      this.gt = "";
-      this.lt = "";
-      this.positive = false;
-      this.minMessage = "";
-      this.maxMessage = "";
-      this.emailMessage = "";
-      this.internalError = null;
-      this.isValid = true;
-      this.debounceTimer = null;
-      this.inputId = "";
-      this.onInit = () => {
-      };
-      this.onBeforeRender = () => {
-      };
-      this.onAfterRender = () => {
-      };
-      this.onInput = (value) => {
-      };
-      this.onChange = (value) => {
-      };
-      this.onValidate = () => {
-      };
-      this.onError = (errorMsg) => {
-      };
-      this.onSuccess = (value) => {
-      };
-      this.inputEl = this.querySelector("input");
+      this.isPasswordVisible = false;
+      this.unstyled = false;
     }
-    generateIds() {
-      const baseId = `input-${Math.random().toString(36).substr(2, 9)}`;
-      this.inputId = baseId;
-      return {
-        input: baseId,
-        label: `${baseId}-label`,
-        desc: `${baseId}-desc`,
-        err: `${baseId}-err`
-      };
+    createRenderRoot() {
+      const root = this.shadow === false ? this : super.createRenderRoot();
+      if (root !== this && !this.unstyled) {
+        const sheet = new CSSStyleSheet();
+        sheet.replaceSync(i`
+        :host {
+          display: block;
+          --input-border: #e5e7eb;
+          --input-border-focus: #3b82f6;
+          --input-border-error: #ef4444;
+          --input-bg: #fff;
+          --input-text: #111827;
+          --input-placeholder: #9ca3af;
+          --input-error-text: #ef4444;
+          --input-desc-text: #6b7280;
+          --input-radius: 6px;
+          --input-padding-x: 12px;
+          --input-padding-y: 10px;
+        }
+
+        .input-wrapper {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .input-label {
+          font-size: 0.875rem;
+          font-weight: 500;
+          color: var(--input-text);
+          margin-bottom: 0.25rem;
+          line-height: 1.25rem;
+        }
+
+        .input-input {
+          box-sizing: border-box;
+          width: 100%;
+          padding: var(--input-padding-y) var(--input-padding-x);
+          border: 1px solid var(--input-border);
+          border-radius: var(--input-radius);
+          background: var(--input-bg);
+          color: var(--input-text);
+          font-size: 1rem;
+          line-height: 1.5;
+          transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .input-input::placeholder {
+          color: var(--input-placeholder);
+        }
+
+        .input-input:focus {
+          outline: none;
+          border-color: var(--input-border-focus);
+          box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .input-input:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+
+        .input-prefix,
+        .input-action {
+          position: absolute;
+          transform: translateY(-50%);
+          background: none;
+          border: none;
+          cursor: pointer;
+          font-size: 1.25rem;
+          color: var(--input-placeholder);
+          padding: 0;
+          width: 2rem;
+          height: 2rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 1;
+        }
+
+        .input-action {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+
+        .input-prefix {
+          left: var(--input-padding-x);
+        }
+
+        .input-action {
+          right: var(--input-padding-x);
+        }
+
+        .input-input:has(.input-prefix) {
+          padding-left: calc(var(--input-padding-x) * 3);
+        }
+
+        .input-input:has(.input-action) {
+          padding-right: calc(var(--input-padding-x) * 3);
+        }
+
+        .input-description {
+          font-size: 0.875rem;
+          color: var(--input-desc-text);
+          margin-top: 0.25rem;
+          line-height: 1.25rem;
+        }
+
+        .input-error {
+          color: var(--input-error-text);
+          border-color: var(--input-border-error);
+          display: none;
+          font-size: 0.875rem;
+          font-weight: 600;
+          margin-top: 0.25rem;
+          line-height: 1.25rem;
+          background-color: rgba(239, 68, 68, 0.05);
+          box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.5);
+          border-radius: 4px;
+          padding: 0.5rem 1rem;
+        }
+
+        .input-error ul {
+            padding-left: 1rem;
+            padding-top: 0;
+            padding-bottom: 0;
+            margin: 0;
+        }
+
+        .input-error-visible {
+          display: block;
+        }
+
+        /* Inline mode */
+        :host([inline]) .input-wrapper {
+          flex-direction: row;
+          align-items: center;
+          gap: 0.5rem;
+        }
+
+        :host([inline]) .input-label {
+          margin-bottom: 0;
+          margin-right: 0.5rem;
+          white-space: nowrap;
+        }
+
+        :host([inline]) .input-input {
+          flex: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+          :host([inline]) .input-wrapper {
+            flex-direction: column;
+            align-items: stretch;
+          }
+
+          :host([inline]) .input-label {
+            margin-right: 0;
+            margin-bottom: 0.25rem;
+          }
+        }
+      `.toString());
+        root.adoptedStyleSheets = [sheet];
+      }
+      return root;
+    }
+    connectedCallback() {
+      super.connectedCallback();
+      this.init();
+    }
+    init() {
+      var _a6;
+      this._generateIds();
+      (_a6 = this.onInit) == null ? void 0 : _a6.call(this);
+    }
+    _generateIds() {
+      const uid = Math.random().toString(36).substring(2, 15);
+      this._inputId = `input-${uid}`;
+      this._descId = `${this._inputId}-desc`;
+      this._errorId = `${this._inputId}-error`;
+    }
+    willUpdate(changedProperties) {
+      var _a6;
+      (_a6 = this.onBeforeRender) == null ? void 0 : _a6.call(this, changedProperties);
+      super.willUpdate(changedProperties);
+    }
+    updated(changedProperties) {
+      var _a6;
+      super.updated(changedProperties);
+      (_a6 = this.onAfterRender) == null ? void 0 : _a6.call(this, changedProperties);
+      this.internals.setFormValue(this.value);
     }
     render() {
-      this.onBeforeRender();
-      const ids = this.generateIds();
-      const hasDesc = !!this.description && this.description.trim();
-      const hasError = !!this.internalError;
-      const ariaDescribedBy = [hasDesc ? ids.desc : "", hasError ? ids.err : ""].filter(Boolean).join(" ") || void 0;
+      var _a6, _b2;
+      const ariaDescribedby = [this.description ? this._descId : null, this.error ? this._errorId : null].filter(Boolean).join(" ");
+      const inputClasses = this.error ? "input-input input-input-error" : "input-input";
       return x`
-      <div class="input-wrapper ${this.inline ? "input-inline" : ""}">
-        <label class="input-label" id="${ids.label}" for="${ids.input}">${this.label}</label>
-        ${this.prefixIcon ? x`<span class="input-prefix" aria-hidden="true">${this.prefixIcon}</span>` : ""}
+      <div class="input-wrapper">
+        <label class="input-label" for="${this._inputId}">${this.label || ""}</label>
+        ${this._renderPrefix()}
         <input
-          class="input-input ${hasError ? "input-input-error" : ""}"
-          type="${this.inputType}"
-          id="${ids.input}"
-          .value="${this.value}"
-          @input="${this.handleInput}"
-          @change="${this.handleChange}"
+          class="${inputClasses}"
+          id="${this._inputId}"
+          name="${this.name || ""}"
+          type="${this._getInputType()}"
+          .value="${(_a6 = this.value) != null ? _a6 : ""}"
+          placeholder="${(_b2 = this.placeholder) != null ? _b2 : ""}"
+          ?required="${this.required}"
           ?disabled="${this.disabled}"
           ?readonly="${this.readonly}"
-          ?required="${this.required}"
-          placeholder="${this.placeholder}"
-          aria-labelledby="${ids.label}"
-          aria-describedby="${ariaDescribedBy}"
-          aria-invalid="${hasError}"
+          aria-invalid="${this.valid ? void 0 : "true"}"
+          aria-describedby="${ariaDescribedby}"
+          @input="${this._onInput}"
+          @change="${this._onChange}"
+          @blur="${this._onBlur}"
+          ${this.autocomplete ? `autocomplete="${this.autocomplete}"` : ""}
+          ${this.autofocus ? "autofocus" : ""}
         />
-        ${this.actionButton ? x`<button type="button" class="input-action" @click="${this.handleAction}" aria-label="${this.actionButton} value"></button>` : ""}
-        ${hasDesc ? x`<p class="input-description" id="${ids.desc}">${this.description}</p>` : ""}
-        <p class="input-error ${hasError ? "input-error-visible" : ""}" id="${ids.err}">${this.internalError || ""}</p>
+        ${this._renderAction()}
+        <p class="input-description" id="${this._descId}">${this.description || ""}</p>
+        ${this._renderError()}
       </div>
     `;
-      this.onAfterRender();
     }
-    firstUpdated() {
-      this.dispatchEvent(new CustomEvent("input:init", { bubbles: true, composed: true, detail: { value: this.value } }));
-      this.onInit();
-      this.attachValidation();
+    _renderPrefix() {
+      if (!this.prefixIcon) return "";
+      return x`<span class="input-prefix">${this.prefixIcon}</span>`;
     }
-    updated(changedProps) {
-      if (changedProps.has("value")) {
-        this.internals.setFormValue(this.value);
+    _renderAction() {
+      if (!this.actionButton) return "";
+      if (this.actionButton === "copy") {
+        return x`<button class="input-action" type="button" @click="${this._onActionCopy}" title="Copy to clipboard">📋</button>`;
       }
-      super.updated(changedProps);
+      if (this.actionButton === "hide" && this.inputType === "password") {
+        const icon = this.isPasswordVisible ? "\u{1F648}" : "\u{1F441}";
+        return x`<button class="input-action" type="button" @click="${this._onActionHide}" title="Toggle password visibility">${icon}</button>`;
+      }
+      return "";
     }
-    attachValidation() {
-      const debouncedValidate = this.debounce(this.doValidate.bind(this), 300);
-      this.inputEl.addEventListener(this.validateOn, debouncedValidate);
+    _renderError() {
+      if (!this.error) return "";
+      const error2 = JSON.parse(this.error);
+      if (error2.length < 2) {
+        return x`<p class="input-error ${error2 ? "input-error-visible" : ""}" id="${this._errorId}">${error2[0].message || ""}</p>`;
+      } else {
+        const errorList = x`<ul>${error2.map((error3) => x`<li>${error3.message}</li>`)}</ul>`;
+        return x`<div class="input-error ${error2 ? "input-error-visible" : ""}" id="${this._errorId}">${errorList}</div>`;
+      }
     }
-    debounce(fn, delay) {
-      return (...args) => {
-        if (this.debounceTimer) clearTimeout(this.debounceTimer);
-        this.debounceTimer = setTimeout(() => fn(...args), delay);
-      };
+    _getInputType() {
+      let type = this.inputType || "text";
+      if (type === "password" && this.actionButton === "hide" && this.isPasswordVisible) {
+        type = "text";
+      }
+      return type;
     }
-    handleInput(e6) {
-      const target = e6.target;
-      this.value = target.value;
-      this.dispatchEvent(new CustomEvent("input:input", { bubbles: true, composed: true, detail: { value: this.value } }));
-      this.onInput(this.value);
+    _onActionCopy(e4) {
+      e4.stopPropagation();
+      navigator.clipboard.writeText(this.value).catch(() => {
+        this.dispatchInputEvent("error", { error: "Copy failed" });
+      });
     }
-    handleChange(e6) {
-      const target = e6.target;
-      this.dispatchEvent(new CustomEvent("input:change", { bubbles: true, composed: true, detail: { value: target.value } }));
-      this.onChange(target.value);
+    _onActionHide(e4) {
+      e4.stopPropagation();
+      this.isPasswordVisible = !this.isPasswordVisible;
     }
-    buildSchema() {
+    _onInput(e4) {
+      var _a6;
+      try {
+        this.value = e4.target.value;
+        if (!this._initialized) {
+          this._initialized = true;
+          this.dispatchInputEvent("init");
+        }
+        this.dispatchInputEvent("input");
+        (_a6 = this.onInput) == null ? void 0 : _a6.call(this, e4);
+        if (this._shouldValidate("input")) {
+          this._debounceValidate();
+        }
+      } catch (err) {
+        this.dispatchInputEvent("error", { error: err.message });
+      }
+    }
+    _onChange(e4) {
+      var _a6;
+      try {
+        this.dispatchInputEvent("change");
+        (_a6 = this.onChange) == null ? void 0 : _a6.call(this, e4);
+        if (this._shouldValidate("change")) {
+          this._debounceValidate();
+        }
+      } catch (err) {
+        this.dispatchInputEvent("error", { error: err.message });
+      }
+    }
+    _onBlur(e4) {
+      var _a6;
+      try {
+        (_a6 = this.onBlur) == null ? void 0 : _a6.call(this, e4);
+        if (this._shouldValidate("blur")) {
+          this._debounceValidate();
+        }
+      } catch (err) {
+        this.dispatchInputEvent("error", { error: err.message });
+      }
+    }
+    _shouldValidate(eventType) {
+      var _a6, _b2;
+      return (_b2 = (_a6 = this.validateOn) == null ? void 0 : _a6.split(/[\s,|]+/).some((v2) => v2 === eventType)) != null ? _b2 : false;
+    }
+    _debounceValidate() {
+      if (this._timeout) {
+        clearTimeout(this._timeout);
+      }
+      this._timeout = setTimeout(() => this.validate(), 100);
+    }
+    dispatchInputEvent(type, extraDetail = {}) {
+      this.dispatchEvent(
+        new CustomEvent(`input:${type}`, {
+          bubbles: true,
+          composed: true,
+          detail: __spreadValues({ value: this.value, valid: this.valid, error: this.error }, extraDetail)
+        })
+      );
+    }
+    _buildSchema() {
       let schema = string2();
-      if (this.error) {
-        return schema.refine(() => false, { message: this.error });
-      }
       if (this.required) {
-        schema = schema.min(1, { message: "This field is required" });
+        schema = schema.min(1, this.requiredMessage || "This field is required");
       }
-      if (this.min) schema = schema.min(Number(this.min), { message: this.minMessage });
-      if (this.max) schema = schema.max(Number(this.max), { message: this.maxMessage });
-      if (this.email) schema = schema.email({ message: this.emailMessage || "Invalid email address" });
-      if (this.url) schema = schema.url({ message: this.urlMessage || "Invalid URL" });
-      if (this.regex) {
-        try {
-          schema = schema.regex(new RegExp(this.regex), { message: this.regexMessage || "Invalid format" });
-        } catch (e6) {
+      if (this.min != null && this.min !== "") {
+        schema = schema.min(Number(this.min), this.minMessage || `Minimum length is ${this.min}`);
+      }
+      if (this.max != null && this.max !== "") {
+        schema = schema.max(Number(this.max), this.maxMessage || `Maximum length is ${this.max}`);
+      }
+      if (this.email) {
+        schema = schema.email(this.emailMessage || "Invalid email address");
+      }
+      if (this.url) {
+        schema = schema.url(this.urlMessage || "Invalid URL");
+      }
+      if (this.startsWith != null) {
+        schema = schema.startsWith(
+          this.startsWith,
+          this.startsWithMessage || `Must start with "${this.startsWith}"`
+        );
+      }
+      if (this.endsWith != null) {
+        schema = schema.endsWith(
+          this.endsWith,
+          this.endsWithMessage || `Must end with "${this.endsWith}"`
+        );
+      }
+      if (this.includes != null) {
+        schema = schema.includes(
+          this.includes,
+          this.includesMessage || `Must include "${this.includes}"`
+        );
+      }
+      if (this.lowercase != null) {
+        schema = schema.lowercase(
+          this.lowercaseMessage || `Must be lowercase`
+        );
+      }
+      if (this.uppercase != null) {
+        schema = schema.uppercase(
+          this.uppercaseMessage || `Must be uppercase`
+        );
+      }
+      if (this.format != null) {
+        if (this.format === "email") {
+          schema = schema.email(
+            this.formatMessage || `Must be a valid email`
+          );
+        }
+        if (this.format === "uuid") {
+          schema = schema.uuid(
+            this.formatMessage || `Must be a valid UUID`
+          );
+        }
+        if (this.format === "url") {
+          schema = schema.url(
+            this.formatMessage || `Must be a valid URL`
+          );
+        }
+        if (this.format === "emoji") {
+          schema = schema.emoji(
+            this.formatMessage || `Must be a valid emoji`
+          );
+        }
+        if (this.format === "base64") {
+          schema = schema.base64(
+            this.formatMessage || `Must be a valid base64 string`
+          );
+        }
+        if (this.format === "base64url") {
+          schema = schema.base64url(
+            this.formatMessage || `Must be a valid base64url string`
+          );
+        }
+        if (this.format === "hex") {
+          schema = schema.hex(
+            this.formatMessage || `Must be a valid hex string`
+          );
+        }
+        if (this.format === "jwt") {
+          schema = schema.jwt(
+            this.formatMessage || `Must be a valid JWT`
+          );
+        }
+        if (this.format === "nanoid") {
+          schema = schema.nanoid(
+            this.formatMessage || `Must be a valid nanoid`
+          );
+        }
+        if (this.format === "cuid") {
+          schema = schema.cuid(
+            this.formatMessage || `Must be a valid cuid`
+          );
+        }
+        if (this.format === "cuid2") {
+          schema = schema.cuid2(
+            this.formatMessage || `Must be a valid cuid2`
+          );
+        }
+        if (this.format === "ulid") {
+          schema = schema.ulid(
+            this.formatMessage || `Must be a valid ulid`
+          );
+        }
+        if (this.format === "ipv4") {
+          schema = schema.ipv4(
+            this.formatMessage || `Must be a valid IPv4 Address`
+          );
+        }
+        if (this.format === "ipv6") {
+          schema = schema.ipv6(
+            this.formatMessage || `Must be a valid IPv6 Address`
+          );
+        }
+        if (this.format === "mac") {
+          schema = schema.mac(
+            this.formatMessage || `Must be a valid MAC Address`
+          );
+        }
+        if (this.format === "cidrv4") {
+          schema = schema.cidrv4(
+            this.formatMessage || `Must be a valid CIDRv4 Address`
+          );
+        }
+        if (this.format === "cidrv6") {
+          schema = schema.cidrv6(
+            this.formatMessage || `Must be a valid CIDRv6 Address`
+          );
+        }
+        if (this.format === "iso-date") {
+          schema = iso_exports.date(
+            this.formatMessage || `Must be a valid Date`
+          );
+        }
+        if (this.format === "iso-datetime") {
+          schema = iso_exports.datetime(
+            this.formatMessage || `Must be a valid DateTime format`
+          );
         }
       }
-      if (this.startsWith) schema = schema.startsWith(this.startsWith, { message: `Must start with "${this.startsWith}"` });
-      if (this.endsWith) schema = schema.endsWith(this.endsWith, { message: `Must end with "${this.endsWith}"` });
-      if (this.gt) {
-        const num = Number(this.gt);
-        schema = schema.refine((v2) => Number(v2) > num, { message: `Must be > ${num}` });
-      }
-      if (this.lt) {
-        const num = Number(this.lt);
-        schema = schema.refine((v2) => Number(v2) < num, { message: `Must be < ${num}` });
-      }
-      if (this.positive) {
-        schema = schema.refine((v2) => {
-          const n5 = Number(v2);
-          return !isNaN(n5) && n5 > 0;
-        }, { message: this.positiveMessage || "Must be positive" });
+      if (this.regex != null) {
+        try {
+          const re = new RegExp(this.regex, "u");
+          schema = schema.regex(re, this.regexMessage || "Invalid format");
+        } catch (e4) {
+        }
       }
       return schema;
     }
-    validate() {
-      return this.doValidate();
-    }
-    doValidate() {
+    async validate() {
+      var _a6, _b2, _c, _d, _e, _f;
       try {
-        this.onValidate();
-        this.dispatchEvent(new CustomEvent("input:validate", { bubbles: true, composed: true, detail: { value: this.value } }));
-        const schema = this.buildSchema();
-        const result = schema.safeParse(this.value);
-        if (result.success) {
-          this.internalError = null;
-          this.isValid = true;
-          this.internals.setValidity({});
-          this.requestUpdate();
-          this.dispatchEvent(new CustomEvent("input:success", { bubbles: true, composed: true, detail: { value: this.value } }));
-          this.onSuccess(this.value);
-          return { valid: true, error: null };
-        } else {
-          const msg = result.error.errors[0].message || "Enter a valid value";
-          this.internalError = msg;
-          this.isValid = false;
-          this.internals.setValidity({ customError: true }, msg, this.inputEl);
-          this.requestUpdate();
-          this.dispatchEvent(new CustomEvent("input:error", { bubbles: true, composed: true, detail: { value: this.value, error: msg } }));
-          this.onError(msg);
-          return { valid: false, error: msg };
-        }
-      } catch (e6) {
-        const msg = "Validation error";
-        this.internalError = msg;
-        this.internals.setValidity({ customError: true }, msg, this.inputEl);
-        this.requestUpdate();
-        this.dispatchEvent(new CustomEvent("input:error", { bubbles: true, composed: true, detail: { value: this.value, error: msg } }));
-        return { valid: false, error: msg };
-      }
-    }
-    handleAction(e6) {
-      e6.stopPropagation();
-      if (this.actionButton === "copy") {
-        navigator.clipboard.writeText(this.value).catch(() => {
-        });
-      } else if (this.actionButton === "hide") {
-        const isHidden = this.inputEl.type === "password";
-        this.inputEl.type = isHidden ? this.inputType : "password";
-        if (this.actionEl) {
-          this.actionEl.textContent = isHidden ? "Hide" : "Show";
-          this.actionEl.setAttribute("aria-label", isHidden ? "Hide value" : "Show value");
-        }
+        (_a6 = this.onValidate) == null ? void 0 : _a6.call(this);
+        this.dispatchInputEvent("validate");
+        const schema = this._buildSchema();
+        await schema.parseAsync((_b2 = this.value) != null ? _b2 : "");
+        this.error = "";
+        this.valid = true;
+        (_c = this.onSuccess) == null ? void 0 : _c.call(this);
+        this.dispatchInputEvent("success");
+        return { valid: true, error: null };
+      } catch (err) {
+        const errorMsg = ((_e = (_d = err.errors) == null ? void 0 : _d[0]) == null ? void 0 : _e.message) || err.message || "Invalid value";
+        this.error = errorMsg;
+        this.valid = false;
+        (_f = this.onError) == null ? void 0 : _f.call(this);
+        this.dispatchInputEvent("error", { error: errorMsg });
+        return { valid: false, error: errorMsg };
       }
     }
     reset() {
       this.value = "";
-      this.internalError = null;
-      this.isValid = true;
+      this.error = "";
+      this.valid = true;
+      this.isPasswordVisible = false;
+      if (this._timeout) {
+        clearTimeout(this._timeout);
+        this._timeout = null;
+      }
+      this.internals.setFormValue("");
+      this.internals.setValidity({ valid: true });
       this.requestUpdate();
+      this.dispatchInputEvent("change");
     }
     focus() {
-      this.inputEl.focus();
+      var _a6;
+      const inputEl = (_a6 = this.renderRoot) == null ? void 0 : _a6.querySelector(".input-input");
+      inputEl == null ? void 0 : inputEl.focus();
     }
     formResetCallback() {
       this.reset();
     }
-    formStateRestoreCallback(state) {
-      this.value = state.get(this) || "";
+    formStateRestoreCallback(value) {
+      this.value = value || "";
+      this.requestUpdate();
     }
   };
-  _init = __decoratorStart(_a6);
-  BaseTextInput = __decorateElement(_init, 0, "BaseTextInput", _BaseTextInput_decorators, BaseTextInput);
-  __publicField(BaseTextInput, "formAssociated", true);
-  __runInitializers(_init, 1, BaseTextInput);
-  var input_text_default = BaseTextInput;
+  __publicField(InputTextBase, "formAssociated", true);
+  __publicField(InputTextBase, "properties", {
+    name: { type: String },
+    value: { type: String },
+    label: { type: String },
+    placeholder: { type: String },
+    description: { type: String },
+    required: { type: Boolean },
+    disabled: { type: Boolean },
+    readonly: { type: Boolean },
+    shadow: { type: Boolean },
+    inline: { type: Boolean },
+    error: { type: String },
+    validateOn: { type: String, attribute: "validate-on" },
+    actionButton: { type: String, attribute: "action-button" },
+    prefixIcon: { type: String, attribute: "prefix-icon" },
+    inputType: { type: String },
+    autocomplete: { type: String },
+    unstyled: { type: Boolean, attribute: "unstyled" },
+    // Validators
+    min: { type: String },
+    max: { type: String },
+    email: { type: Boolean },
+    url: { type: Boolean },
+    startsWith: { type: String, attribute: "starts-with" },
+    endsWith: { type: String, attribute: "ends-with" },
+    includes: { type: String },
+    lowercase: { type: Boolean },
+    uppercase: { type: Boolean },
+    regex: { type: String },
+    format: { type: String },
+    // Messages
+    requiredMessage: { type: String, attribute: "required-message" },
+    minMessage: { type: String, attribute: "min-message" },
+    maxMessage: { type: String, attribute: "max-message" },
+    emailMessage: { type: String, attribute: "email-message" },
+    urlMessage: { type: String, attribute: "url-message" },
+    startsWithMessage: { type: String, attribute: "starts-with-message" },
+    endsWithMessage: { type: String, attribute: "ends-with-message" },
+    includesMessage: { type: String, attribute: "includes-message" },
+    lowercaseMessage: { type: String, attribute: "lowercase-message" },
+    uppercaseMessage: { type: String, attribute: "uppercase-message" },
+    regexMessage: { type: String, attribute: "regex-message" },
+    formatMessage: { type: String, attribute: "format-message" },
+    // Hooks
+    onInit: { type: Function },
+    onBeforeRender: { type: Function },
+    onAfterRender: { type: Function },
+    onInput: { type: Function },
+    onChange: { type: Function },
+    onBlur: { type: Function },
+    onValidate: { type: Function },
+    onError: { type: Function },
+    onSuccess: { type: Function },
+    // State
+    valid: { type: Boolean, reflect: true },
+    isPasswordVisible: { type: Boolean, state: true }
+  });
+  var input_text_base_default = InputTextBase;
 
-  // package/index.js
-  var _InputText_decorators, _init2, _a7;
-  _InputText_decorators = [t3("input-text")];
-  var InputText = class extends (_a7 = input_text_default) {
-    static get properties() {
-      return {
-        inputType: { type: String }
+  // package/inputs/input-number-base.js
+  var InputNumberBase = class extends input_text_base_default {
+    constructor() {
+      super();
+      this._buildSchema = () => {
+        let schema = number2();
+        if (this.required) {
+        }
+        if (this.gt) {
+          schema = schema.gt(Number(this.gt), this.gtMessage || `Minimum value is ${this.gt}`);
+        }
+        return schema;
       };
     }
   };
-  _init2 = __decoratorStart(_a7);
-  InputText = __decorateElement(_init2, 0, "InputText", _InputText_decorators, InputText);
-  __runInitializers(_init2, 1, InputText);
+
+  // package/index.js
+  var InputText = class extends input_text_base_default {
+    constructor() {
+      super();
+      this.inputType = "text";
+    }
+  };
+  var InputEmail = class extends input_text_base_default {
+    constructor() {
+      super();
+      this.inputType = "email";
+      this.format = "email";
+    }
+  };
+  var InputUrl = class extends input_text_base_default {
+    constructor() {
+      super();
+      this.inputType = "url";
+      this.url = true;
+    }
+  };
+  var InputPassword = class extends input_text_base_default {
+    constructor() {
+      super();
+      this.inputType = "password";
+    }
+  };
+  var InputNumber = class extends InputNumberBase {
+    constructor() {
+      super();
+      this.inputType = "number";
+    }
+  };
+  customElements.define("input-text", InputText);
+  customElements.define("input-email", InputEmail);
+  customElements.define("input-url", InputUrl);
+  customElements.define("input-password", InputPassword);
+  customElements.define("input-number", InputNumber);
 })();
 /*! Bundled license information:
 
@@ -3662,15 +4369,6 @@
 @lit/reactive-element/reactive-element.js:
 lit-html/lit-html.js:
 lit-element/lit-element.js:
-@lit/reactive-element/decorators/custom-element.js:
-@lit/reactive-element/decorators/property.js:
-@lit/reactive-element/decorators/state.js:
-@lit/reactive-element/decorators/event-options.js:
-@lit/reactive-element/decorators/base.js:
-@lit/reactive-element/decorators/query.js:
-@lit/reactive-element/decorators/query-all.js:
-@lit/reactive-element/decorators/query-async.js:
-@lit/reactive-element/decorators/query-assigned-nodes.js:
   (**
    * @license
    * Copyright 2017 Google LLC
@@ -3681,13 +4379,6 @@ lit-html/is-server.js:
   (**
    * @license
    * Copyright 2022 Google LLC
-   * SPDX-License-Identifier: BSD-3-Clause
-   *)
-
-@lit/reactive-element/decorators/query-assigned-elements.js:
-  (**
-   * @license
-   * Copyright 2021 Google LLC
    * SPDX-License-Identifier: BSD-3-Clause
    *)
 */
