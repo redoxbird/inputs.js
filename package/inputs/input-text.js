@@ -1,428 +1,312 @@
-// components/text.js
-// Implements <input-text> strictly per Inputs.js spec [1]
+import { LitElement, html, css } from 'lit';
+import { customElement, property, state, query } from 'lit/decorators.js';
+import * as z from 'zod'; // ~1KB, per validation spec [1]
 
-class InputsText extends HTMLElement {
-  static formAssociated = true;
+@customElement('base-text-input')
+export class BaseTextInput extends LitElement {
+  static formAssociated = true; // Form-associated per spec [1]
+
+  static get properties() {
+    return {
+      name: { type: String },
+      value: { type: String },
+      label: { type: String },
+      placeholder: { type: String },
+      required: { type: Boolean },
+      disabled: { type: Boolean },
+      readonly: { type: Boolean },
+      inline: { type: Boolean },
+      error: { type: String },
+      description: { type: String },
+      validateOn: { type: String },
+      actionButton: { type: String },
+      prefixIcon: { type: String },
+      inputType: { type: String },
+      // Zod validators [1]
+      min: { type: String },
+      max: { type: String },
+      email: { type: Boolean },
+      url: { type: Boolean },
+      regex: { type: String },
+      startsWith: { attribute: 'starts-with', type: String },
+      endsWith: { attribute: 'ends-with', type: String },
+      gt: { type: String },
+      lt: { type: String },
+      positive: { type: Boolean },
+      minMessage: { attribute: 'min-message', type: String },
+      maxMessage: { attribute: 'max-message', type: String },
+      emailMessage: { attribute: 'email-message', type: String },
+      urlMessage: { attribute: 'url-message', type: String },
+      // States
+      internalError: { type: String, state: true },
+      isValid: { type: Boolean, state: true }
+    };
+  }
+
+  static get styles() {
+    return css`
+        /* Minimal defaults per exact structure [1] */
+        .input-wrapper { display: block; }
+        .input-label { display: block; font-weight: bold; margin-bottom: 0.25rem; }
+        .input-input {
+          width: 100%;
+          box-sizing: border-box;
+          border: 1px solid #ccc;
+          padding: 0.5rem;
+          border-radius: 4px;
+        }
+        .input-description { font-size: 0.875rem; color: #666; margin-top: 0.25rem; }
+        .input-error { display: none; color: #dc2626; font-size: 0.875rem; margin-top: 0.25rem; }
+        .input-error-visible { display: block; } /* Required [1] */
+        .input-input-error {
+          border-color: #dc2626;
+          box-shadow: 0 0 0 1px #dc2626; /* Error states [1] */
+        }
+        .input-wrapper.input-inline { display: inline-block; width: auto; } /* inline attr [1] */
+        .input-prefix, .input-action { /* External styling [1] */ }
+      `;
+  }
 
   constructor() {
     super();
-    this.internals = this.attachInternals();
-    this._uid = `text-${Math.random().toString(36).substr(2, 9)}`;
-    this._valid = true;
-    this._debounceTimeout = null;
+    this.internals = this.attachInternals(); // Required constructor [1]
+    this.name = '';
+    this.value = '';
+    this.label = '';
+    this.placeholder = '';
+    this.required = false;
+    this.disabled = false;
+    this.readonly = false;
+    this.inline = false;
+    this.error = '';
+    this.description = '';
+    this.validateOn = 'blur';
+    this.actionButton = '';
+    this.prefixIcon = '';
+    this.inputType = 'text';
+    this.min = '';
+    this.max = '';
+    this.email = false;
+    this.url = false;
+    this.regex = '';
+    this.startsWith = '';
+    this.endsWith = '';
+    this.gt = '';
+    this.lt = '';
+    this.positive = false;
+    this.minMessage = '';
+    this.maxMessage = '';
+    this.emailMessage = '';
+    this.internalError = null;
+    this.isValid = true;
+    this.debounceTimer = null;
+    this.inputId = '';
+
+    // Hooks per spec [1]
+    this.onInit = () => { };
+    this.onBeforeRender = () => { };
+    this.onAfterRender = () => { };
+    this.onInput = (value) => { };
+    this.onChange = (value) => { };
+    this.onValidate = () => { };
+    this.onError = (errorMsg) => { };
+    this.onSuccess = (value) => { };
+
+    // Elements
+    this.inputEl = this.querySelector('input');
   }
 
-  connectedCallback() {
-    this.init();
-    this.onBeforeRender?.();
-    this.render();
-    this.updateAria();
-    this.onAfterRender?.();
-    this.attachEvents();
-    this.dispatchEvent(new CustomEvent('input:init', { detail: this, bubbles: true, composed: true }));
-  }
-
-  init() {
-    this.name = this.getAttribute('name') || '';
-    this.value = this.getAttribute('value') || '';
-    this.label = this.getAttribute('label') || '';
-    this.placeholder = this.getAttribute('placeholder') || '';
-    this.description = this.getAttribute('description') || '';
-    this.required = this.hasAttribute('required');
-    this.disabled = this.hasAttribute('disabled');
-    this.readonly = this.hasAttribute('readonly');
-    this.shadowMode = this.hasAttribute('shadow');
-    this.inline = this.hasAttribute('inline');
-    this.validateOn = this.getAttribute('validate-on') || 'blur';
-    this.actionButton = this.getAttribute('action-button') || '';
-    this.prefixIcon = this.getAttribute('prefix-icon') || '';
-    this.errorMsg = this.getAttribute('error') || '';
-    this.onInit?.(this);
+  generateIds() {
+    const baseId = `input-${Math.random().toString(36).substr(2, 9)}`;
+    this.inputId = baseId;
+    return {
+      input: baseId,
+      label: `${baseId}-label`,
+      desc: `${baseId}-desc`,
+      err: `${baseId}-err`
+    };
   }
 
   render() {
-    const escape = this.escapeHtml;
-    let html = `<div class="input-wrapper${this.inline ? ' inline' : ''}">`;
-    html += `<label class="input-label" for="input-${this._uid}">${escape(this.label)}</label>`;
-    if (this.prefixIcon) {
-      html += `<span class="input-prefix-icon" data-icon="${escape(this.prefixIcon)}" aria-hidden="true"></span>`;
-    }
-    html += `<input
-      class="input-input"
-      id="input-${this._uid}"
-      type="text"
-      name="${escape(this.name)}"
-      placeholder="${escape(this.placeholder)}"
-      value="${escape(this.value)}"
-      ${this.required ? 'required' : ''}
-      ${this.disabled ? 'disabled' : ''}
-      ${this.readonly ? 'readonly' : ''}
-    />`;
-    if (this.actionButton) {
-      const ariaLabel = this.actionButton === 'copy' ? 'Copy value' : 'Clear value';
-      html += `<button class="input-action" type="button" data-action="${escape(this.actionButton)}" aria-label="${ariaLabel}"></button>`;
-    }
-    html += `<p class="input-description"></p>`;
-    html += `<p class="input-error" role="alert" aria-live="polite"></p>`;
-    html += `</div>`;
+    this.onBeforeRender();
+    const ids = this.generateIds();
+    const hasDesc = !!this.description && this.description.trim();
+    const hasError = !!this.internalError;
+    const ariaDescribedBy = [hasDesc ? ids.desc : '', hasError ? ids.err : ''].filter(Boolean).join(' ') || undefined;
 
-    if (this.shadowMode) {
-      this._shadowRoot = this.attachShadow({ mode: 'open', delegatesFocus: true });
-      this._shadowRoot.innerHTML = html;
-    } else {
-      this.innerHTML = html;
-    }
+    return html`
+      <div class="input-wrapper ${this.inline ? 'input-inline' : ''}">
+        <label class="input-label" id="${ids.label}" for="${ids.input}">${this.label}</label>
+        ${this.prefixIcon ? html`<span class="input-prefix" aria-hidden="true">${this.prefixIcon}</span>` : ''}
+        <input
+          class="input-input ${hasError ? 'input-input-error' : ''}"
+          type="${this.inputType}"
+          id="${ids.input}"
+          .value="${this.value}"
+          @input="${this.handleInput}"
+          @change="${this.handleChange}"
+          ?disabled="${this.disabled}"
+          ?readonly="${this.readonly}"
+          ?required="${this.required}"
+          placeholder="${this.placeholder}"
+          aria-labelledby="${ids.label}"
+          aria-describedby="${ariaDescribedBy}"
+          aria-invalid="${hasError}"
+        />
+        ${this.actionButton ? html`<button type="button" class="input-action" @click="${this.handleAction}" aria-label="${this.actionButton} value"></button>` : ''}
+        ${hasDesc ? html`<p class="input-description" id="${ids.desc}">${this.description}</p>` : ''}
+        <p class="input-error ${hasError ? 'input-error-visible' : ''}" id="${ids.err}">${this.internalError || ''}</p>
+      </div>
+    `;
+
+    this.onAfterRender();
   }
 
-  getElement(selector) {
-    return this._shadowRoot?.querySelector(selector) || this.querySelector(selector);
+  firstUpdated() {
+    this.dispatchEvent(new CustomEvent('input:init', { bubbles: true, composed: true, detail: { value: this.value } })); // Required event [1]
+    this.onInit();
+    this.attachValidation();
   }
 
-  updateProps() {
-    const input = this.getElement('.input-input');
-    if (!input) return;
-    input.value = this.value;
-    input.placeholder = this.escapeHtml(this.placeholder);
-    input.disabled = this.disabled;
-    input.readonly = this.readonly;
-    input.required = this.required;
-    input.name = this.escapeHtml(this.name);
-
-    const labelEl = this.getElement('.input-label');
-    if (labelEl) labelEl.textContent = this.escapeHtml(this.label);
-
-    const descEl = this.getElement('.input-description');
-    if (descEl) descEl.textContent = this.escapeHtml(this.description);
-
-    this.updateAria();
+  updated(changedProps) {
+    if (changedProps.has('value')) {
+      this.internals.setFormValue(this.value); // Mapping values to form [1]
+    }
+    super.updated(changedProps);
   }
 
-  updateAria() {
-    const input = this.getElement('.input-input');
-    if (!input) return;
-    const descEl = this.getElement('.input-description');
-    const errorEl = this.getElement('.input-error');
-    const ids = [];
-    if (this.description && descEl) {
-      descEl.id = `desc-${this._uid}`;
-      ids.push(descEl.id);
-    }
-    if (errorEl) {
-      errorEl.id = `error-${this._uid}`;
-      ids.push(errorEl.id);
-    }
-    input.setAttribute('aria-describedby', ids.join(' ') || '');
-  }
-
-  updateValue(val) {
-    const input = this.getElement('.input-input');
-    if (input) {
-      input.value = val;
-      this.internals.setFormValue(val);
-    }
-  }
-
-  attachEvents() {
-    const input = this.getElement('.input-input');
-    const validateEvents = this.validateOn.split(/[,|]/).map(s => s.trim()).filter(Boolean);
-    const actionBtn = this.getElement('.input-action');
-
-    const handleInput = (e) => {
-      this.onInput?.(e);
-      this.dispatchEvent(new CustomEvent('input:input', { detail: { value: input.value, event: e }, bubbles: true, composed: true }));
-      if (validateEvents.includes('input')) {
-        if (this._debounceTimeout) clearTimeout(this._debounceTimeout);
-        this._debounceTimeout = setTimeout(() => this.validate(), 300);
-      }
-    };
-
-    const handleChange = (e) => {
-      this.onChange?.(e);
-      this.dispatchEvent(new CustomEvent('input:change', { detail: { value: input.value, event: e }, bubbles: true, composed: true }));
-      if (validateEvents.includes('change')) this.validate();
-    };
-
-    const handleBlur = () => {
-      if (validateEvents.includes('blur')) this.validate();
-    };
-
-    input.addEventListener('input', handleInput);
-    input.addEventListener('change', handleChange);
-    input.addEventListener('blur', handleBlur);
-
-    if (actionBtn && this.actionButton === 'copy') {
-      actionBtn.textContent = 'Copy';
-      actionBtn.addEventListener('click', async () => {
-        try {
-          await navigator.clipboard.writeText(input.value);
-        } catch {
-          const ta = document.createElement('textarea');
-          ta.value = input.value;
-          ta.style.position = 'fixed';
-          document.body.appendChild(ta);
-          ta.focus();
-          ta.select();
-          document.execCommand('copy');
-          document.body.removeChild(ta);
-        }
-      });
-    } else if (actionBtn && this.actionButton === 'hide') {
-      actionBtn.textContent = 'Clear';
-      actionBtn.addEventListener('click', () => {
-        this.reset();
-        input.focus();
-      });
-    }
-  }
-
-  _validateValue(value) {
-    const input = this.getElement('.input-input');
-    const trimmed = value.trim();
-
-    // Required [1]
-    if (this.required && !trimmed) {
-      return { valid: false, error: this.getAttribute('required-message') || 'This field is required' };
-    }
-    if (!trimmed) return { valid: true };
-
-    // Length
-    const min = this.getAttribute('min');
-    if (min !== null && trimmed.length < parseInt(min, 10)) {
-      return { valid: false, error: this.getAttribute('min-message') || `Minimum length is ${min} characters` };
-    }
-    const max = this.getAttribute('max');
-    if (max !== null && trimmed.length > parseInt(max, 10)) {
-      return { valid: false, error: this.getAttribute('max-message') || `Maximum length is ${max} characters` };
-    }
-
-    // Email [1]
-    if (this.hasAttribute('email') && !this.isValidEmail(trimmed)) {
-      return { valid: false, error: this.getAttribute('email-message') || 'Invalid email address' };
-    }
-
-    // URL
-    if (this.hasAttribute('url') && !this.isValidUrl(trimmed)) {
-      return { valid: false, error: this.getAttribute('url-message') || 'Invalid URL' };
-    }
-
-    // String patterns
-    const startsWith = this.getAttribute('starts-with');
-    if (startsWith !== null && !trimmed.startsWith(startsWith)) {
-      return { valid: false, error: this.getAttribute('starts-with-message') || `Must start with "${startsWith}"` };
-    }
-    const endsWith = this.getAttribute('ends-with');
-    if (endsWith !== null && !trimmed.endsWith(endsWith)) {
-      return { valid: false, error: this.getAttribute('ends-with-message') || `Must end with "${endsWith}"` };
-    }
-    const regexStr = this.getAttribute('regex');
-    if (regexStr !== null) {
-      try {
-        if (!new RegExp(regexStr).test(trimmed)) {
-          return { valid: false, error: this.getAttribute('regex-message') || 'Invalid format' };
-        }
-      } catch {
-        return { valid: false, error: 'Invalid regex pattern' };
-      }
-    }
-
-    // Numeric (if parsable)
-    const numVal = parseFloat(trimmed);
-    if (!isNaN(numVal)) {
-      const gt = this.getAttribute('gt');
-      if (gt !== null && numVal <= parseFloat(gt)) {
-        return { valid: false, error: this.getAttribute('gt-message') || `Must be greater than ${gt}` };
-      }
-      const lt = this.getAttribute('lt');
-      if (lt !== null && numVal >= parseFloat(lt)) {
-        return { valid: false, error: this.getAttribute('lt-message') || `Must be less than ${lt}` };
-      }
-      if (this.hasAttribute('positive') && numVal <= 0) {
-        return { valid: false, error: this.getAttribute('positive-message') || 'Value must be positive' };
-      }
-    }
-
-    // Custom error
-    if (this.errorMsg) {
-      return { valid: false, error: this.errorMsg };
-    }
-
-    // Native [1]
-    if (input && !input.checkValidity()) {
-      return { valid: false, error: input.validationMessage || 'Enter a valid value' };
-    }
-
-    return { valid: true };
-  }
-
-  validate() {
-    try {
-      const input = this.getElement('.input-input');
-      const value = input ? input.value : '';
-      this.dispatchEvent(new CustomEvent('input:validate', { detail: { value }, bubbles: true, composed: true }));
-
-      const result = this._validateValue(value);
-      this._valid = result.valid;
-
-      const inputEl = this.getElement('.input-input');
-      const errorEl = this.getElement('.input-error');
-
-      if (!result.valid) {
-        this.internals.setValidity({ customError: true }, result.error, inputEl);
-        if (errorEl) {
-          errorEl.textContent = result.error;
-          errorEl.classList.add('input-error-visible');
-        }
-        if (inputEl) {
-          inputEl.classList.add('input-input-error');
-          inputEl.setAttribute('aria-invalid', 'true');
-        }
-        this.onError?.(result);
-        this.dispatchEvent(new CustomEvent('input:error', { detail: result, bubbles: true, composed: true }));
-      } else {
-        this.internals.setValidity({});
-        if (errorEl) {
-          errorEl.textContent = '';
-          errorEl.classList.remove('input-error-visible');
-        }
-        if (inputEl) {
-          inputEl.classList.remove('input-input-error');
-          inputEl.removeAttribute('aria-invalid');
-        }
-        this.onSuccess?.({ value });
-        this.dispatchEvent(new CustomEvent('input:success', { detail: { value }, bubbles: true, composed: true }));
-      }
-
-      this.onValidate?.(result);
-      return result;
-    } catch (e) {
-      console.error(e);
-      return { valid: false, error: 'Validation error' };
-    }
-  }
-
-  get value() {
-    const input = this.getElement('.input-input');
-    return input ? input.value : '';
-  }
-
-  set value(newValue) {
-    this.setAttribute('value', newValue || '');
-  }
-
-  get valid() {
-    return this._valid;
-  }
-
-  get error() {
-    const errorEl = this.getElement('.input-error');
-    return errorEl ? errorEl.textContent : null;
-  }
-
-  reset() {
-    const input = this.getElement('.input-input');
-    if (input) {
-      input.value = '';
-      this.updateValue('');
-    }
-    const errorEl = this.getElement('.input-error');
-    if (errorEl) errorEl.textContent = '';
-    errorEl?.classList.remove('input-error-visible');
-    this.getElement('.input-input')?.classList.remove('input-input-error');
-    this._valid = true;
-    this.internals.setValidity({});
-    this.internals.setFormValue('');
-  }
-
-  focus() {
-    this.getElement('.input-input')?.focus();
+  attachValidation() {
+    const debouncedValidate = this.debounce(this.doValidate.bind(this), 300); // 300ms debounce per spec [1]
+    this.inputEl.addEventListener(this.validateOn, debouncedValidate);
   }
 
   debounce(fn, delay) {
     return (...args) => {
-      clearTimeout(this._debounceTimeout);
-      this._debounceTimeout = setTimeout(() => fn(...args), delay);
+      if (this.debounceTimer) clearTimeout(this.debounceTimer);
+      this.debounceTimer = setTimeout(() => fn(...args), delay);
     };
   }
 
-  isValidEmail(email) {
-    const re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-    return re.test(email);
+  handleInput(e) {
+    const target = e.target;
+    this.value = target.value;
+    this.dispatchEvent(new CustomEvent('input:input', { bubbles: true, composed: true, detail: { value: this.value } })); // Required [1]
+    this.onInput(this.value);
   }
 
-  isValidUrl(url) {
-    const re = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
-    return re.test(url);
+  handleChange(e) {
+    const target = e.target;
+    this.dispatchEvent(new CustomEvent('input:change', { bubbles: true, composed: true, detail: { value: target.value } })); // Required [1]
+    this.onChange(target.value);
   }
 
-  escapeHtml(text) {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
-  }
-
-  attributeChangedCallback(name, oldValue, newValue) {
-    if (!this.isConnected) return;
-    switch (name) {
-      case 'name':
-        this.name = newValue || '';
-        break;
-      case 'value':
-        this.value = newValue || '';
-        this.updateValue(this.value);
-        if (this.isConnected) this.validate();
-        break;
-      case 'label':
-        this.label = newValue || '';
-        break;
-      case 'placeholder':
-        this.placeholder = newValue || '';
-        break;
-      case 'description':
-        this.description = newValue || '';
-        break;
-      case 'required':
-        this.required = this.hasAttribute('required');
-        break;
-      case 'disabled':
-        this.disabled = this.hasAttribute('disabled');
-        break;
-      case 'readonly':
-        this.readonly = this.hasAttribute('readonly');
-        break;
-      case 'error':
-        this.errorMsg = newValue || '';
-        if (this.isConnected) this.validate();
-        break;
+  buildSchema() {
+    let schema = z.string();
+    if (this.error) {
+      return schema.refine(() => false, { message: this.error });
     }
-    this.updateProps();
+    if (this.required) {
+      schema = schema.min(1, { message: 'This field is required' }); // Default [1]
+    }
+    if (this.min) schema = schema.min(Number(this.min), { message: this.minMessage });
+    if (this.max) schema = schema.max(Number(this.max), { message: this.maxMessage });
+    if (this.email) schema = schema.email({ message: this.emailMessage || 'Invalid email address' }); // Default [1]
+    if (this.url) schema = schema.url({ message: this.urlMessage || 'Invalid URL' });
+    if (this.regex) {
+      try {
+        schema = schema.regex(new RegExp(this.regex), { message: this.regexMessage || 'Invalid format' });
+      } catch { }
+    }
+    if (this.startsWith) schema = schema.startsWith(this.startsWith, { message: `Must start with "${this.startsWith}"` });
+    if (this.endsWith) schema = schema.endsWith(this.endsWith, { message: `Must end with "${this.endsWith}"` });
+    if (this.gt) {
+      const num = Number(this.gt);
+      schema = schema.refine(v => Number(v) > num, { message: `Must be > ${num}` });
+    }
+    if (this.lt) {
+      const num = Number(this.lt);
+      schema = schema.refine(v => Number(v) < num, { message: `Must be < ${num}` });
+    }
+    if (this.positive) {
+      schema = schema.refine(v => {
+        const n = Number(v);
+        return !isNaN(n) && n > 0;
+      }, { message: this.positiveMessage || 'Must be positive' });
+    }
+    return schema;
   }
 
-  static get observedAttributes() {
-    return ['name', 'value', 'label', 'placeholder', 'description', 'required', 'disabled', 'readonly', 'error'];
+  validate() { // Required method, returns {valid, error} [1]
+    return this.doValidate();
   }
 
-  disconnectedCallback() {
-    if (this._debounceTimeout) clearTimeout(this._debounceTimeout);
+  doValidate() {
+    try {
+      this.onValidate();
+      this.dispatchEvent(new CustomEvent('input:validate', { bubbles: true, composed: true, detail: { value: this.value } })); // Required [1]
+      const schema = this.buildSchema();
+      const result = schema.safeParse(this.value);
+
+      if (result.success) {
+        this.internalError = null;
+        this.isValid = true;
+        this.internals.setValidity({}); // Valid [1]
+        this.requestUpdate();
+        this.dispatchEvent(new CustomEvent('input:success', { bubbles: true, composed: true, detail: { value: this.value } })); // Required [1]
+        this.onSuccess(this.value);
+        return { valid: true, error: null };
+      } else {
+        const msg = result.error.errors[0].message || 'Enter a valid value'; // Default [1]
+        this.internalError = msg;
+        this.isValid = false;
+        this.internals.setValidity({ customError: true }, msg, this.inputEl); // Setting validity [1]
+        this.requestUpdate();
+        this.dispatchEvent(new CustomEvent('input:error', { bubbles: true, composed: true, detail: { value: this.value, error: msg } })); // Required [1]
+        this.onError(msg);
+        return { valid: false, error: msg };
+      }
+    } catch (e) {
+      const msg = 'Validation error'; // Never crash, dispatch input:error [1]
+      this.internalError = msg;
+      this.internals.setValidity({ customError: true }, msg, this.inputEl);
+      this.requestUpdate();
+      this.dispatchEvent(new CustomEvent('input:error', { bubbles: true, composed: true, detail: { value: this.value, error: msg } }));
+      return { valid: false, error: msg };
+    }
   }
 
-  formResetCallback() {
+  handleAction(e) {
+    e.stopPropagation();
+    if (this.actionButton === 'copy') {
+      navigator.clipboard.writeText(this.value).catch(() => { });
+    } else if (this.actionButton === 'hide') {
+      const isHidden = this.inputEl.type === 'password';
+      this.inputEl.type = isHidden ? this.inputType : 'password';
+      if (this.actionEl) {
+        this.actionEl.textContent = isHidden ? 'Hide' : 'Show';
+        this.actionEl.setAttribute('aria-label', isHidden ? 'Hide value' : 'Show value');
+      }
+    }
+  }
+
+  reset() { // Required [1]
+    this.value = '';
+    this.internalError = null;
+    this.isValid = true;
+    this.requestUpdate();
+  }
+
+  focus() { // Required [1]
+    this.inputEl.focus();
+  }
+
+  formResetCallback() { // Required form callback [1]
     this.reset();
   }
 
-  formStateRestoreCallback(state) {
-    this.value = state;
+  formStateRestoreCallback(state) { // Required form callback [1]
+    this.value = state.get(this) || '';
   }
-
-  // Lifecycle hooks
-  onInit() { }
-  onBeforeRender() { }
-  onAfterRender() { }
-  onInput() { }
-  onChange() { }
-  onValidate() { }
-  onError() { }
-  onSuccess() { }
 }
 
-
-export default InputsText;
+export default BaseTextInput;
