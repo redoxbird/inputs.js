@@ -72,6 +72,17 @@
             >
             </input-text>
 
+            <input-phone
+                name="phone"
+                label="Phone"
+                placeholder="+1 (555) 555-5555"
+                validate-on="blur"
+                format="phone"
+                required
+            >
+
+            </input-phone>
+
             <input-text
               name="date"
               label="Date"
@@ -177,10 +188,21 @@
 
     <style>
 
-    /* Inputs.js Minimal Styles (v0.2) */
-    /* Styling-agnostic: Override with Tailwind, CSS modules, etc. These provide basic layout + error states. */
+    :root {
+      display: block;
+      --input-border: #e5e7eb;
+      --input-border-focus: #3b82f6;
+      --input-border-error: #ef4444;
+      --input-bg: #fff;
+      --input-text: #111827;
+      --input-placeholder: #9ca3af;
+      --input-error-text: #ef4444;
+      --input-desc-text: #6b7280;
+      --input-radius: 6px;
+      --input-padding-x: 12px;
+      --input-padding-y: 10px;
+    }
 
-    /* Core wrapper: Flex column for vertical stack */
     .input-wrapper {
       display: flex;
       flex-direction: column;
@@ -248,20 +270,29 @@
         cursor: pointer;
     }
 
-    /* Error visible: Show error text */
+    .input-error {
+      color: var(--input-error-text);
+      border-color: var(--input-border-error);
+      display: none;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-top: 0.25rem;
+      line-height: 1.25rem;
+      background-color: rgba(239, 68, 68, 0.05);
+      box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.5);
+      border-radius: 4px;
+      padding: 0.5rem 1rem;
+    }
+
+    .input-error ul {
+        padding-left: 1rem;
+        padding-top: 0;
+        padding-bottom: 0;
+        margin: 0;
+    }
+
     .input-error-visible {
       display: block;
-    }
-
-    /* Input error state: Red border + focus */
-    .input-input-error {
-      border-color: #dc2626; /* red-600 */
-      background-color: #fef2f2; /* red-50 */
-    }
-
-    .input-input-error:focus {
-      border-color: #dc2626;
-      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1); /* red-600/10 */
     }
 
     /* Inline variant: Horizontal layout */

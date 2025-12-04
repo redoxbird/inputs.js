@@ -1,5 +1,6 @@
 import InputNumberBase from "./inputs/input-number-base";
 import InputTextBase from "./inputs/input-text-base";
+import InputPhone from "./inputs/input-phone";
 
 // ---------------------------------------------------------------
 // 14. Register Component
@@ -50,3 +51,4 @@ customElements.define('input-email', InputEmail);
 customElements.define('input-url', InputUrl);
 customElements.define('input-password', InputPassword);
 customElements.define('input-number', InputNumber);
+customElements.define('input-phone', InputPhone);
