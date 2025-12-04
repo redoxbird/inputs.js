@@ -2,17 +2,63 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <title>Inputs.js</title>
-    <script src="https://cdn.twind.style"></script>
-    <link rel="stylesheet" href="./demo.css">
+    <!-- Core meta -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Primary SEO meta -->
+    <title>Inputs.js – Modern Form Components</title>
+    <meta name="description" content="A lightweight, zero-dependency library for beautiful, accessible form inputs." />
+
+    <!-- Open Graph / Social -->
+    <meta property="og:title" content="Inputs.js – Modern Form Components" />
+    <meta property="og:description" content="A lightweight, zero-dependency library for beautiful, accessible form inputs." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://yourdomain.com/" />
+    <meta property="og:image" content="https://yourdomain.com/og-image.jpg" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Inputs.js – Modern Form Components" />
+    <meta name="twitter:description" content="A lightweight, zero-dependency library for beautiful, accessible form inputs." />
+    <meta name="twitter:image" content="https://yourdomain.com/og-image.jpg" />
+
+    <!-- Favicon & App icons -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Manifest (PWA ready) -->
+
+    <!-- DNS prefetch & preconnect (speed up external resources) -->
+    <link rel="preconnect" href="https://cdn.twind.style" crossorigin />
+
+    <!-- Twind CDN (production-ready with integrity & crossorigin) -->
+    <script
+    src="https://cdn.twind.style"
+    crossorigin="anonymous">
+    </script>
+
+    <!-- Your demo styles (assuming they're optimized & fingerprinted in prod) -->
+    <link rel="stylesheet" href="./demo.css" />
+
+    <!-- Optional: Preload critical resources -->
+    <!-- <link rel="preload" href="/fonts/yourfont.woff2" as="font" type="font/woff2" crossorigin /> -->
+
+    <!-- Security headers (you'll set these server-side, but CSP example) -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.twind.style; style-src 'self' 'unsafe-inline'"> -->
+
+    <!-- Theme color (for mobile browsers) -->
+    <meta name="theme-color" content="#ffffff" />
 </head>
+
 
 <body class="bg-gray-50">
     <h1 class="text-2xl font-bold mb-6 bg-violet-700 text-white px-8 py-4">Inputs.js</h1>
 
     <div class="container p-8">
-        <form method="get" action="/" id="demoForm" class="container grid grid-cols-3 gap-12">
+        <form method="get" action="/" id="demoForm" class="container grid grid-cols-1 sm:grid-cols-3 gap-12">
             <input-email
                 name="email"
                 label="Email"
