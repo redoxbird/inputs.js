@@ -24,6 +24,19 @@
             </input-email>
 
             <input-text
+              name="username"
+              label="Username"
+              description="3–20 characters, letters and numbers only."
+              placeholder="johndoe"
+              validate-on="blur"
+              min="3"
+              max="20"
+              regex="^[a-zA-Z0-9]+$"
+              regex-message="Only letters and numbers are allowed."
+              required
+            ></input-text>
+
+            <input-text
               name="text"
               value="user@example.com"
               label="Email"

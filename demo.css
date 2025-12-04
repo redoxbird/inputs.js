@@ -105,7 +105,8 @@
     content: '✅';
 }
 
-.i-prefix {
+.i-prefix,
+.i-country-select {
     display: inline-flex;
     justify-content: flex-start;
     align-items: center;
@@ -116,8 +117,8 @@
     cursor: pointer;
     align-self: stretch;
     color: #6b7280;
-    cursor: not-allowed;
 }
+
 
 .i-error {
     color: var(--input-error-text);

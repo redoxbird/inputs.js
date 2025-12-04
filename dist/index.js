@@ -4492,46 +4492,259 @@
 
   // package/inputs/input-phone.js
   var COUNTRIES = [
-    { code: "US", dial: "+1", flag: "\u{1F1FA}\u{1F1F8}", name: "United States", mask: "(###) ###-####", maxDigits: 10 },
-    { code: "CA", dial: "+1", flag: "\u{1F1E8}\u{1F1E6}", name: "Canada", mask: "(###) ###-####", maxDigits: 10 },
-    { code: "GB", dial: "+44", flag: "\u{1F1EC}\u{1F1E7}", name: "United Kingdom", mask: "0### ######", maxDigits: 10 },
-    { code: "AU", dial: "+61", flag: "\u{1F1E6}\u{1F1FA}", name: "Australia", mask: "### ### ###", maxDigits: 9 },
-    { code: "DE", dial: "+49", flag: "\u{1F1E9}\u{1F1EA}", name: "Germany", mask: "### ### ####", maxDigits: 11 },
-    { code: "FR", dial: "+33", flag: "\u{1F1EB}\u{1F1F7}", name: "France", mask: "0# ## ## ## ##", maxDigits: 9 },
-    { code: "IT", dial: "+39", flag: "\u{1F1EE}\u{1F1F9}", name: "Italy", mask: "### ######", maxDigits: 9 },
-    { code: "ES", dial: "+34", flag: "\u{1F1EA}\u{1F1F8}", name: "Spain", mask: "### ### ###", maxDigits: 9 },
-    { code: "IN", dial: "+91", flag: "\u{1F1EE}\u{1F1F3}", name: "India", mask: "#### #####", maxDigits: 10 },
+    { code: "AF", dial: "+93", flag: "\u{1F1E6}\u{1F1EB}", name: "Afghanistan", mask: "### ### ###", maxDigits: 9 },
+    { code: "AX", dial: "+358", flag: "\u{1F1E6}\u{1F1FD}", name: "\xC5land Islands", mask: "### ### ## ###", maxDigits: 10 },
+    { code: "AL", dial: "+355", flag: "\u{1F1E6}\u{1F1F1}", name: "Albania", mask: "### ### ###", maxDigits: 9 },
+    { code: "DZ", dial: "+213", flag: "\u{1F1E9}\u{1F1FF}", name: "Algeria", mask: "### ## ## ##", maxDigits: 9 },
+    { code: "AS", dial: "+1", flag: "\u{1F1E6}\u{1F1F8}", name: "American Samoa", mask: "(###) ###-####", maxDigits: 10 },
+    { code: "AD", dial: "+376", flag: "\u{1F1E6}\u{1F1E9}", name: "Andorra", mask: "### ###", maxDigits: 6 },
+    { code: "AO", dial: "+244", flag: "\u{1F1E6}\u{1F1F4}", name: "Angola", mask: "### ### ###", maxDigits: 9 },
+    { code: "AI", dial: "+1", flag: "\u{1F1E6}\u{1F1EE}", name: "Anguilla", mask: "(###) ###-####", maxDigits: 10 },
+    { code: "AG", dial: "+1", flag: "\u{1F1E6}\u{1F1EC}", name: "Antigua and Barbuda", mask: "(###) ###-####", maxDigits: 10 },
+    { code: "AR", dial: "+54", flag: "\u{1F1E6}\u{1F1F7}", name: "Argentina", mask: "### ###-####", maxDigits: 10 },
+    { code: "AM", dial: "+374", flag: "\u{1F1E6}\u{1F1F2}", name: "Armenia", mask: "## ### ###", maxDigits: 8 },
+    { code: "AW", dial: "+297", flag: "\u{1F1E6}\u{1F1FC}", name: "Aruba", mask: "### ####", maxDigits: 7 },
+    { code: "AU", dial: "+61", flag: "\u{1F1E6}\u{1F1FA}", name: "Australia", mask: "#### ## ####", maxDigits: 9 },
+    { code: "AT", dial: "+43", flag: "\u{1F1E6}\u{1F1F9}", name: "Austria", mask: "### ### ###", maxDigits: 10 },
+    { code: "AZ", dial: "+994", flag: "\u{1F1E6}\u{1F1FF}", name: "Azerbaijan", mask: "## ### ## ##", maxDigits: 9 },
+    { code: "BS", dial: "+1", flag: "\u{1F1E7}\u{1F1F8}", name: "Bahamas", mask: "(###) ###-####", maxDigits: 10 },
+    { code: "BH", dial: "+973", flag: "\u{1F1E7}\u{1F1ED}", name: "Bahrain", mask: "### ## ###", maxDigits: 8 },
+    { code: "BD", dial: "+880", flag: "\u{1F1E7}\u{1F1E9}", name: "Bangladesh", mask: "## ### ###", maxDigits: 8 },
+    { code: "BB", dial: "+1", flag: "\u{1F1E7}\u{1F1E7}", name: "Barbados", mask: "(###) ###-####", maxDigits: 10 },
+    { code: "BY", dial: "+375", flag: "\u{1F1E7}\u{1F1FE}", name: "Belarus", mask: "## ### ## ##", maxDigits: 9 },
+    { code: "BE", dial: "+32", flag: "\u{1F1E7}\u{1F1EA}", name: "Belgium", mask: "### ## ## ##", maxDigits: 9 },
+    { code: "BZ", dial: "+501", flag: "\u{1F1E7}\u{1F1FF}", name: "Belize", mask: "### ###", maxDigits: 7 },
+    { code: "BJ", dial: "+229", flag: "\u{1F1E7}\u{1F1EF}", name: "Benin", mask: "## ## ## ##", maxDigits: 8 },
+    { code: "BM", dial: "+1", flag: "\u{1F1E7}\u{1F1F2}", name: "Bermuda", mask: "(###) ###-####", maxDigits: 10 },
+    { code: "BT", dial: "+975", flag: "\u{1F1E7}\u{1F1F9}", name: "Bhutan", mask: "# ### ###", maxDigits: 7 },
+    { code: "BO", dial: "+591", flag: "\u{1F1E7}\u{1F1F4}", name: "Bolivia", mask: "### ### ###", maxDigits: 8 },
+    { code: "BA", dial: "+387", flag: "\u{1F1E7}\u{1F1E6}", name: "Bosnia and Herzegovina", mask: "### ### ###", maxDigits: 9 },
+    { code: "BW", dial: "+267", flag: "\u{1F1E7}\u{1F1FC}", name: "Botswana", mask: "## ### ###", maxDigits: 8 },
     { code: "BR", dial: "+55", flag: "\u{1F1E7}\u{1F1F7}", name: "Brazil", mask: "(##) #####-####", maxDigits: 11 },
-    { code: "JP", dial: "+81", flag: "\u{1F1EF}\u{1F1F5}", name: "Japan", mask: "0###-####", maxDigits: 8 },
+    { code: "IO", dial: "+246", flag: "\u{1F1EE}\u{1F1F4}", name: "British Indian Ocean Territory", mask: "### #####", maxDigits: 7 },
+    { code: "VG", dial: "+1", flag: "\u{1F1FB}\u{1F1EC}", name: "British Virgin Islands", mask: "(###) ###-####", maxDigits: 10 },
+    { code: "BN", dial: "+673", flag: "\u{1F1E7}\u{1F1F3}", name: "Brunei", mask: "### ####", maxDigits: 7 },
+    { code: "BG", dial: "+359", flag: "\u{1F1E7}\u{1F1EC}", name: "Bulgaria", mask: "### ### ###", maxDigits: 9 },
+    { code: "BF", dial: "+226", flag: "\u{1F1E7}\u{1F1EB}", name: "Burkina Faso", mask: "## ## ## ##", maxDigits: 8 },
+    { code: "BI", dial: "+257", flag: "\u{1F1E7}\u{1F1EE}", name: "Burundi", mask: "## ## ## ##", maxDigits: 8 },
+    { code: "KH", dial: "+855", flag: "\u{1F1F0}\u{1F1ED}", name: "Cambodia", mask: "# ### ### ###", maxDigits: 9 },
+    { code: "CM", dial: "+237", flag: "\u{1F1E8}\u{1F1F2}", name: "Cameroon", mask: "### ### ## ##", maxDigits: 9 },
+    { code: "CA", dial: "+1", flag: "\u{1F1E8}\u{1F1E6}", name: "Canada", mask: "(###) ###-####", maxDigits: 10 },
+    { code: "CV", dial: "+238", flag: "\u{1F1E8}\u{1F1FB}", name: "Cape Verde", mask: "### ## ##", maxDigits: 7 },
+    { code: "KY", dial: "+1", flag: "\u{1F1F0}\u{1F1FE}", name: "Cayman Islands", mask: "(###) ###-####", maxDigits: 10 },
+    { code: "CF", dial: "+236", flag: "\u{1F1E8}\u{1F1EB}", name: "Central African Republic", mask: "## ## ## ##", maxDigits: 8 },
+    { code: "TD", dial: "+235", flag: "\u{1F1F9}\u{1F1E9}", name: "Chad", mask: "## ## ## ##", maxDigits: 8 },
+    { code: "CL", dial: "+56", flag: "\u{1F1E8}\u{1F1F1}", name: "Chile", mask: "# #### ####", maxDigits: 9 },
     { code: "CN", dial: "+86", flag: "\u{1F1E8}\u{1F1F3}", name: "China", mask: "### #### ####", maxDigits: 11 },
+    { code: "CX", dial: "+61", flag: "\u{1F1E8}\u{1F1FD}", name: "Christmas Island", mask: "#### ## ####", maxDigits: 9 },
+    { code: "CC", dial: "+61", flag: "\u{1F1E8}\u{1F1E8}", name: "Cocos Islands", mask: "#### ## ####", maxDigits: 9 },
+    { code: "CO", dial: "+57", flag: "\u{1F1E8}\u{1F1F4}", name: "Colombia", mask: "### #### ###", maxDigits: 10 },
+    { code: "KM", dial: "+269", flag: "\u{1F1F0}\u{1F1F2}", name: "Comoros", mask: "### ## ##", maxDigits: 7 },
+    { code: "CK", dial: "+682", flag: "\u{1F1E8}\u{1F1F0}", name: "Cook Islands", mask: "### ## ##", maxDigits: 7 },
+    { code: "CR", dial: "+506", flag: "\u{1F1E8}\u{1F1F7}", name: "Costa Rica", mask: "#### ####", maxDigits: 8 },
+    { code: "HR", dial: "+385", flag: "\u{1F1ED}\u{1F1F7}", name: "Croatia", mask: "### ### ###", maxDigits: 9 },
+    { code: "CU", dial: "+53", flag: "\u{1F1E8}\u{1F1FA}", name: "Cuba", mask: "# ### ####", maxDigits: 8 },
+    { code: "CW", dial: "+599", flag: "\u{1F1E8}\u{1F1FC}", name: "Cura\xE7ao", mask: "### ### ####", maxDigits: 10 },
+    { code: "CY", dial: "+357", flag: "\u{1F1E8}\u{1F1FE}", name: "Cyprus", mask: "## ### ###", maxDigits: 8 },
+    { code: "CZ", dial: "+420", flag: "\u{1F1E8}\u{1F1FF}", name: "Czech Republic", mask: "### ### ###", maxDigits: 9 },
+    { code: "CD", dial: "+243", flag: "\u{1F1E8}\u{1F1E9}", name: "Democratic Republic of the Congo", mask: "### ### ###", maxDigits: 9 },
+    { code: "DK", dial: "+45", flag: "\u{1F1E9}\u{1F1F0}", name: "Denmark", mask: "## ## ## ##", maxDigits: 8 },
+    { code: "DJ", dial: "+253", flag: "\u{1F1E9}\u{1F1EF}", name: "Djibouti", mask: "## ## ## ##", maxDigits: 8 },
+    { code: "DM", dial: "+1", flag: "\u{1F1E9}\u{1F1F2}", name: "Dominica", mask: "(###) ###-####", maxDigits: 10 },
+    { code: "DO", dial: "+1", flag: "\u{1F1E9}\u{1F1F4}", name: "Dominican Republic", mask: "(###) ###-####", maxDigits: 10 },
+    { code: "EC", dial: "+593", flag: "\u{1F1EA}\u{1F1E8}", name: "Ecuador", mask: "# ### ### ###", maxDigits: 10 },
+    { code: "EG", dial: "+20", flag: "\u{1F1EA}\u{1F1EC}", name: "Egypt", mask: "### ### ####", maxDigits: 10 },
+    { code: "SV", dial: "+503", flag: "\u{1F1F8}\u{1F1FB}", name: "El Salvador", mask: "### ####", maxDigits: 8 },
+    { code: "GQ", dial: "+240", flag: "\u{1F1EC}\u{1F1F6}", name: "Equatorial Guinea", mask: "### ### ###", maxDigits: 9 },
+    { code: "ER", dial: "+291", flag: "\u{1F1EA}\u{1F1F7}", name: "Eritrea", mask: "# ### ###", maxDigits: 7 },
+    { code: "EE", dial: "+372", flag: "\u{1F1EA}\u{1F1EA}", name: "Estonia", mask: "### #### ##", maxDigits: 8 },
+    { code: "SZ", dial: "+268", flag: "\u{1F1F8}\u{1F1FF}", name: "Eswatini", mask: "## ## ## ##", maxDigits: 8 },
+    { code: "ET", dial: "+251", flag: "\u{1F1EA}\u{1F1F9}", name: "Ethiopia", mask: "### ### ####", maxDigits: 10 },
+    { code: "FK", dial: "+500", flag: "\u{1F1EB}\u{1F1F0}", name: "Falkland Islands", mask: "#####", maxDigits: 5 },
+    { code: "FO", dial: "+298", flag: "\u{1F1EB}\u{1F1F4}", name: "Faroe Islands", mask: "### ###", maxDigits: 6 },
+    { code: "FJ", dial: "+679", flag: "\u{1F1EB}\u{1F1EF}", name: "Fiji", mask: "### ####", maxDigits: 7 },
+    { code: "FI", dial: "+358", flag: "\u{1F1EB}\u{1F1EE}", name: "Finland", mask: "### ### ## ##", maxDigits: 10 },
+    { code: "FR", dial: "+33", flag: "\u{1F1EB}\u{1F1F7}", name: "France", mask: "# ## ## ## ##", maxDigits: 9 },
+    { code: "GF", dial: "+594", flag: "\u{1F1EC}\u{1F1EB}", name: "French Guiana", mask: "### ## ## ##", maxDigits: 9 },
+    { code: "PF", dial: "+689", flag: "\u{1F1F5}\u{1F1EB}", name: "French Polynesia", mask: "## ## ## ##", maxDigits: 8 },
+    { code: "GA", dial: "+241", flag: "\u{1F1EC}\u{1F1E6}", name: "Gabon", mask: "# ## ## ##", maxDigits: 7 },
+    { code: "GM", dial: "+220", flag: "\u{1F1EC}\u{1F1F2}", name: "Gambia", mask: "### ####", maxDigits: 7 },
+    { code: "GE", dial: "+995", flag: "\u{1F1EC}\u{1F1EA}", name: "Georgia", mask: "### ### ###", maxDigits: 9 },
+    { code: "DE", dial: "+49", flag: "\u{1F1E9}\u{1F1EA}", name: "Germany", mask: "### ### ####", maxDigits: 11 },
+    { code: "GH", dial: "+233", flag: "\u{1F1EC}\u{1F1ED}", name: "Ghana", mask: "### ### ####", maxDigits: 9 },
+    { code: "GI", dial: "+350", flag: "\u{1F1EC}\u{1F1EE}", name: "Gibraltar", mask: "### #######", maxDigits: 8 },
+    { code: "GR", dial: "+30", flag: "\u{1F1EC}\u{1F1F7}", name: "Greece", mask: "### ### ####", maxDigits: 10 },
+    { code: "GL", dial: "+299", flag: "\u{1F1EC}\u{1F1F1}", name: "Greenland", mask: "## ## ##", maxDigits: 6 },
+    { code: "GD", dial: "+1", flag: "\u{1F1EC}\u{1F1E9}", name: "Grenada", mask: "(###) ###-####", maxDigits: 10 },
+    { code: "GP", dial: "+590", flag: "\u{1F1EC}\u{1F1F5}", name: "Guadeloupe", mask: "### ## ## ##", maxDigits: 9 },
+    { code: "GU", dial: "+1", flag: "\u{1F1EC}\u{1F1FA}", name: "Guam", mask: "(###) ###-####", maxDigits: 10 },
+    { code: "GT", dial: "+502", flag: "\u{1F1EC}\u{1F1F9}", name: "Guatemala", mask: "### ## ## ##", maxDigits: 8 },
+    { code: "GG", dial: "+44", flag: "\u{1F1EC}\u{1F1EC}", name: "Guernsey", mask: "### ### ####", maxDigits: 10 },
+    { code: "GN", dial: "+224", flag: "\u{1F1EC}\u{1F1F3}", name: "Guinea", mask: "### ## ## ##", maxDigits: 9 },
+    { code: "GW", dial: "+245", flag: "\u{1F1EC}\u{1F1FC}", name: "Guinea-Bissau", mask: "# ### ###", maxDigits: 7 },
+    { code: "GY", dial: "+592", flag: "\u{1F1EC}\u{1F1FE}", name: "Guyana", mask: "### ####", maxDigits: 7 },
+    { code: "HT", dial: "+509", flag: "\u{1F1ED}\u{1F1F9}", name: "Haiti", mask: "### ## ## ##", maxDigits: 8 },
+    { code: "HN", dial: "+504", flag: "\u{1F1ED}\u{1F1F3}", name: "Honduras", mask: "#### ####", maxDigits: 8 },
+    { code: "HK", dial: "+852", flag: "\u{1F1ED}\u{1F1F0}", name: "Hong Kong", mask: "#### ####", maxDigits: 8 },
+    { code: "HU", dial: "+36", flag: "\u{1F1ED}\u{1F1FA}", name: "Hungary", mask: "## ### ####", maxDigits: 9 },
+    { code: "IS", dial: "+354", flag: "\u{1F1EE}\u{1F1F8}", name: "Iceland", mask: "### ####", maxDigits: 7 },
+    { code: "IN", dial: "+91", flag: "\u{1F1EE}\u{1F1F3}", name: "India", mask: "#### #####", maxDigits: 10 },
+    { code: "ID", dial: "+62", flag: "\u{1F1EE}\u{1F1E9}", name: "Indonesia", mask: "###-####-####", maxDigits: 11 },
+    { code: "IR", dial: "+98", flag: "\u{1F1EE}\u{1F1F7}", name: "Iran", mask: "### ### ####", maxDigits: 10 },
+    { code: "IQ", dial: "+964", flag: "\u{1F1EE}\u{1F1F6}", name: "Iraq", mask: "### ### ####", maxDigits: 10 },
+    { code: "IE", dial: "+353", flag: "\u{1F1EE}\u{1F1EA}", name: "Ireland", mask: "### ### ###", maxDigits: 9 },
+    { code: "IM", dial: "+44", flag: "\u{1F1EE}\u{1F1F2}", name: "Isle of Man", mask: "### ### ####", maxDigits: 10 },
+    { code: "IL", dial: "+972", flag: "\u{1F1EE}\u{1F1F1}", name: "Israel", mask: "##-###-####", maxDigits: 9 },
+    { code: "IT", dial: "+39", flag: "\u{1F1EE}\u{1F1F9}", name: "Italy", mask: "### ######", maxDigits: 10 },
+    { code: "CI", dial: "+225", flag: "\u{1F1E8}\u{1F1EE}", name: "Ivory Coast", mask: "#### ## ##", maxDigits: 8 },
+    { code: "JM", dial: "+1", flag: "\u{1F1EF}\u{1F1F2}", name: "Jamaica", mask: "(###) ###-####", maxDigits: 10 },
+    { code: "JP", dial: "+81", flag: "\u{1F1EF}\u{1F1F5}", name: "Japan", mask: "0###-####", maxDigits: 8 },
+    { code: "JE", dial: "+44", flag: "\u{1F1EF}\u{1F1EA}", name: "Jersey", mask: "### ### ####", maxDigits: 10 },
+    { code: "JO", dial: "+962", flag: "\u{1F1EF}\u{1F1F4}", name: "Jordan", mask: "## ### ####", maxDigits: 9 },
+    { code: "KZ", dial: "+7", flag: "\u{1F1F0}\u{1F1FF}", name: "Kazakhstan", mask: "### ###-##-##", maxDigits: 10 },
+    { code: "KE", dial: "+254", flag: "\u{1F1F0}\u{1F1EA}", name: "Kenya", mask: "### ######", maxDigits: 9 },
+    { code: "KI", dial: "+686", flag: "\u{1F1F0}\u{1F1EE}", name: "Kiribati", mask: "#### ####", maxDigits: 8 },
+    { code: "KP", dial: "+850", flag: "\u{1F1F0}\u{1F1F5}", name: "North Korea", mask: "### ###", maxDigits: 6 },
     { code: "KR", dial: "+82", flag: "\u{1F1F0}\u{1F1F7}", name: "South Korea", mask: "010-####-####", maxDigits: 11 },
-    { code: "MX", dial: "+52", flag: "\u{1F1F2}\u{1F1FD}", name: "Mexico", mask: "### ### ####", maxDigits: 10 }
+    { code: "KW", dial: "+965", flag: "\u{1F1F0}\u{1F1FC}", name: "Kuwait", mask: "### ### ##", maxDigits: 8 },
+    { code: "KG", dial: "+996", flag: "\u{1F1F0}\u{1F1EC}", name: "Kyrgyzstan", mask: "### ### ###", maxDigits: 9 },
+    { code: "LA", dial: "+856", flag: "\u{1F1F1}\u{1F1E6}", name: "Laos", mask: "# ### ### ###", maxDigits: 10 },
+    { code: "LV", dial: "+371", flag: "\u{1F1F1}\u{1F1FB}", name: "Latvia", mask: "## ### ###", maxDigits: 8 },
+    { code: "LB", dial: "+961", flag: "\u{1F1F1}\u{1F1E7}", name: "Lebanon", mask: "### ### ###", maxDigits: 8 },
+    { code: "LS", dial: "+266", flag: "\u{1F1F1}\u{1F1F8}", name: "Lesotho", mask: "### ## ## ##", maxDigits: 8 },
+    { code: "LR", dial: "+231", flag: "\u{1F1F1}\u{1F1F7}", name: "Liberia", mask: "### ### ###", maxDigits: 9 },
+    { code: "LY", dial: "+218", flag: "\u{1F1F1}\u{1F1FE}", name: "Libya", mask: "### ### ###", maxDigits: 10 },
+    { code: "LI", dial: "+423", flag: "\u{1F1F1}\u{1F1EE}", name: "Liechtenstein", mask: "### ### ###", maxDigits: 7 },
+    { code: "LT", dial: "+370", flag: "\u{1F1F1}\u{1F1F9}", name: "Lithuania", mask: "# ## ### ##", maxDigits: 8 },
+    { code: "LU", dial: "+352", flag: "\u{1F1F1}\u{1F1FA}", name: "Luxembourg", mask: "### ### ###", maxDigits: 9 },
+    { code: "MO", dial: "+853", flag: "\u{1F1F2}\u{1F1F4}", name: "Macau", mask: "#### ####", maxDigits: 8 },
+    { code: "MG", dial: "+261", flag: "\u{1F1F2}\u{1F1EC}", name: "Madagascar", mask: "### ## ### ##", maxDigits: 10 },
+    { code: "MW", dial: "+265", flag: "\u{1F1F2}\u{1F1FC}", name: "Malawi", mask: "# ### ### ###", maxDigits: 9 },
+    { code: "MY", dial: "+60", flag: "\u{1F1F2}\u{1F1FE}", name: "Malaysia", mask: "##-### ####", maxDigits: 10 },
+    { code: "MV", dial: "+960", flag: "\u{1F1F2}\u{1F1FB}", name: "Maldives", mask: "### ####", maxDigits: 7 },
+    { code: "ML", dial: "+223", flag: "\u{1F1F2}\u{1F1F1}", name: "Mali", mask: "### ## ## ##", maxDigits: 8 },
+    { code: "MT", dial: "+356", flag: "\u{1F1F2}\u{1F1F9}", name: "Malta", mask: "#### ####", maxDigits: 8 },
+    { code: "MH", dial: "+692", flag: "\u{1F1F2}\u{1F1ED}", name: "Marshall Islands", mask: "### ###", maxDigits: 7 },
+    { code: "MQ", dial: "+596", flag: "\u{1F1F2}\u{1F1F6}", name: "Martinique", mask: "### ## ## ##", maxDigits: 9 },
+    { code: "MR", dial: "+222", flag: "\u{1F1F2}\u{1F1F7}", name: "Mauritania", mask: "### ## ## ##", maxDigits: 8 },
+    { code: "MU", dial: "+230", flag: "\u{1F1F2}\u{1F1FA}", name: "Mauritius", mask: "# ### ####", maxDigits: 8 },
+    { code: "YT", dial: "+262", flag: "\u{1F1FE}\u{1F1F9}", name: "Mayotte", mask: "### ## ## ##", maxDigits: 9 },
+    { code: "MX", dial: "+52", flag: "\u{1F1F2}\u{1F1FD}", name: "Mexico", mask: "### ### ####", maxDigits: 10 },
+    { code: "FM", dial: "+691", flag: "\u{1F1EB}\u{1F1F2}", name: "Micronesia", mask: "### ####", maxDigits: 7 },
+    { code: "MD", dial: "+373", flag: "\u{1F1F2}\u{1F1E9}", name: "Moldova", mask: "### ## ##", maxDigits: 8 },
+    { code: "MC", dial: "+377", flag: "\u{1F1F2}\u{1F1E8}", name: "Monaco", mask: "### ### ###", maxDigits: 9 },
+    { code: "MN", dial: "+976", flag: "\u{1F1F2}\u{1F1F3}", name: "Mongolia", mask: "## ### ## ##", maxDigits: 8 },
+    { code: "ME", dial: "+382", flag: "\u{1F1F2}\u{1F1EA}", name: "Montenegro", mask: "### ### ###", maxDigits: 8 },
+    { code: "MS", dial: "+1", flag: "\u{1F1F2}\u{1F1F8}", name: "Montserrat", mask: "(###) ###-####", maxDigits: 10 },
+    { code: "MA", dial: "+212", flag: "\u{1F1F2}\u{1F1E6}", name: "Morocco", mask: "### ### ###", maxDigits: 9 },
+    { code: "MZ", dial: "+258", flag: "\u{1F1F2}\u{1F1FF}", name: "Mozambique", mask: "## ### ###", maxDigits: 9 },
+    { code: "MM", dial: "+95", flag: "\u{1F1F2}\u{1F1F2}", name: "Myanmar", mask: "### ### ###", maxDigits: 9 },
+    { code: "NA", dial: "+264", flag: "\u{1F1F3}\u{1F1E6}", name: "Namibia", mask: "# ## ### ###", maxDigits: 9 },
+    { code: "NR", dial: "+674", flag: "\u{1F1F3}\u{1F1F7}", name: "Nauru", mask: "### ####", maxDigits: 7 },
+    { code: "NP", dial: "+977", flag: "\u{1F1F3}\u{1F1F5}", name: "Nepal", mask: "### ### ###", maxDigits: 10 },
+    { code: "NL", dial: "+31", flag: "\u{1F1F3}\u{1F1F1}", name: "Netherlands", mask: "## ########", maxDigits: 9 },
+    { code: "NC", dial: "+687", flag: "\u{1F1F3}\u{1F1E8}", name: "New Caledonia", mask: "### ### ###", maxDigits: 6 },
+    { code: "NZ", dial: "+64", flag: "\u{1F1F3}\u{1F1FF}", name: "New Zealand", mask: "### ### ####", maxDigits: 10 },
+    { code: "NI", dial: "+505", flag: "\u{1F1F3}\u{1F1EE}", name: "Nicaragua", mask: "#### ####", maxDigits: 8 },
+    { code: "NE", dial: "+227", flag: "\u{1F1F3}\u{1F1EA}", name: "Niger", mask: "### ## ## ##", maxDigits: 8 },
+    { code: "NG", dial: "+234", flag: "\u{1F1F3}\u{1F1EC}", name: "Nigeria", mask: "### ### ####", maxDigits: 10 },
+    { code: "NU", dial: "+683", flag: "\u{1F1F3}\u{1F1FA}", name: "Niue", mask: "####", maxDigits: 4 },
+    { code: "NF", dial: "+672", flag: "\u{1F1F3}\u{1F1EB}", name: "Norfolk Island", mask: "### ## ##", maxDigits: 6 },
+    { code: "MK", dial: "+389", flag: "\u{1F1F2}\u{1F1F0}", name: "North Macedonia", mask: "### ### ###", maxDigits: 8 },
+    { code: "MP", dial: "+1", flag: "\u{1F1F2}\u{1F1F5}", name: "Northern Mariana Islands", mask: "(###) ###-####", maxDigits: 10 },
+    { code: "NO", dial: "+47", flag: "\u{1F1F3}\u{1F1F4}", name: "Norway", mask: "### ## ###", maxDigits: 8 },
+    { code: "OM", dial: "+968", flag: "\u{1F1F4}\u{1F1F2}", name: "Oman", mask: "## ### ###", maxDigits: 8 },
+    { code: "PK", dial: "+92", flag: "\u{1F1F5}\u{1F1F0}", name: "Pakistan", mask: "### #######", maxDigits: 10 },
+    { code: "PW", dial: "+680", flag: "\u{1F1F5}\u{1F1FC}", name: "Palau", mask: "### ####", maxDigits: 7 },
+    { code: "PS", dial: "+970", flag: "\u{1F1F5}\u{1F1F8}", name: "Palestine", mask: "## ### ####", maxDigits: 9 },
+    { code: "PA", dial: "+507", flag: "\u{1F1F5}\u{1F1E6}", name: "Panama", mask: "### ####", maxDigits: 7 },
+    { code: "PG", dial: "+675", flag: "\u{1F1F5}\u{1F1EC}", name: "Papua New Guinea", mask: "### ####", maxDigits: 8 },
+    { code: "PY", dial: "+595", flag: "\u{1F1F5}\u{1F1FE}", name: "Paraguay", mask: "### ### ###", maxDigits: 9 },
+    { code: "PE", dial: "+51", flag: "\u{1F1F5}\u{1F1EA}", name: "Peru", mask: "### ### ###", maxDigits: 9 },
+    { code: "PH", dial: "+63", flag: "\u{1F1F5}\u{1F1ED}", name: "Philippines", mask: "### #### ###", maxDigits: 10 },
+    { code: "PN", dial: "+64", flag: "\u{1F1F5}\u{1F1F3}", name: "Pitcairn", mask: "### ### ####", maxDigits: 10 },
+    { code: "PL", dial: "+48", flag: "\u{1F1F5}\u{1F1F1}", name: "Poland", mask: "### ### ###", maxDigits: 9 },
+    { code: "PT", dial: "+351", flag: "\u{1F1F5}\u{1F1F9}", name: "Portugal", mask: "### ### ###", maxDigits: 9 },
+    { code: "PR", dial: "+1", flag: "\u{1F1F5}\u{1F1F7}", name: "Puerto Rico", mask: "(###) ###-####", maxDigits: 10 },
+    { code: "QA", dial: "+974", flag: "\u{1F1F6}\u{1F1E6}", name: "Qatar", mask: "### ####", maxDigits: 8 },
+    { code: "CG", dial: "+242", flag: "\u{1F1E8}\u{1F1EC}", name: "Republic of the Congo", mask: "# ## ### ###", maxDigits: 7 },
+    { code: "RO", dial: "+40", flag: "\u{1F1F7}\u{1F1F4}", name: "Romania", mask: "### ### ###", maxDigits: 9 },
+    { code: "RU", dial: "+7", flag: "\u{1F1F7}\u{1F1FA}", name: "Russia", mask: "### ###-##-##", maxDigits: 10 },
+    { code: "RW", dial: "+250", flag: "\u{1F1F7}\u{1F1FC}", name: "Rwanda", mask: "### ### ###", maxDigits: 9 },
+    { code: "BL", dial: "+590", flag: "\u{1F1E7}\u{1F1F1}", name: "Saint Barth\xE9lemy", mask: "### ## ## ##", maxDigits: 9 },
+    { code: "SH", dial: "+290", flag: "\u{1F1F8}\u{1F1ED}", name: "Saint Helena", mask: "####", maxDigits: 4 },
+    { code: "KN", dial: "+1", flag: "\u{1F1F0}\u{1F1F3}", name: "Saint Kitts and Nevis", mask: "(###) ###-####", maxDigits: 10 },
+    { code: "LC", dial: "+1", flag: "\u{1F1F1}\u{1F1E8}", name: "Saint Lucia", mask: "(###) ###-####", maxDigits: 10 },
+    { code: "MF", dial: "+590", flag: "\u{1F1F2}\u{1F1EB}", name: "Saint Martin", mask: "### ## ## ##", maxDigits: 9 },
+    { code: "PM", dial: "+508", flag: "\u{1F1F5}\u{1F1F2}", name: "Saint Pierre and Miquelon", mask: "### ## ##", maxDigits: 6 },
+    { code: "VC", dial: "+1", flag: "\u{1F1FB}\u{1F1E8}", name: "Saint Vincent and the Grenadines", mask: "(###) ###-####", maxDigits: 10 },
+    { code: "WS", dial: "+685", flag: "\u{1F1FC}\u{1F1F8}", name: "Samoa", mask: "#####", maxDigits: 5 },
+    { code: "SM", dial: "+378", flag: "\u{1F1F8}\u{1F1F2}", name: "San Marino", mask: "### ## ## ##", maxDigits: 10 },
+    { code: "ST", dial: "+239", flag: "\u{1F1F8}\u{1F1F9}", name: "S\xE3o Tom\xE9 and Pr\xEDncipe", mask: "### ####", maxDigits: 7 },
+    { code: "SA", dial: "+966", flag: "\u{1F1F8}\u{1F1E6}", name: "Saudi Arabia", mask: "## ### ####", maxDigits: 9 },
+    { code: "SN", dial: "+221", flag: "\u{1F1F8}\u{1F1F3}", name: "Senegal", mask: "## ### ## ##", maxDigits: 9 },
+    { code: "RS", dial: "+381", flag: "\u{1F1F7}\u{1F1F8}", name: "Serbia", mask: "### ### ###", maxDigits: 9 },
+    { code: "SC", dial: "+248", flag: "\u{1F1F8}\u{1F1E8}", name: "Seychelles", mask: "# ### ###", maxDigits: 7 },
+    { code: "SL", dial: "+232", flag: "\u{1F1F8}\u{1F1F1}", name: "Sierra Leone", mask: "### ######", maxDigits: 8 },
+    { code: "SG", dial: "+65", flag: "\u{1F1F8}\u{1F1EC}", name: "Singapore", mask: "#### ####", maxDigits: 8 },
+    { code: "SX", dial: "+1", flag: "\u{1F1F8}\u{1F1FD}", name: "Sint Maarten", mask: "(###) ###-####", maxDigits: 10 },
+    { code: "SK", dial: "+421", flag: "\u{1F1F8}\u{1F1F0}", name: "Slovakia", mask: "### ### ###", maxDigits: 9 },
+    { code: "SI", dial: "+386", flag: "\u{1F1F8}\u{1F1EE}", name: "Slovenia", mask: "### ### ###", maxDigits: 8 },
+    { code: "SB", dial: "+677", flag: "\u{1F1F8}\u{1F1E7}", name: "Solomon Islands", mask: "### ## ##", maxDigits: 7 },
+    { code: "SO", dial: "+252", flag: "\u{1F1F8}\u{1F1F4}", name: "Somalia", mask: "## ### ###", maxDigits: 7 },
+    { code: "ZA", dial: "+27", flag: "\u{1F1FF}\u{1F1E6}", name: "South Africa", mask: "## ### ####", maxDigits: 9 },
+    { code: "GS", dial: "+500", flag: "\u{1F1EC}\u{1F1F8}", name: "South Georgia", mask: "#####", maxDigits: 5 },
+    { code: "SS", dial: "+211", flag: "\u{1F1F8}\u{1F1F8}", name: "South Sudan", mask: "### ### ###", maxDigits: 9 },
+    { code: "ES", dial: "+34", flag: "\u{1F1EA}\u{1F1F8}", name: "Spain", mask: "### ### ###", maxDigits: 9 },
+    { code: "LK", dial: "+94", flag: "\u{1F1F1}\u{1F1F0}", name: "Sri Lanka", mask: "## ### ####", maxDigits: 9 },
+    { code: "SD", dial: "+249", flag: "\u{1F1F8}\u{1F1E9}", name: "Sudan", mask: "### ### ####", maxDigits: 9 },
+    { code: "SR", dial: "+597", flag: "\u{1F1F8}\u{1F1F7}", name: "Suriname", mask: "### ####", maxDigits: 7 },
+    { code: "SJ", dial: "+47", flag: "\u{1F1F8}\u{1F1EF}", name: "Svalbard and Jan Mayen", mask: "### ## ###", maxDigits: 8 },
+    { code: "SE", dial: "+46", flag: "\u{1F1F8}\u{1F1EA}", name: "Sweden", mask: "###-## ## ##", maxDigits: 10 },
+    { code: "CH", dial: "+41", flag: "\u{1F1E8}\u{1F1ED}", name: "Switzerland", mask: "## ### ## ##", maxDigits: 9 },
+    { code: "SY", dial: "+963", flag: "\u{1F1F8}\u{1F1FE}", name: "Syria", mask: "### ### ####", maxDigits: 9 },
+    { code: "TW", dial: "+886", flag: "\u{1F1F9}\u{1F1FC}", name: "Taiwan", mask: "# ### ## ###", maxDigits: 9 },
+    { code: "TJ", dial: "+992", flag: "\u{1F1F9}\u{1F1EF}", name: "Tajikistan", mask: "### ### ###", maxDigits: 9 },
+    { code: "TZ", dial: "+255", flag: "\u{1F1F9}\u{1F1FF}", name: "Tanzania", mask: "### ### ###", maxDigits: 9 },
+    { code: "TH", dial: "+66", flag: "\u{1F1F9}\u{1F1ED}", name: "Thailand", mask: "# ### ### ###", maxDigits: 9 },
+    { code: "TL", dial: "+670", flag: "\u{1F1F9}\u{1F1F1}", name: "Timor-Leste", mask: "### ####", maxDigits: 8 },
+    { code: "TG", dial: "+228", flag: "\u{1F1F9}\u{1F1EC}", name: "Togo", mask: "# # ## ## ##", maxDigits: 8 },
+    { code: "TK", dial: "+690", flag: "\u{1F1F9}\u{1F1F0}", name: "Tokelau", mask: "####", maxDigits: 4 },
+    { code: "TO", dial: "+676", flag: "\u{1F1F9}\u{1F1F4}", name: "Tonga", mask: "####", maxDigits: 5 },
+    { code: "TT", dial: "+1", flag: "\u{1F1F9}\u{1F1F9}", name: "Trinidad and Tobago", mask: "(###) ###-####", maxDigits: 10 },
+    { code: "TN", dial: "+216", flag: "\u{1F1F9}\u{1F1F3}", name: "Tunisia", mask: "## ### ###", maxDigits: 8 },
+    { code: "TR", dial: "+90", flag: "\u{1F1F9}\u{1F1F7}", name: "Turkey", mask: "### ### ## ##", maxDigits: 10 },
+    { code: "TM", dial: "+993", flag: "\u{1F1F9}\u{1F1F2}", name: "Turkmenistan", mask: "# #### ####", maxDigits: 8 },
+    { code: "TC", dial: "+1", flag: "\u{1F1F9}\u{1F1E8}", name: "Turks and Caicos Islands", mask: "(###) ###-####", maxDigits: 10 },
+    { code: "TV", dial: "+688", flag: "\u{1F1F9}\u{1F1FB}", name: "Tuvalu", mask: "### ####", maxDigits: 8 },
+    { code: "VI", dial: "+1", flag: "\u{1F1FB}\u{1F1EE}", name: "U.S. Virgin Islands", mask: "(###) ###-####", maxDigits: 10 },
+    { code: "UG", dial: "+256", flag: "\u{1F1FA}\u{1F1EC}", name: "Uganda", mask: "### ### ###", maxDigits: 9 },
+    { code: "UA", dial: "+380", flag: "\u{1F1FA}\u{1F1E6}", name: "Ukraine", mask: "## ### ## ##", maxDigits: 9 },
+    { code: "AE", dial: "+971", flag: "\u{1F1E6}\u{1F1EA}", name: "United Arab Emirates", mask: "## ### ####", maxDigits: 9 },
+    { code: "GB", dial: "+44", flag: "\u{1F1EC}\u{1F1E7}", name: "United Kingdom", mask: "0## ######", maxDigits: 10 },
+    { code: "US", dial: "+1", flag: "\u{1F1FA}\u{1F1F8}", name: "United States", mask: "(###) ###-####", maxDigits: 10 },
+    { code: "UY", dial: "+598", flag: "\u{1F1FA}\u{1F1FE}", name: "Uruguay", mask: "# ### ## ##", maxDigits: 8 },
+    { code: "UZ", dial: "+998", flag: "\u{1F1FA}\u{1F1FF}", name: "Uzbekistan", mask: "## ### ## ##", maxDigits: 9 },
+    { code: "VU", dial: "+678", flag: "\u{1F1FB}\u{1F1FA}", name: "Vanuatu", mask: "### ## ##", maxDigits: 7 },
+    { code: "VA", dial: "+39", flag: "\u{1F1FB}\u{1F1E6}", name: "Vatican City", mask: "### ######", maxDigits: 10 },
+    { code: "VE", dial: "+58", flag: "\u{1F1FB}\u{1F1EA}", name: "Venezuela", mask: "### ## ## ##", maxDigits: 10 },
+    { code: "VN", dial: "+84", flag: "\u{1F1FB}\u{1F1F3}", name: "Vietnam", mask: "## #### ####", maxDigits: 10 },
+    { code: "WF", dial: "+681", flag: "\u{1F1FC}\u{1F1EB}", name: "Wallis and Futuna", mask: "### ## ##", maxDigits: 6 },
+    { code: "EH", dial: "+212", flag: "\u{1F1EA}\u{1F1ED}", name: "Western Sahara", mask: "### ### ###", maxDigits: 9 },
+    { code: "YE", dial: "+967", flag: "\u{1F1FE}\u{1F1EA}", name: "Yemen", mask: "# ### ###", maxDigits: 9 },
+    { code: "ZM", dial: "+260", flag: "\u{1F1FF}\u{1F1F2}", name: "Zambia", mask: "## ### ####", maxDigits: 9 },
+    { code: "ZW", dial: "+263", flag: "\u{1F1FF}\u{1F1FC}", name: "Zimbabwe", mask: "## ### ###", maxDigits: 9 }
   ];
-  var InputPhone = class extends i4 {
+  var InputPhone = class extends InputBase {
     constructor() {
       super();
-      this.internals = this.attachInternals();
-      this.value = "";
-      this.valid = true;
-      this.error = null;
-      this.label = "";
-      this.placeholder = "";
-      this.description = "";
-      this.validateOn = "blur";
       this.country = "US";
       this.dialCode = "+1";
       this.mask = "(###) ###-####";
       this.maxDigits = 10;
       this.localDigits = "";
       this.formattedValue = "";
-      this._initDispatched = false;
-      this._debounceTimer = null;
-      this._abortController = null;
-      this.countries = COUNTRIES;
       this._generateIds();
-    }
-    createRenderRoot() {
-      return this.shadow ? this.attachShadow({ mode: "open" }) : this;
     }
     _generateIds() {
       const uid = Math.random().toString(36).substr(2, 9);
@@ -4543,19 +4756,12 @@
     }
     connectedCallback() {
       super.connectedCallback();
-      this.init();
-    }
-    init() {
-      try {
-        this._parseInitialValue();
-        this.updateFormattedValue();
-      } catch (e4) {
-        this._handleError(e4);
-      }
+      this._parseInitialValue();
+      this.updateFormattedValue();
     }
     _parseInitialValue() {
       if (!this.value) return;
-      const matchedCountry = this.countries.find((c4) => this.value.startsWith(c4.dial));
+      const matchedCountry = COUNTRIES.find((c4) => this.value.startsWith(c4.dial));
       if (matchedCountry) {
         this.country = matchedCountry.code;
         this.dialCode = matchedCountry.dial;
@@ -4564,7 +4770,7 @@
         this.localDigits = this.value.slice(this.dialCode.length).replace(/\D/g, "");
       } else {
         const defaultCountryCode = this.defaultCountry || "US";
-        const defaultCountry = this.countries.find((c4) => c4.code === defaultCountryCode) || this.countries[0];
+        const defaultCountry = COUNTRIES.find((c4) => c4.code === defaultCountryCode) || COUNTRIES[0];
         this.country = defaultCountry.code;
         this.dialCode = defaultCountry.dial;
         this.mask = defaultCountry.mask;
@@ -4573,27 +4779,27 @@
       }
     }
     getCountry(code) {
-      return this.countries.find((c4) => c4.code === code) || this.countries[0];
+      return COUNTRIES.find((c4) => c4.code === code) || COUNTRIES[0];
     }
     render() {
-      const descIds = [this.description ? this.descId : null, this.error ? this.errorId : null].filter(Boolean).join(" ") || null;
-      const inputClasses = ["input-input"].concat(this.error ? ["input-input-error"] : []);
-      if (this.inline) inputClasses.push("input-inline");
+      const descIds = [this.description ? this.descId : null, this.error ? this.errorId : null].filter(Boolean).join(" ") || void 0;
+      const inputClasses = ["i-input"].concat(this.error ? ["i-input-error"] : []);
+      if (this.inline) inputClasses.push("i-inline");
       return x`
-      <div class="input-wrapper ${this.inline ? "input-inline" : ""}">
-        <label class="input-label" id="${this.labelId}" for="${this.inputId}">${this.label}</label>
-        <div class="input-phone-group">
+      <div class="i-field ${this.inline ? "i-inline" : ""}">
+        <label class="i-label" id="${this.labelId}" for="${this.inputId}">${this.label}</label>
+        <div class="i-wrapper">
           <select
             id="${this.countrySelectId}"
-            class="input-country"
+            class="i-country-select"
             @change="${this.onCountryChange}"
             aria-label="Select country and calling code"
             ?disabled="${this.disabled}"
             ?readonly="${this.readonly}"
           >
-            ${this.countries.map((c4) => x`
+            ${COUNTRIES.map((c4) => x`
               <option value="${c4.code}" ?selected="${this.country === c4.code}">
-                ${c4.flag} ${c4.name} (${c4.dial})
+                ${c4.code} (${c4.dial})
               </option>
             `)}
           </select>
@@ -4615,20 +4821,15 @@
             @blur="${this.onBlur}"
           />
           ${this.actionButton === "copy" ? x`
-            <button type="button" class="input-action" @click="${this.onCopy}" ?disabled="${this.disabled}" tabindex="-1">
+            <button type="button" class="i-action" @click="${this.onCopy}" ?disabled="${this.disabled}" tabindex="-1">
               📋
             </button>
           ` : ""}
         </div>
-        <p class="input-description" id="${this.descId}">${this.description}</p>
-        <p class="input-error" id="${this.errorId}" class="${this.error ? "input-error-visible" : ""}" role="alert" aria-live="polite">${this.error || ""}</p>
+        <p class="i-description" id="${this.descId}">${this.description}</p>
+        <p class="i-error" id="${this.errorId}" class="${this.error ? "i-error-visible" : ""}" role="alert" aria-live="polite">${this.error || ""}</p>
       </div>
     `;
-    }
-    firstUpdated() {
-      this.attachEvents();
-    }
-    attachEvents() {
     }
     onCountryChange(e4) {
       try {
@@ -4669,7 +4870,7 @@
         requestAnimationFrame(() => input.setSelectionRange(newCursor, newCursor));
         this.updateValue();
         this.dispatchInputEvent();
-        if (this.validateOn === "input") {
+        if (this.shouldValidate("input")) {
           this.debounceValidate();
         }
       } catch (err) {
@@ -4682,13 +4883,13 @@
         composed: true,
         detail: { value: this.value, country: this.country, formattedValue: this.formattedValue }
       }));
-      if (this.validateOn === "change") {
-        this.debounceValidate();
+      if (this.shouldValidate("change")) {
+        this.validate();
       }
     }
     onBlur(e4) {
-      if (this.validateOn === "blur") {
-        this.debounceValidate();
+      if (this.shouldValidate("blur")) {
+        this.validate();
       }
     }
     onCopy() {
@@ -4744,29 +4945,18 @@
       const { signal } = options;
       try {
         if (signal) signal.throwIfAborted();
-        const schema = this._buildZodSchema();
+        const schema = this._buildSchema();
         if (signal) signal.throwIfAborted();
         const result = schema.safeParse(this.value);
         this.valid = result.success;
         this.error = result.success ? null : ((_a6 = result.error.issues[0]) == null ? void 0 : _a6.message) || "Invalid phone number";
-        if (this.valid) {
-        } else {
-        }
-        this.requestUpdate();
-        const detail = { valid: this.valid, value: this.value, error: this.error };
-        this.dispatchEvent(new CustomEvent("input:validate", { bubbles: true, composed: true, detail }));
-        if (!this.valid) {
-          this.dispatchEvent(new CustomEvent("input:error", { bubbles: true, composed: true, detail }));
-        } else {
-          this.dispatchEvent(new CustomEvent("input:success", { bubbles: true, composed: true, detail }));
-        }
         return { valid: this.valid, error: this.error };
       } catch (e4) {
         this._handleError(e4);
         return { valid: false, error: this.error };
       }
     }
-    _buildZodSchema() {
+    _buildSchema() {
       let schema = string2();
       if (this.required) {
         schema = schema.min(1, this.requiredMessage || "This field is required");
@@ -4775,7 +4965,6 @@
         min: (val, msg) => schema.min(Number(val), msg),
         max: (val, msg) => schema.max(Number(val), msg),
         gt: (val, msg) => schema.gt(Number(val), msg),
-        // assumes zod-mini .gt
         lt: (val, msg) => schema.lt(Number(val), msg),
         "starts-with": (val, msg) => schema.startsWith(val, msg),
         "ends-with": (val, msg) => schema.endsWith(val, msg),
@@ -4798,15 +4987,12 @@
       this.localDigits = "";
       this.formattedValue = "";
       this.clearErrors();
-      this.internals.setFormValue("");
-      this.internals.setValidity({});
       this.requestUpdate();
       this.dispatchInputEvent();
     }
     clearErrors() {
       this.error = null;
       this.valid = true;
-      this.internals.setValidationMessage("");
     }
     focus() {
       var _a6;
@@ -4816,8 +5002,6 @@
       console.error(e4);
       this.error = "An error occurred";
       this.valid = false;
-      this.internals.setValidity({ customError: true });
-      this.internals.setValidationMessage(this.error);
       this.dispatchEvent(new CustomEvent("input:error", {
         bubbles: true,
         composed: true,
@@ -4835,51 +5019,24 @@
       this.requestUpdate();
     }
   };
-  __publicField(InputPhone, "formAssociated", true);
   __publicField(InputPhone, "properties", {
-    value: { type: String },
-    valid: { type: Boolean, reflect: true },
-    error: { type: String },
-    label: { type: String },
-    placeholder: { type: String },
-    description: { type: String },
-    name: { type: String },
-    required: { type: Boolean },
-    disabled: { type: Boolean, reflect: true },
-    readonly: { type: Boolean, attribute: "readonly", reflect: true },
-    shadow: { type: Boolean },
-    inline: { type: Boolean },
-    validateOn: { type: String, attribute: "validate-on" },
+    // Phone-specific properties
     actionButton: { type: String, attribute: "action-button" },
     prefixIcon: { type: String, attribute: "prefix-icon" },
     defaultCountry: { type: String, attribute: "default-country" },
-    // Phone-specific (non-reflect)
+    // State
     country: { type: String },
     dialCode: { type: String },
     mask: { type: String },
     maxDigits: { type: Number },
     localDigits: { type: String },
     formattedValue: { type: String },
-    // IDs for accessibility
+    // Accessibility IDs
     labelId: { type: String },
     inputId: { type: String },
     countrySelectId: { type: String },
     descId: { type: String },
-    errorId: { type: String },
-    // Zod attrs (as String for simplicity)
-    min: { type: String },
-    max: { type: String },
-    email: { type: Boolean },
-    url: { type: Boolean },
-    gt: { type: String },
-    lt: { type: String },
-    startsWith: { type: String, attribute: "starts-with" },
-    endsWith: { type: String, attribute: "ends-with" },
-    regex: { type: String },
-    // ... add more zod-mini rules as attributes
-    // *-message variants
-    minMessage: { type: String, attribute: "min-message" }
-    // ... similarly for others
+    errorId: { type: String }
   });
 
   // package/index.js
