@@ -4303,8 +4303,9 @@
       </button>`;
       }
       if (this.actionButton === "show") {
+        const icon = this.inputType === "password" ? x`<span class="i-icon i-action-icon-eye"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg></span>` : x`<span class="i-icon i-action-icon-eye-closed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye-closed"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M21 9c-2.4 2.667 -5.4 4 -9 4c-3.6 0 -6.6 -1.333 -9 -4" /><path d="M3 15l2.5 -3.8" /><path d="M21 14.976l-2.492 -3.776" /><path d="M9 17l.5 -4" /><path d="M15 17l-.5 -4" /></svg></span>`;
         return x`<button class="i-action i-action-hide" type="button" @click="${this._onActionShow}" title="Toggle password visibility">
-          <span class="i-icon i-action-icon-eye"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg></span>
+          ${icon}
       </button>`;
       }
       if (this.actionButton === "clear") {
@@ -4376,7 +4377,7 @@
     _buildSchema() {
       let schema = string2();
       if (this.required) {
-        schema = schema.min(1, this.requiredMessage || "This field is required");
+        schema = schema.min(1, this.requiredMessage || (this.label ? `${this.label} is required` : "This field is required"));
       }
       if (this.min) schema = schema.min(Number(this.min), this.minMessage || `Minimum length is ${this.min}`);
       if (this.max) schema = schema.max(Number(this.max), this.maxMessage || `Maximum length is ${this.max}`);
@@ -5059,6 +5060,495 @@
     errorId: { type: String }
   });
 
+  // package/inputs/input-color.js
+  var InputTextBase2 = class extends InputBase {
+    constructor() {
+      super();
+      if (Coloris !== void 0) {
+        Coloris({
+          theme: "polaroid",
+          formatToggle: true,
+          themeMode: this.themeMode || "light",
+          swatches: [
+            "DarkSlateGray",
+            "#2a9d8f",
+            "#e9c46a",
+            "coral",
+            "rgb(231, 111, 81)",
+            "Crimson",
+            "#023e8a",
+            "#0077b6",
+            "hsl(194, 100%, 39%)",
+            "#00b4d8",
+            "#48cae4"
+          ],
+          onChange: (color, inputEl) => {
+            this.value = color;
+          }
+        });
+      }
+    }
+    // ------------------------------------------------------------------ //
+    // Render – uses input-base generated IDs
+    // ------------------------------------------------------------------ //
+    render() {
+      var _a6, _b2, _c;
+      const ariaDescribedby = [
+        this.description ? this.ids.desc : null,
+        this.error ? this.ids.error : null
+      ].filter(Boolean).join(" ");
+      const inputClasses = this.error ? "i-input i-input-error" : "i-input";
+      const wrapperClasses = this.error ? "i-wrapper i-wrapper-error" : "i-wrapper";
+      return x`
+        <div class="i-field">
+          <label class="i-label" for="${this.ids.input}">${this.label || ""}</label>
+          <div class="${wrapperClasses}">
+              ${this._renderPrefix()}
+              <input
+                class="${inputClasses}"
+                id="${this.ids.input}"
+                name="${this.name || ""}"
+                type="${this._getInputType()}"
+                .value="${(_a6 = this.value) != null ? _a6 : ""}"
+                placeholder="${(_b2 = this.placeholder) != null ? _b2 : ""}"
+                ?required="${this.required}"
+                ?disabled="${this.disabled}"
+                ?readonly="${this.readonly}"
+                @input="${this._onInput}"
+                @change="${this._onChange}"
+                @blur="${this._onBlur}"
+                data-coloris
+                autocomplete="${(_c = this.autocomplete) != null ? _c : "off"}"
+                ${this.autofocus ? "autofocus" : ""}
+              />
+              ${this._renderAction()}
+          </div>
+          ${this._renderDescription()}
+          ${this._renderError()}
+        </div>
+      `;
+    }
+    // ------------------------------------------------------------------ //
+    // EXACT SAME RENDER HELPERS – unchanged
+    // ------------------------------------------------------------------ //
+    _renderPrefix() {
+      if (!this.prefix) return "";
+      return x`<span class="i-prefix">${this.prefix}</span>`;
+    }
+    _renderAction() {
+      if (!this.actionButton) return "";
+      if (this.actionButton === "copy") {
+        return x`<button class="i-action i-action-copy" type="button" @click="${this._onActionCopy}" title="Copy to clipboard">
+          <span class="i-icon i-action-icon-copy"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-copy"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></span>
+          <span class="i-icon i-action-icon-check"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-check"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l5 5l10 -10" /></svg></span>
+      </button>`;
+      }
+      if (this.actionButton === "show") {
+        const icon = this.inputType === "password" ? x`<span class="i-icon i-action-icon-eye"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg></span>` : x`<span class="i-icon i-action-icon-eye-closed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye-closed"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M21 9c-2.4 2.667 -5.4 4 -9 4c-3.6 0 -6.6 -1.333 -9 -4" /><path d="M3 15l2.5 -3.8" /><path d="M21 14.976l-2.492 -3.776" /><path d="M9 17l.5 -4" /><path d="M15 17l-.5 -4" /></svg></span>`;
+        return x`<button class="i-action i-action-hide" type="button" @click="${this._onActionShow}" title="Toggle password visibility">
+          ${icon}
+      </button>`;
+      }
+      if (this.actionButton === "clear") {
+        if (this.value === "") return "";
+        return x`<button class="i-action i-action-clear" type="button" @click="${this._onActionClear}" title="Clear input">
+          <span class="i-icon i-action-icon-clear"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg></span>
+      </button>`;
+      }
+      return "";
+    }
+    _renderDescription() {
+      if (!this.description) return "";
+      return x`<p class="i-description" id="${this.ids.desc}">${this.description || ""}</p>`;
+    }
+    _renderError() {
+      if (!this.error) return "";
+      const error2 = JSON.parse(this.error);
+      if (error2.length < 2) {
+        return x`<p class="i-error ${error2 ? "i-error-visible" : ""}" id="${this.ids.error}">${error2[0].message || ""}</p>`;
+      } else {
+        const errorList = x`<ul>${error2.map((err) => x`<li>${err.message}</li>`)}</ul>`;
+        return x`<div class="i-error ${error2 ? "i-error-visible" : ""}" id="${this.ids.error}">${errorList}</div>`;
+      }
+    }
+    _getInputType() {
+      let type = this.inputType || "text";
+      if (type === "password" && this.actionButton === "hide" && this.isPasswordVisible) {
+        type = "text";
+      }
+      return type;
+    }
+    _onActionCopy(e4) {
+      e4.stopPropagation();
+      navigator.clipboard.writeText(this.value).catch(() => {
+        this._dispatch("input:error", { error: "Copy failed" });
+      });
+      e4.target.classList.add("i-action-copied");
+      setTimeout(() => e4.target.classList.remove("i-action-copied"), 1e3);
+    }
+    _onActionShow(e4) {
+      e4.stopPropagation();
+      this.inputType = this.inputType === "password" ? "text" : "password";
+    }
+    _onActionClear(e4) {
+      e4.stopPropagation();
+      this.value = "";
+      this.focus();
+      this._dispatch("input:input", { value: this.value });
+      this._dispatch("input:change", { value: this.value });
+    }
+    // ------------------------------------------------------------------ //
+    // Input handlers – delegate to input-base core
+    // ------------------------------------------------------------------ //
+    _onInput(e4) {
+      this._updateValue(e4.target.value);
+      this._callHook("onInput", e4);
+    }
+    _onChange(e4) {
+      this._handleChange();
+      this._callHook("onChange", e4);
+    }
+    _onBlur(e4) {
+      this._handleBlur();
+      this._callHook("onBlur", e4);
+    }
+    // ------------------------------------------------------------------ //
+    // Zod schema – text-specific validators only
+    // ------------------------------------------------------------------ //
+    _buildSchema() {
+      let schema = string2();
+      if (this.required) {
+        schema = schema.min(1, this.requiredMessage || (this.label ? `${this.label} is required` : "This field is required"));
+      }
+      if (this.regex) {
+        try {
+          schema = schema.regex(new RegExp(this.regex, "u"), this.regexMessage || "Invalid format");
+        } catch (e4) {
+        }
+      }
+      return schema;
+    }
+    // ------------------------------------------------------------------ //
+    // Validation – uses input-base setValidState()
+    // ------------------------------------------------------------------ //
+    async validate() {
+      var _a6, _b2;
+      this._callHook("onValidate");
+      this._dispatch("input:validate");
+      try {
+        const schema = this._buildSchema();
+        const parseValue = this.prefixValue ? this.value.startsWith(this.prefixValue) ? this.value : this.prefixValue + this.value : this.value;
+        await schema.parseAsync(parseValue != null ? parseValue : "");
+        this.setValidState({ valid: true });
+        this._callHook("onSuccess", { value: this.value });
+        return { valid: true, error: null };
+      } catch (err) {
+        const errorMsg = ((_b2 = (_a6 = err.errors) == null ? void 0 : _a6[0]) == null ? void 0 : _b2.message) || err.message || "Invalid value";
+        this.setValidState({ valid: false, error: errorMsg });
+        this._callHook("onError", { error: errorMsg });
+        return { valid: false, error: errorMsg };
+      }
+    }
+    // ------------------------------------------------------------------ //
+    // Override reset to clear password visibility
+    // ------------------------------------------------------------------ //
+    reset() {
+      super.reset();
+      this.isPasswordVisible = false;
+    }
+  };
+  __publicField(InputTextBase2, "properties", {
+    // Text-specific UI
+    inputType: { type: String },
+    unstyled: { type: Boolean, attribute: "unstyled" },
+    themeMode: { type: String, attribute: "theme-mode" }
+  });
+
+  // package/inputs/input-date.js
+  var InputDate = class extends InputBase {
+    constructor() {
+      super();
+      this.isPasswordVisible = false;
+      this.actionButton = "date-picker";
+    }
+    // ------------------------------------------------------------------ //
+    // Render – uses input-base generated IDs
+    // ------------------------------------------------------------------ //
+    render() {
+      var _a6, _b2, _c;
+      const ariaDescribedby = [
+        this.description ? this.ids.desc : null,
+        this.error ? this.ids.error : null
+      ].filter(Boolean).join(" ");
+      const inputClasses = this.error ? "i-input i-input-error" : "i-input";
+      const wrapperClasses = this.error ? "i-wrapper i-wrapper-error" : "i-wrapper";
+      return x`
+        <div class="i-field">
+          <label class="i-label" for="${this.ids.input}">${this.label || ""}</label>
+          <div class="${wrapperClasses}">
+              ${this._renderPrefix()}
+              <input
+                class="${inputClasses}"
+                id="${this.ids.input}"
+                name="${this.name || ""}"
+                type="${this._getInputType()}"
+                .value="${(_a6 = this.value) != null ? _a6 : ""}"
+                placeholder="${(_b2 = this.placeholder) != null ? _b2 : ""}"
+                ?required="${this.required}"
+                ?disabled="${this.disabled}"
+                ?readonly="${this.readonly}"
+                aria-invalid="${this.valid ? void 0 : "true"}"
+                aria-describedby="${ariaDescribedby}"
+                @input="${this._onInput}"
+                @change="${this._onChange}"
+                @blur="${this._onBlur}"
+                autocomplete="${(_c = this.autocomplete) != null ? _c : "off"}"
+                ${this.autofocus ? "autofocus" : ""}
+              />
+              ${this._renderAction()}
+          </div>
+          ${this.isDatePickerVisible ? x`<wc-datepicker range></wc-datepicker>` : ""}
+          ${this._renderDescription()}
+          ${this._renderError()}
+        </div>
+      `;
+    }
+    // ------------------------------------------------------------------ //
+    // EXACT SAME RENDER HELPERS – unchanged
+    // ------------------------------------------------------------------ //
+    _renderPrefix() {
+      if (!this.prefix) return "";
+      return x`<span class="i-prefix">${this.prefix}</span>`;
+    }
+    _renderAction() {
+      if (!this.actionButton) return "";
+      if (this.actionButton === "date-picker") {
+        return x`
+        <button class="i-action i-action-copy" type="button" @click="${this._onActionToggleDatePicker}" title="Copy to clipboard">
+        ${this.isDatePickerVisible ? x`<span class="i-icon i-action-icon-calendar-x"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-calendar-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13 21h-7a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v6.5" /><path d="M16 3v4" /><path d="M8 3v4" /><path d="M4 11h16" /><path d="M22 22l-5 -5" /><path d="M17 22l5 -5" /></svg></span>` : x`<span class="i-icon i-action-icon-calendar"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-calendar"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" /><path d="M16 3v4" /><path d="M8 3v4" /><path d="M4 11h16" /><path d="M11 15h1" /><path d="M12 15v3" /></svg></span>`}
+        </button>
+     `;
+      }
+      if (this.actionButton === "copy") {
+        return x`<button class="i-action i-action-copy" type="button" @click="${this._onActionCopy}" title="Copy to clipboard">
+          <span class="i-icon i-action-icon-copy"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-copy"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></span>
+          <span class="i-icon i-action-icon-check"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-check"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l5 5l10 -10" /></svg></span>
+      </button>`;
+      }
+      if (this.actionButton === "show") {
+        const icon = this.inputType === "password" ? x`<span class="i-icon i-action-icon-eye"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg></span>` : x`<span class="i-icon i-action-icon-eye-closed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye-closed"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M21 9c-2.4 2.667 -5.4 4 -9 4c-3.6 0 -6.6 -1.333 -9 -4" /><path d="M3 15l2.5 -3.8" /><path d="M21 14.976l-2.492 -3.776" /><path d="M9 17l.5 -4" /><path d="M15 17l-.5 -4" /></svg></span>`;
+        return x`<button class="i-action i-action-hide" type="button" @click="${this._onActionShow}" title="Toggle password visibility">
+          ${icon}
+      </button>`;
+      }
+      if (this.actionButton === "clear") {
+        if (this.value === "") return "";
+        return x`<button class="i-action i-action-clear" type="button" @click="${this._onActionClear}" title="Clear input">
+          <span class="i-icon i-action-icon-clear"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg></span>
+      </button>`;
+      }
+      return "";
+    }
+    _renderDescription() {
+      if (!this.description) return "";
+      return x`<p class="i-description" id="${this.ids.desc}">${this.description || ""}</p>`;
+    }
+    _renderError() {
+      if (!this.error) return "";
+      const error2 = JSON.parse(this.error);
+      if (error2.length < 2) {
+        return x`<p class="i-error ${error2 ? "i-error-visible" : ""}" id="${this.ids.error}">${error2[0].message || ""}</p>`;
+      } else {
+        const errorList = x`<ul>${error2.map((err) => x`<li>${err.message}</li>`)}</ul>`;
+        return x`<div class="i-error ${error2 ? "i-error-visible" : ""}" id="${this.ids.error}">${errorList}</div>`;
+      }
+    }
+    _getInputType() {
+      let type = this.inputType || "text";
+      if (type === "password" && this.actionButton === "hide" && this.isPasswordVisible) {
+        type = "text";
+      }
+      return type;
+    }
+    _onActionCopy(e4) {
+      e4.stopPropagation();
+      navigator.clipboard.writeText(this.value).catch(() => {
+        this._dispatch("input:error", { error: "Copy failed" });
+      });
+      e4.target.classList.add("i-action-copied");
+      setTimeout(() => e4.target.classList.remove("i-action-copied"), 1e3);
+    }
+    _onActionShow(e4) {
+      e4.stopPropagation();
+      this.inputType = this.inputType === "password" ? "text" : "password";
+    }
+    _onActionClear(e4) {
+      e4.stopPropagation();
+      this.value = "";
+      this.focus();
+      this._dispatch("input:input", { value: this.value });
+      this._dispatch("input:change", { value: this.value });
+    }
+    _onActionToggleDatePicker(e4) {
+      e4.stopPropagation();
+      this.isDatePickerVisible = !this.isDatePickerVisible;
+    }
+    // ------------------------------------------------------------------ //
+    // Input handlers – delegate to input-base core
+    // ------------------------------------------------------------------ //
+    _onInput(e4) {
+      this._updateValue(e4.target.value);
+      this._callHook("onInput", e4);
+    }
+    _onChange(e4) {
+      this._handleChange();
+      this._callHook("onChange", e4);
+    }
+    _onBlur(e4) {
+      this._handleBlur();
+      this._callHook("onBlur", e4);
+    }
+    // ------------------------------------------------------------------ //
+    // Zod schema – text-specific validators only
+    // ------------------------------------------------------------------ //
+    _buildSchema() {
+      let schema = string2();
+      if (this.required) {
+        schema = schema.min(1, this.requiredMessage || (this.label ? `${this.label} is required` : "This field is required"));
+      }
+      if (this.min) schema = schema.min(Number(this.min), this.minMessage || `Minimum length is ${this.min}`);
+      if (this.max) schema = schema.max(Number(this.max), this.maxMessage || `Maximum length is ${this.max}`);
+      if (this.email) schema = schema.email(this.emailMessage || "Invalid email address");
+      if (this.url) schema = schema.url(this.urlMessage || "Invalid URL");
+      if (this.startsWith) schema = schema.startsWith(this.startsWith, this.startsWithMessage || `Must start with "${this.startsWith}"`);
+      if (this.endsWith) schema = schema.endsWith(this.endsWith, this.endsWithMessage || `Must end with "${this.endsWith}"`);
+      if (this.includes) schema = schema.includes(this.includes, this.includesMessage || `Must include "${this.includes}"`);
+      if (this.lowercase) schema = schema.lowercase(this.lowercaseMessage || "Must be lowercase");
+      if (this.uppercase) schema = schema.uppercase(this.uppercaseMessage || "Must be uppercase");
+      if (this.format) {
+        const msg = this.formatMessage || `Must be a valid ${this.format}`;
+        switch (this.format) {
+          case "email":
+            schema = schema.email(msg);
+            break;
+          case "url":
+            schema = schema.url(msg);
+            break;
+          case "uuid":
+            schema = schema.uuid(msg);
+            break;
+          case "cuid":
+            schema = schema.cuid(msg);
+            break;
+          case "cuid2":
+            schema = schema.cuid2(msg);
+            break;
+          case "ulid":
+            schema = schema.ulid(msg);
+            break;
+          case "iso-datetime":
+            schema = iso_exports.datetime(msg);
+            break;
+          case "iso-date":
+            schema = iso_exports.date(msg);
+            break;
+          case "emoji":
+            schema = schema.emoji(msg);
+            break;
+          case "base64":
+            schema = schema.base64(msg);
+            break;
+          case "hex":
+            schema = schema.hex(msg);
+            break;
+          case "jwt":
+            schema = schema.jwt(msg);
+            break;
+          case "nanoid":
+            schema = schema.nanoid(msg);
+            break;
+          case "ipv4":
+            schema = schema.ipv4(msg);
+            break;
+          case "ipv6":
+            schema = schema.ipv6(msg);
+            break;
+        }
+      }
+      if (this.regex) {
+        try {
+          schema = schema.regex(new RegExp(this.regex, "u"), this.regexMessage || "Invalid format");
+        } catch (e4) {
+        }
+      }
+      return schema;
+    }
+    // ------------------------------------------------------------------ //
+    // Validation – uses input-base setValidState()
+    // ------------------------------------------------------------------ //
+    async validate() {
+      var _a6, _b2;
+      this._callHook("onValidate");
+      this._dispatch("input:validate");
+      try {
+        const schema = this._buildSchema();
+        const parseValue = this.prefixValue ? this.value.startsWith(this.prefixValue) ? this.value : this.prefixValue + this.value : this.value;
+        await schema.parseAsync(parseValue != null ? parseValue : "");
+        this.setValidState({ valid: true });
+        this._callHook("onSuccess", { value: this.value });
+        return { valid: true, error: null };
+      } catch (err) {
+        const errorMsg = ((_b2 = (_a6 = err.errors) == null ? void 0 : _a6[0]) == null ? void 0 : _b2.message) || err.message || "Invalid value";
+        this.setValidState({ valid: false, error: errorMsg });
+        this._callHook("onError", { error: errorMsg });
+        return { valid: false, error: errorMsg };
+      }
+    }
+    // ------------------------------------------------------------------ //
+    // Override reset to clear password visibility
+    // ------------------------------------------------------------------ //
+    reset() {
+      super.reset();
+      this.isPasswordVisible = false;
+    }
+  };
+  __publicField(InputDate, "properties", {
+    // Text-specific UI
+    actionButton: { type: String, attribute: "action-button" },
+    prefix: { type: String, attribute: "prefix" },
+    prefixValue: { type: String, attribute: "prefix-value" },
+    inputType: { type: String },
+    unstyled: { type: Boolean, attribute: "unstyled" },
+    // Text validators (attributes)
+    min: { type: String },
+    max: { type: String },
+    email: { type: Boolean },
+    url: { type: Boolean },
+    startsWith: { type: String, attribute: "starts-with" },
+    endsWith: { type: String, attribute: "ends-with" },
+    includes: { type: String },
+    lowercase: { type: Boolean },
+    uppercase: { type: Boolean },
+    regex: { type: String },
+    format: { type: String },
+    // Custom messages
+    requiredMessage: { type: String, attribute: "required-message" },
+    minMessage: { type: String, attribute: "min-message" },
+    maxMessage: { type: String, attribute: "max-message" },
+    emailMessage: { type: String, attribute: "email-message" },
+    urlMessage: { type: String, attribute: "url-message" },
+    startsWithMessage: { type: String, attribute: "starts-with-message" },
+    endsWithMessage: { type: String, attribute: "ends-with-message" },
+    includesMessage: { type: String, attribute: "includes-message" },
+    lowercaseMessage: { type: String, attribute: "lowercase-message" },
+    uppercaseMessage: { type: String, attribute: "uppercase-message" },
+    regexMessage: { type: String, attribute: "regex-message" },
+    formatMessage: { type: String, attribute: "format-message" },
+    // Internal state
+    isPasswordVisible: { type: Boolean, state: true },
+    isDatePickerVisible: { type: Boolean, state: false }
+  });
+
   // package/index.js
   var InputText = class extends InputTextBase {
     constructor() {
@@ -5105,6 +5595,8 @@
   customElements.define("input-password", InputPassword);
   customElements.define("input-number", InputNumber);
   customElements.define("input-phone", InputPhone);
+  customElements.define("input-color", InputTextBase2);
+  customElements.define("input-date", InputDate);
 })();
 /*! Bundled license information:
 

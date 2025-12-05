@@ -1,6 +1,8 @@
 import InputNumberBase from "./inputs/input-number-base";
 import InputTextBase from "./inputs/input-text-base";
 import InputPhone from "./inputs/input-phone";
+import InputColor from "./inputs/input-color";
+import InputDate from "./inputs/input-date";
 
 // ---------------------------------------------------------------
 // 14. Register Component
@@ -52,6 +54,8 @@ class InputNumber extends InputNumberBase {
   }
 }
 
+
+
 // Register components
 customElements.define('input-text', InputText);
 customElements.define('input-email', InputEmail);
@@ -60,3 +64,5 @@ customElements.define('input-search', InputSearch);
 customElements.define('input-password', InputPassword);
 customElements.define('input-number', InputNumber);
 customElements.define('input-phone', InputPhone);
+customElements.define('input-color', InputColor);
+customElements.define('input-date', InputDate);

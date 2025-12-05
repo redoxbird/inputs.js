@@ -35,10 +35,23 @@
     <link rel="preconnect" href="https://cdn.twind.style" crossorigin />
 
     <!-- Twind CDN (production-ready with integrity & crossorigin) -->
+    <script src="https://cdn.twind.style" crossorigin="anonymous"></script>
+
+    <!-- Coloris CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.css"/>
+    <script src="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js"></script>
+
+    <!-- Inclusive Dates CDN -->
     <script
-    src="https://cdn.twind.style"
-    crossorigin="anonymous">
-    </script>
+        type="module"
+        src="https://cdn.jsdelivr.net/npm/wc-datepicker/dist/esm/wc-datepicker.js"
+      ></script>
+
+      <!-- Loading the theme is optional. -->
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/wc-datepicker/dist/themes/light.css"
+      />
 
     <!-- Your demo styles (assuming they're optimized & fingerprinted in prod) -->
     <link rel="stylesheet" href="./demo.css" />
@@ -51,6 +64,7 @@
 
     <!-- Theme color (for mobile browsers) -->
     <meta name="theme-color" content="#ffffff" />
+
 </head>
 
 
@@ -140,6 +154,24 @@
                 required
             >
             </input-number>
+
+            <input-color
+              name="color"
+              label="Color"
+              placeholder="#ff0000"
+              validate-on="blur"
+              required
+            >
+            </input-color>
+
+            <input-date
+              name="date"
+              label="Date"
+              placeholder="2023-01-01"
+              validate-on="blur"
+              required
+            >
+            </input-date>
 
             <input-text
               name="emoji"

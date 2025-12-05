@@ -16,46 +16,38 @@ import InputBase from './input-base.js';
 export default class InputTextBase extends InputBase {
   static properties = {
     // Text-specific UI
-    actionButton: { type: String, attribute: 'action-button' },
-    prefix: { type: String, attribute: 'prefix' },
-    prefixValue: { type: String, attribute: 'prefix-value' },
     inputType: { type: String },
     unstyled: { type: Boolean, attribute: 'unstyled' },
+    themeMode: { type: String, attribute: 'theme-mode' },
 
-    // Text validators (attributes)
-    min: { type: String },
-    max: { type: String },
-    email: { type: Boolean },
-    url: { type: Boolean },
-    startsWith: { type: String, attribute: 'starts-with' },
-    endsWith: { type: String, attribute: 'ends-with' },
-    includes: { type: String },
-    lowercase: { type: Boolean },
-    uppercase: { type: Boolean },
-    regex: { type: String },
-    format: { type: String },
-
-    // Custom messages
-    requiredMessage: { type: String, attribute: 'required-message' },
-    minMessage: { type: String, attribute: 'min-message' },
-    maxMessage: { type: String, attribute: 'max-message' },
-    emailMessage: { type: String, attribute: 'email-message' },
-    urlMessage: { type: String, attribute: 'url-message' },
-    startsWithMessage: { type: String, attribute: 'starts-with-message' },
-    endsWithMessage: { type: String, attribute: 'ends-with-message' },
-    includesMessage: { type: String, attribute: 'includes-message' },
-    lowercaseMessage: { type: String, attribute: 'lowercase-message' },
-    uppercaseMessage: { type: String, attribute: 'uppercase-message' },
-    regexMessage: { type: String, attribute: 'regex-message' },
-    formatMessage: { type: String, attribute: 'format-message' },
-
-    // Internal state
-    isPasswordVisible: { type: Boolean, state: true },
   };
 
   constructor() {
     super();
-    this.isPasswordVisible = false;
+
+    if (Coloris !== undefined) {
+      Coloris({
+        theme: 'polaroid',
+        formatToggle: true,
+        themeMode: this.themeMode || 'light',
+        swatches: [
+          'DarkSlateGray',
+          '#2a9d8f',
+          '#e9c46a',
+          'coral',
+          'rgb(231, 111, 81)',
+          'Crimson',
+          '#023e8a',
+          '#0077b6',
+          'hsl(194, 100%, 39%)',
+          '#00b4d8',
+          '#48cae4'
+        ],
+        onChange: (color, inputEl) => {
+          this.value = color;
+        }
+      });
+    }
   }
 
   // ------------------------------------------------------------------ //
@@ -85,11 +77,10 @@ export default class InputTextBase extends InputBase {
                 ?required="${this.required}"
                 ?disabled="${this.disabled}"
                 ?readonly="${this.readonly}"
-                aria-invalid="${this.valid ? undefined : 'true'}"
-                aria-describedby="${ariaDescribedby}"
                 @input="${this._onInput}"
                 @change="${this._onChange}"
                 @blur="${this._onBlur}"
+                data-coloris
                 autocomplete="${this.autocomplete ?? 'off'}"
                 ${this.autofocus ? 'autofocus' : ''}
               />
@@ -205,41 +196,6 @@ export default class InputTextBase extends InputBase {
 
     if (this.required) {
       schema = schema.min(1, this.requiredMessage || (this.label ? `${this.label} is required` : 'This field is required'));
-    }
-
-    if (this.min) schema = schema.min(Number(this.min), this.minMessage || `Minimum length is ${this.min}`);
-    if (this.max) schema = schema.max(Number(this.max), this.maxMessage || `Maximum length is ${this.max}`);
-
-    if (this.email) schema = schema.email(this.emailMessage || 'Invalid email address');
-    if (this.url) schema = schema.url(this.urlMessage || 'Invalid URL');
-
-    if (this.startsWith) schema = schema.startsWith(this.startsWith, this.startsWithMessage || `Must start with "${this.startsWith}"`);
-    if (this.endsWith) schema = schema.endsWith(this.endsWith, this.endsWithMessage || `Must end with "${this.endsWith}"`);
-    if (this.includes) schema = schema.includes(this.includes, this.includesMessage || `Must include "${this.includes}"`);
-
-    if (this.lowercase) schema = schema.lowercase(this.lowercaseMessage || 'Must be lowercase');
-    if (this.uppercase) schema = schema.uppercase(this.uppercaseMessage || 'Must be uppercase');
-
-    if (this.format) {
-      const msg = this.formatMessage || `Must be a valid ${this.format}`;
-      switch (this.format) {
-        case 'email': schema = schema.email(msg); break;
-        case 'url': schema = schema.url(msg); break;
-        case 'uuid': schema = schema.uuid(msg); break;
-        case 'cuid': schema = schema.cuid(msg); break;
-        case 'cuid2': schema = schema.cuid2(msg); break;
-        case 'ulid': schema = schema.ulid(msg); break;
-        case 'iso-datetime': schema = z.iso.datetime(msg); break;
-        case 'iso-date': schema = z.iso.date(msg); break;
-        case 'emoji': schema = schema.emoji(msg); break;
-        case 'base64': schema = schema.base64(msg); break;
-        case 'hex': schema = schema.hex(msg); break;
-        case 'jwt': schema = schema.jwt(msg); break;
-        case 'nanoid': schema = schema.nanoid(msg); break;
-        case 'ipv4': schema = schema.ipv4(msg); break;
-        case 'ipv6': schema = schema.ipv6(msg); break;
-        // Add more as needed
-      }
     }
 
     if (this.regex) {

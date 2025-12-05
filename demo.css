@@ -50,6 +50,7 @@
     border: none;
     flex-grow: 1;
     border-radius: 0.375rem;
+
 }
 
 .i-wrapper:focus-within {
@@ -62,6 +63,28 @@
 
 .i-wrapper-error {
     border-color: var(--input-border-error);
+}
+
+.i-field wc-datepicker {
+    margin-top: 1rem;
+}
+
+.clr-field {
+    display: block;
+    width: 100%;
+}
+
+.clr-field button {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    right: 0.5rem;
+    z-index: 10;
+}
+
+.clr-field input {
+    width: 100%;
 }
 
 .i-input:disabled {
