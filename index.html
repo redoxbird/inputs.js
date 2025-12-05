@@ -55,17 +55,23 @@
 
 
 <body class="bg-gray-50">
-    <h1 class="text-2xl font-bold mb-6 bg-violet-700 text-white px-8 py-4">Inputs.js</h1>
+    <h1 class="text-2xl font-bold mb-6 bg-violet-700 text-white px-8 py-4">inputs.js</h1>
 
     <div class="container p-8">
         <form method="get" action="/" id="demoForm" class="container grid grid-cols-1 sm:grid-cols-3 gap-12">
             <input-email
                 name="email"
                 label="Email"
-                placeholder="you@example.com"
-                autocomplete="email"
-                required
+                description="Enter your email address"
+                placeholder="user@example.com"
                 validate-on="blur"
+                required
+                min="5"
+                min-message="Minimum length is 5 characters"
+                max="100"
+                regex="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                ends-with="gmail.com"
+                lowercase="true"
             >
             </input-email>
 
@@ -82,25 +88,46 @@
               required
             ></input-text>
 
-            <input-text
-              name="text"
-              value="user@example.com"
-              label="Email"
-              description="Enter your email address"
-              placeholder="user@example.com"
+            <input-url
+              name="website"
+              label="Website"
+              placeholder="example.com"
               validate-on="blur"
+              prefix="https://"
+              prefix-value="https://"
               required
-              min="5"
-              min-message="Minimum length is 5 characters"
-              max="100"
-              regex="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-              includes="gmail"
-              lowercase="true"
-              starts-with="user"
-              action-button="copy"
-              prefix="mailto:"
+            >
+            </input-url>
+
+            <input-text
+              name="search"
+              label="Search"
+              placeholder="Search..."
+              validate-on="blur"
+              action-button="clear"
+              required
             >
             </input-text>
+
+            <input-phone
+                name="phone"
+                label="Phone"
+                placeholder="+1 (555) 555-5555"
+                validate-on="blur"
+                format="phone"
+                required
+            >
+            </input-phone>
+
+            <input-password
+                name="password"
+                label="Password"
+                placeholder="Password"
+                action-button="show"
+                validate-on="blur"
+                required
+            >
+            </input-password>
 
             <input-number
                 name="amount"
@@ -115,23 +142,23 @@
             </input-number>
 
             <input-text
-              name="url"
-              label="Website"
-              placeholder="example.com"
-              validate-on="blur"
-              prefix="https://"
-              prefix-value="https://"
-              url
-              required
-            >
-            </input-text>
-
-            <input-text
               name="emoji"
               label="Emoji"
               placeholder="😊"
               validate-on="blur"
               format="emoji"
+              required
+            >
+            </input-text>
+
+            <input-text
+              name="apiKey"
+              label="API Key"
+              placeholder="e1a6a0d3-3024-4158-a42b-8e2bb041f7f6"
+              validate-on="blur"
+              format="uuid"
+              format-message="Invalid API Key"
+              action-button="copy"
               required
             >
             </input-text>
@@ -146,17 +173,6 @@
               required
             >
             </input-text>
-
-            <input-phone
-                name="phone"
-                label="Phone"
-                placeholder="+1 (555) 555-5555"
-                validate-on="blur"
-                format="phone"
-                required
-            >
-
-            </input-phone>
 
             <input-text
               name="date"
@@ -198,35 +214,8 @@
             >
             </input-text>
 
-            <input-text
-              name="uuid"
-              label="UUID"
-              placeholder="e1a6a0d3-3024-4158-a42b-8e2bb041f7f6"
-              validate-on="blur"
-              format="uuid"
-              required
-            >
-            </input-text>
 
-            <input-text
-              name="cuid"
-              label="CUID"
-              placeholder="c1a6a0d3-3024-4158-a42b-8e2bb041f7f6"
-              validate-on="blur"
-              format="cuid"
-              required
-            >
-            </input-text>
 
-            <input-text
-              name="cuid2"
-              label="CUID2"
-              placeholder="c1a6a0d3-3024-4158-a42b-8e2bb041f7f6"
-              validate-on="blur"
-              format="cuid2"
-              required
-            >
-            </input-text>
         </form>
     </div>
 

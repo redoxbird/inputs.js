@@ -364,7 +364,7 @@ export default class InputPhone extends InputBase {
           ` : ''}
         </div>
         <p class="i-description" id="${this.descId}">${this.description}</p>
-        <p class="i-error" id="${this.errorId}" class="${this.error ? 'i-error-visible' : ''}" role="alert" aria-live="polite">${this.error || ''}</p>
+        <p id="${this.errorId}" class="${this.error ? 'i-error i-error-visible' : 'i-error'}" role="alert" aria-live="polite">${this.error || ''}</p>
       </div>
     `;
   }

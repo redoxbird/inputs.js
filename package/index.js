@@ -31,6 +31,13 @@ class InputUrl extends InputTextBase {
   }
 }
 
+class InputSearch extends InputTextBase {
+  constructor() {
+    super();
+    this.inputType = 'search';
+  }
+}
+
 class InputPassword extends InputTextBase {
   constructor() {
     super();
@@ -49,6 +56,7 @@ class InputNumber extends InputNumberBase {
 customElements.define('input-text', InputText);
 customElements.define('input-email', InputEmail);
 customElements.define('input-url', InputUrl);
+customElements.define('input-search', InputSearch);
 customElements.define('input-password', InputPassword);
 customElements.define('input-number', InputNumber);
 customElements.define('input-phone', InputPhone);

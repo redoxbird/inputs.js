@@ -20,7 +20,6 @@ export default class InputTextBase extends InputBase {
     prefix: { type: String, attribute: 'prefix' },
     prefixValue: { type: String, attribute: 'prefix-value' },
     inputType: { type: String },
-    autocomplete: { type: String },
     unstyled: { type: Boolean, attribute: 'unstyled' },
 
     // Text validators (attributes)
@@ -69,11 +68,12 @@ export default class InputTextBase extends InputBase {
     ].filter(Boolean).join(' ');
 
     const inputClasses = this.error ? 'i-input i-input-error' : 'i-input';
+    const wrapperClasses = this.error ? 'i-wrapper i-wrapper-error' : 'i-wrapper';
 
     return html`
         <div class="i-field">
           <label class="i-label" for="${this.ids.input}">${this.label || ''}</label>
-          <div class="i-wrapper">
+          <div class="${wrapperClasses}">
               ${this._renderPrefix()}
               <input
                 class="${inputClasses}"
@@ -90,7 +90,7 @@ export default class InputTextBase extends InputBase {
                 @input="${this._onInput}"
                 @change="${this._onChange}"
                 @blur="${this._onBlur}"
-                ${this.autocomplete ? `autocomplete="${this.autocomplete}"` : ''}
+                autocomplete="${this.autocomplete ?? 'off'}"
                 ${this.autofocus ? 'autofocus' : ''}
               />
               ${this._renderAction()}
@@ -112,11 +112,22 @@ export default class InputTextBase extends InputBase {
   _renderAction() {
     if (!this.actionButton) return '';
     if (this.actionButton === 'copy') {
-      return html`<button class="i-action i-action-copy" type="button" @click="${this._onActionCopy}" title="Copy to clipboard"></button>`;
+      return html`<button class="i-action i-action-copy" type="button" @click="${this._onActionCopy}" title="Copy to clipboard">
+          <span class="i-icon i-action-icon-copy"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-copy"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></span>
+          <span class="i-icon i-action-icon-check"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-check"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l5 5l10 -10" /></svg></span>
+      </button>`;
     }
-    if (this.actionButton === 'hide' && this.inputType === 'password') {
-      const icon = this.isPasswordVisible ? 'Hide' : 'Show';
-      return html`<button class="i-action i-action-hide" type="button" @click="${this._onActionHide}" title="Toggle password visibility">${icon}</button>`;
+    if (this.actionButton === 'show') {
+      return html`<button class="i-action i-action-hide" type="button" @click="${this._onActionShow}" title="Toggle password visibility">
+          <span class="i-icon i-action-icon-eye"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg></span>
+      </button>`;
+    }
+
+    if (this.actionButton === 'clear') {
+      if (this.value === '') return '';
+      return html`<button class="i-action i-action-clear" type="button" @click="${this._onActionClear}" title="Clear input">
+          <span class="i-icon i-action-icon-clear"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg></span>
+      </button>`;
     }
     return '';
   }
@@ -154,9 +165,17 @@ export default class InputTextBase extends InputBase {
     setTimeout(() => e.target.classList.remove('i-action-copied'), 1000);
   }
 
-  _onActionHide(e) {
+  _onActionShow(e) {
     e.stopPropagation();
-    this.isPasswordVisible = !this.isPasswordVisible;
+    this.inputType = this.inputType === 'password' ? 'text' : 'password';
+  }
+
+  _onActionClear(e) {
+    e.stopPropagation();
+    this.value = '';
+    this.focus();
+    this._dispatch('input:input', { value: this.value });
+    this._dispatch('input:change', { value: this.value });
   }
 
   // ------------------------------------------------------------------ //

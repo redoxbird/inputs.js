@@ -28,6 +28,8 @@ export default class InputBase extends LitElement {
     readonly: { type: Boolean, reflect: true },
     shadow: { type: Boolean },
     inline: { type: Boolean },
+    autofocus: { type: Boolean },
+    autocomplete: { type: String },
 
     // Validation trigger
     validateOn: { type: String, attribute: 'validate-on' }, // 'input', 'change', 'blur' (comma/space/| separated)
@@ -46,6 +48,7 @@ export default class InputBase extends LitElement {
     this.valid = true;
     this.error = null;
     this.validateOn = 'blur';
+    this.autocomplete = 'off';
 
     // Internal
     this._initDispatched = false;

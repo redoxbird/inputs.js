@@ -60,8 +60,8 @@
     /* blue-500/10 */
 }
 
-.i-input-error {
-    border-color: red;
+.i-wrapper-error {
+    border-color: var(--input-border-error);
 }
 
 .i-input:disabled {
@@ -95,14 +95,36 @@
     flex-shrink: 0;
     width: 2.5rem;
     text-align: center;
+    transition: background-color 0.15s ease-in-out;
 }
 
-.i-action-copy::before {
-    content: '📋';
+.i-action:hover {
+    background-color: #eee;
 }
 
-.i-action-copied::before {
-    content: '✅';
+.i-icon {
+    pointer-events: none;
+}
+
+.i-icon svg {
+    width: 1.25em;
+    height: 1.25em;
+}
+
+.i-action-copy .i-action-icon-check {
+    display: none;
+}
+
+.i-action-copy .i-action-icon-copy {
+    display: block;
+}
+
+.i-action-copied .i-action-icon-check {
+    display: block;
+}
+
+.i-action-copied .i-action-icon-copy {
+    display: none;
 }
 
 .i-prefix,
@@ -119,7 +141,6 @@
     color: #6b7280;
 }
 
-
 .i-error {
     color: var(--input-error-text);
     border-color: var(--input-border-error);
@@ -129,7 +150,7 @@
     margin-top: 1rem;
     line-height: 1.25rem;
     background-color: rgba(239, 68, 68, 0.05);
-    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.5);
+    border: 1px solid var(--input-border-error);
     border-radius: 4px;
     padding: 0.5rem 1rem;
 }
