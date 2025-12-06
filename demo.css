@@ -15,7 +15,12 @@
     grid-template-columns: 1fr 1fr 1fr;
     gap: 40px;
     margin: 40px 0;
+}
 
+@media (max-width: 768px) {
+    .inputs-demo__form {
+        grid-template-columns: 1fr;
+    }
 }
 
 .inputs-demo__heading {
