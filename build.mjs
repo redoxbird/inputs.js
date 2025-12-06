@@ -2,7 +2,7 @@
 import esbuild from 'esbuild';
 import { readFileSync } from 'fs';
 
-// Parse your src/index.js to know exactly which components to build
+// Parse your src/index.js to know exactly which inputs to build
 const getEntryPoints = () => {
   const content = readFileSync('./src/index.js', 'utf-8');
   return content
@@ -19,24 +19,24 @@ const isWatch = process.argv.includes('--watch') || process.argv.includes('-w');
 const commonOptions = {
   bundle: true,
   format: 'iife',
-  globalName: 'MyInputs',
+  globalName: 'Inputs',
   minify: true,
   target: 'es2017',
-  treeShaking: false,
+  treeShaking: true,
   logLevel: 'info',
 };
 
-// 1. Single bundle (all components)
+// 1. Single bundle (all inputs)
 const singleCtx = await esbuild.context({
   entryPoints: ['./src/index.js'],
   outfile: 'dist/index.js',
   ...commonOptions,
 });
 
-// 2. Individual components
+// 2. Individual inputs
 const individualCtx = await esbuild.context({
   entryPoints: individualEntryPoints,
-  outdir: 'dist/components',
+  outdir: 'dist/inputs',
   outbase: 'src/inputs',
   ...commonOptions,
 });
@@ -52,6 +52,6 @@ if (isWatch) {
     singleCtx.rebuild(),
     individualCtx.rebuild(),
   ]);
-  console.log(`Build complete! ${individualEntryPoints.length} components → dist/`);
+  console.log(`Build complete! ${individualEntryPoints.length} inputs → dist/`);
   process.exit(0);
 }

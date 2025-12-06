@@ -150,7 +150,7 @@
 }
 
 .i-prefix,
-.i-country-select {
+.i-select-country {
     display: inline-flex;
     justify-content: flex-start;
     align-items: center;
@@ -163,6 +163,12 @@
     color: #757575;
     height: var(--input-height);
     border: none;
+}
+
+.i-select-country {
+    width: intrinsic;
+    width: -moz-fit-content;
+    width: fit-content;
 }
 
 .i-error {

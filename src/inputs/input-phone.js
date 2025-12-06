@@ -1,6 +1,7 @@
 import InputBase from './input-base.js';
 import { html } from 'lit';
-import { Mask, MaskInput } from "maska";
+import { MaskInput } from "maska";
+import * as z from "zod";
 
 const COUNTRIES = [
   { code: 'AF', dial: '+93', flag: '🇦🇫', name: 'Afghanistan', mask: '### ### ###', maxDigits: 9 },
@@ -258,16 +259,7 @@ export default class InputPhone extends InputBase {
     maxDigits: { type: Number },
     localDigits: { type: String },
 
-    // Zod‑mini rule attributes (min, max, regex, …)
-    min: { type: String },
-    max: { type: String },
-    email: { type: Boolean },
-    url: { type: Boolean },
-    gt: { type: String },
-    lt: { type: String },
-    startsWith: { type: String, attribute: 'starts-with' },
-    endsWith: { type: String, attribute: 'ends-with' },
-    regex: { type: String },
+    requiredMessage: { type: String, attribute: 'required-message' },
   };
 
   constructor() {
@@ -299,29 +291,29 @@ export default class InputPhone extends InputBase {
           ${this.label}
         </label>
 
-        <div class="i-phone-group">
+        <div class="i-wrapper i-phone-wrapper">
           <select
+            name="${this.name}-code"
             id="${this.ids.country}"
-            class="input-country"
+            class="i-select i-select-country"
             @change="${this._onCountryChange}"
             aria-label="Select country and calling code"
             ?disabled="${this.disabled}"
             ?readonly="${this.readonly}"
           >
             ${this.countries.map(c => html`
-              <option value="${c.code}"
+              <option
+                value="${c.code}"
                 ?selected="${c.code === this.country}"
-              >${c.flag} ${c.name} (${c.dial})</option>
+              >${c.name} (${c.dial})</option>
             `)}
           </select>
-
-          ${this.prefixIcon ? html`<span class="i-prefix-icon">${this.prefixIcon}</span>` : ''}
 
           <input
             id="${this.ids.input}"
             class="${inputCls.join(' ')}"
             type="tel"
-            placeholder="${this.placeholder || ''}"
+            placeholder="${this.placeholder}"
             ?required="${this.required}"
             ?disabled="${this.disabled}"
             ?readonly="${this.readonly}"
@@ -330,26 +322,32 @@ export default class InputPhone extends InputBase {
             aria-invalid="${!this.valid}"
             data-maska="${this.mask}"
             data-maska-mask="${this.mask}"
-            @input="${this._onPhoneInput}"
+            @input="${this._onInput}"
             @change="${this._onChange}"
             @blur="${this._onBlur}"
           />
-
-          ${this.actionButton === 'copy' ? html`
-            <button type="button"
-                    class="i-action"
-                    @click="${this._onCopy}"
-                    ?disabled="${this.disabled}"
-                    tabindex="-1">📋</button>` : ''}
         </div>
 
-        <p class="i-description" id="${this.ids.desc}">${this.description}</p>
-        <p class="i-error ${this.error ? 'i-error-visible' : ''}"
-           id="${this.ids.error}"
-           role="alert"
-           aria-live="polite">${this.error || ''}</p>
+        ${this._renderDescription()}
+        ${this._renderError()}
       </div>
     `;
+  }
+
+  _renderDescription() {
+    if (!this.description) return '';
+    return html`<p class="i-description" id="${this.ids.desc}">${this.description || ''}</p>`;
+  }
+
+  _renderError() {
+    if (!this.error) return '';
+    const error = JSON.parse(this.error);
+    if (error.length < 2) {
+      return html`<p class="i-error ${error ? 'i-error-visible' : ''}" id="${this.ids.error}">${error[0].message || ''}</p>`;
+    } else {
+      const errorList = html`<ul>${error.map(err => html`<li>${err.message}</li>`)}</ul>`;
+      return html`<div class="i-error ${error ? 'i-error-visible' : ''}" id="${this.ids.error}">${errorList}</div>`;
+    }
   }
 
   // -----------------------------------------------------------------
@@ -374,6 +372,7 @@ export default class InputPhone extends InputBase {
     this.maxDigits = c.maxDigits;
 
     const phoneInput = this.renderRoot?.querySelector('.i-input');
+
     if (phoneInput) {
       // Destroy previous instance (maska supports this)
       if (this._maskInstance) this._maskInstance.destroy();
@@ -393,12 +392,21 @@ export default class InputPhone extends InputBase {
   // -----------------------------------------------------------------
   // Input handling – now very small thanks to maska
   // -----------------------------------------------------------------
-  _onPhoneInput(e) {
-    const raw = e.target.value.replace(/\D/g, '').slice(0, this.maxDigits);
-    this.localDigits = raw;
-    this._updateFormattedValue();
-    this._updateValue();          // updates form value + fires input:input event
-    if (this.shouldValidate('input')) this.debounceValidate();
+  //
+
+  _onInput(e) {
+    this._updateValue(e.target.value);     // → dispatches input:input + optional debounce
+    this._callHook('onInput', e);
+  }
+
+  _onChange(e) {
+    this._handleChange();                  // → dispatches input:change + optional validate
+    this._callHook('onChange', e);
+  }
+
+  _onBlur(e) {
+    this._handleBlur();                    // → optional validate on blur
+    this._callHook('onBlur', e);
   }
 
   // -----------------------------------------------------------------
@@ -424,10 +432,55 @@ export default class InputPhone extends InputBase {
   // Validation – unchanged, still uses Zod‑mini (same as before)
   // -----------------------------------------------------------------
   async validate(options = {}) {
-    // (same implementation you already have – builds a schema from attributes,
-    //  adds a regex that forces `${this.dialCode}\\d{${this.maxDigits}}`,
-    //  updates `valid`/`error`, fires the required events)
-    // See the earlier answer for the full method.
+
+    try {
+      const schema = this._buildSchema();
+      const result = schema.safeParse(this.value);
+      this.valid = result.success;
+      this.error = result.success ? null : (result.error?.issues?.[0]?.message ?? 'Invalid phone number');
+
+      if (this.valid) {
+        this.internals.setValidity({});
+        // this.internals.setValidationMessage('');
+      } else {
+        this.internals.setValidity({ customError: true });
+        // this.internals.setValidationMessage(this.error);
+      }
+
+      this._dispatch('input:validate', { valid: this.valid, error: this.error });
+      if (this.valid) {
+        this._dispatch('input:success');
+      } else {
+        this._dispatch('input:error', { error: this.error });
+      }
+      this.requestUpdate();
+      return { valid: this.valid, error: this.error };
+    } catch (e) {
+      // this._handleError(e);
+      return { valid: false, error: this.error };
+    }
+  }
+
+  _buildSchema() {
+    let schema = z.string();
+
+    if (this.required) {
+      schema = schema.min(1, this.requiredMessage || (this.label ? `${this.label} is required` : 'This field is required'));
+    }
+
+    if (this.maxDigits) {
+      schema = schema.regex(new RegExp(`^${this.dialCode}\\d{${this.maxDigits}}$`), 'Invalid phone number');
+    }
+
+    if (this.minDigits) {
+      schema = schema.min(this.minDigits, 'Phone number is too short');
+    }
+
+    if (this.maxDigits && this.minDigits) {
+      schema = schema.max(this.maxDigits, 'Phone number is too long');
+    }
+
+    return schema;
   }
 
   // -----------------------------------------------------------------
