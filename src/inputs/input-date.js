@@ -176,7 +176,6 @@ export default class InputDate extends InputTextBase {
   }
 
   _onRangeChange(e) {
-    console.log(e.detail)
     this.startValue = e.detail[0];
     this.endValue = e.detail[1];
     this._updateValue(JSON.stringify({ start: this.startValue, end: this.endValue }));

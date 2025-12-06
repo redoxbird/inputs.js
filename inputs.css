@@ -88,6 +88,20 @@
 
 .i-field wc-datepicker {
     margin-top: 1rem;
+    width: 100%;
+}
+
+.i-field wc-datepicker .wc-datepicker {
+    width: 100%;
+    max-width: none;
+}
+
+.i-color-preview {
+    display: inline-block;
+    width: calc(var(--input-height) - 1rem);
+    height: calc(var(--input-height) - 1rem);
+    border-radius: 0.25rem;
+    flex-shrink: 0;
 }
 
 .clr-field {

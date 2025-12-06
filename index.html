@@ -99,6 +99,9 @@
               validate-on="blur"
               prefix="https://"
               prefix-value="https://"
+              format="url"
+              format-message="Invalid URL format."
+              ends-with=".gov"
               required
             >
             </input-text>
@@ -194,6 +197,7 @@
               validate-on="blur"
               format="ipv4"
               starts-with="192"
+              mask="ip"
               required
             >
             </input-text>

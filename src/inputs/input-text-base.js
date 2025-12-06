@@ -1,6 +1,6 @@
-// input-text-base.js
 import { html } from 'lit';
 import * as z from 'zod';
+import { MaskInput } from "maska";
 import InputBase from './input-base.js';
 
 /**
@@ -51,11 +51,95 @@ export default class InputTextBase extends InputBase {
 
     // Internal state
     isPasswordVisible: { type: Boolean, state: true },
+
+    // Masking
+    mask: { type: String },
   };
 
   constructor() {
     super();
     this.isPasswordVisible = false;
+    this.mask = '';
+    this._maskInstance = null;
+  }
+
+  firstUpdated() {
+    super.firstUpdated();
+    if (this.mask) {
+      const input = this.renderRoot.querySelector('input');
+      if (input) {
+        this._maskInstance = new MaskInput(input, this._getMaskOptions());
+      }
+    }
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    if (this._maskInstance) {
+      this._maskInstance.destroy();
+      this._maskInstance = null;
+    }
+  }
+
+  _getMaskOptions() {
+    const baseOptions = {};
+
+    switch (this.mask) {
+      case 'ip':
+        return { ...baseOptions, mask: "###.###.###.###" };
+      case 'phone':
+        return { ...baseOptions, mask: "(###) ###-####" };
+      case 'phone-international':
+        return { ...baseOptions, mask: "+# (###) ###-####" };
+      case 'credit-card':
+        return { ...baseOptions, mask: "#### #### #### ####" };
+      case 'ssn':
+        return { ...baseOptions, mask: "###-##-####" };
+      case 'zip':
+        return { ...baseOptions, mask: "#####" };
+      case 'zip-extended':
+        return { ...baseOptions, mask: "#####-####" };
+      case 'date':
+        return { ...baseOptions, mask: "##/##/####" };
+      case 'time':
+        return { ...baseOptions, mask: "##:##" };
+      case 'time-full':
+        return { ...baseOptions, mask: "##:##:##" };
+      case 'money':
+        return {
+          ...baseOptions,
+          preProcess: (val) => val.replace(/[$,]/g, ""),
+          postProcess: (val) => {
+            if (!val) return "";
+
+            const sub = 3 - (val.includes(".") ? val.length - val.indexOf(".") : 0);
+
+            return Intl.NumberFormat("en-US", {
+              style: "currency",
+              currency: "USD"
+            })
+              .format(val)
+              .slice(0, sub ? -sub : undefined);
+          }
+        };
+      case 'money-number':
+        return {
+          ...baseOptions,
+          number: {
+            locale: 'uk',
+            fraction: 2,
+            unsigned: true
+          },
+          postProcess: (val) => val ? `£${val}` : ''
+        };
+      case 'uppercase':
+        return { ...baseOptions, preProcess: (val) => val.toUpperCase() };
+      case 'lowercase':
+        return { ...baseOptions, preProcess: (val) => val.toLowerCase() };
+      default:
+        // If mask is a custom pattern, use it directly
+        return { ...baseOptions, mask: this.mask };
+    }
   }
 
   // ------------------------------------------------------------------ //
@@ -278,10 +362,23 @@ export default class InputTextBase extends InputBase {
   }
 
   // ------------------------------------------------------------------ //
-  // Override reset to clear password visibility
+  // Override reset to clear password visibility and mask instance
   // ------------------------------------------------------------------ //
   reset() {
     super.reset();
     this.isPasswordVisible = false;
+    if (this._maskInstance) {
+      this._maskInstance.destroy();
+      this._maskInstance = null;
+      // Re-apply mask after reset
+      this.updateComplete.then(() => {
+        if (this.mask) {
+          const input = this.renderRoot.querySelector('input');
+          if (input) {
+            this._maskInstance = new MaskInput(input, this._getMaskOptions());
+          }
+        }
+      });
+    }
   }
 }
