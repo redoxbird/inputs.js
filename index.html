@@ -34,9 +34,6 @@
     <!-- DNS prefetch & preconnect (speed up external resources) -->
     <link rel="preconnect" href="https://cdn.twind.style" crossorigin />
 
-    <!-- Twind CDN (production-ready with integrity & crossorigin) -->
-    <script src="https://cdn.twind.style" crossorigin="anonymous"></script>
-
     <!-- Coloris CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.css"/>
     <script src="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js"></script>
@@ -47,6 +44,7 @@
 
     <!-- Your demo styles (assuming they're optimized & fingerprinted in prod) -->
     <link rel="stylesheet" href="./demo.css" />
+    <link rel="stylesheet" href="./inputs.css" />
 
     <!-- Optional: Preload critical resources -->
     <!-- <link rel="preload" href="/fonts/yourfont.woff2" as="font" type="font/woff2" crossorigin /> -->
@@ -60,11 +58,11 @@
 </head>
 
 
-<body class="bg-gray-50">
-    <h1 class="text-2xl font-bold mb-6 bg-violet-700 text-white px-8 py-4">inputs.js</h1>
+<body class="inputs-demo__body">
+    <h1 class="inputs-demo__heading">inputs.js</h1>
 
-    <div class="container p-8">
-        <form method="get" action="/" id="demoForm" class="container grid grid-cols-1 sm:grid-cols-3 gap-12">
+    <div class="inputs-demo__container">
+        <form method="get" action="/" id="demoForm" class="inputs-demo__form">
             <input-email
                 name="email"
                 label="Email"
@@ -118,7 +116,7 @@
             <input-phone
                 name="phone"
                 label="Phone"
-                placeholder="+1 (555) 555-5555"
+                placeholder="(555) 555-5555"
                 validate-on="blur"
                 format="phone"
                 required
@@ -237,9 +235,6 @@
                 required
             >
             </input-text>
-
-
-
         </form>
     </div>
 
@@ -250,18 +245,18 @@
         // 15. Demo Form Submission
         // ---------------------------------------------------------------
 
-        document.querySelector("input-email").addEventListener("input:error", (e) => {
-            console.log("Current value:", e.target.value);
-        });
+        // document.querySelector("input-email").addEventListener("input:error", (e) => {
+        //     console.log("Current value:", e.target.value);
+        // });
 
-        document.getElementById("demoForm").addEventListener("submit", async (e) => {
-            const emailEl = e.target.querySelector("input-email");
-            const result = await emailEl.validate();
-            if (!result.valid) {
-                e.preventDefault();
-                console.error("Validation failed:", result.error);
-            }
-        });
+        // document.getElementById("demoForm").addEventListener("submit", async (e) => {
+        //     const emailEl = e.target.querySelector("input-email");
+        //     const result = await emailEl.validate();
+        //     if (!result.valid) {
+        //         e.preventDefault();
+        //         console.error("Validation failed:", result.error);
+        //     }
+        // });
     </script>
 
 </body>

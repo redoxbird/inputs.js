@@ -1,63 +1,42 @@
-// input-text-base.js
 import { html } from 'lit';
 import * as z from 'zod';
 import InputBase from './input-base.js';
 
-/**
- * <input-text-base>
- * Reusable text input foundation (email, password, url, etc.)
- * Inherits ALL core logic from <input-base>:
- *   • Form association
- *   • Hooks + events
- *   • Debounced validation
- *   • Accessibility IDs
- *   • reset(), focus(), validate()
- */
-export default class InputDate extends InputBase {
+export default class InputColor extends InputBase {
   static properties = {
     // Text-specific UI
-    actionButton: { type: String, attribute: 'action-button' },
-    prefix: { type: String, attribute: 'prefix' },
-    prefixValue: { type: String, attribute: 'prefix-value' },
     inputType: { type: String },
     unstyled: { type: Boolean, attribute: 'unstyled' },
+    themeMode: { type: String, attribute: 'theme-mode' },
 
-    // Text validators (attributes)
-    min: { type: String },
-    max: { type: String },
-    email: { type: Boolean },
-    url: { type: Boolean },
-    startsWith: { type: String, attribute: 'starts-with' },
-    endsWith: { type: String, attribute: 'ends-with' },
-    includes: { type: String },
-    lowercase: { type: Boolean },
-    uppercase: { type: Boolean },
-    regex: { type: String },
-    format: { type: String },
-
-    // Custom messages
-    requiredMessage: { type: String, attribute: 'required-message' },
-    minMessage: { type: String, attribute: 'min-message' },
-    maxMessage: { type: String, attribute: 'max-message' },
-    emailMessage: { type: String, attribute: 'email-message' },
-    urlMessage: { type: String, attribute: 'url-message' },
-    startsWithMessage: { type: String, attribute: 'starts-with-message' },
-    endsWithMessage: { type: String, attribute: 'ends-with-message' },
-    includesMessage: { type: String, attribute: 'includes-message' },
-    lowercaseMessage: { type: String, attribute: 'lowercase-message' },
-    uppercaseMessage: { type: String, attribute: 'uppercase-message' },
-    regexMessage: { type: String, attribute: 'regex-message' },
-    formatMessage: { type: String, attribute: 'format-message' },
-
-    // Internal state
-    isPasswordVisible: { type: Boolean, state: true },
-    isDatePickerVisible: { type: Boolean, state: false },
   };
 
   constructor() {
     super();
-    this.isPasswordVisible = false;
-    this.actionButton = 'date-picker';
+
+    if (Coloris !== undefined) {
+      Coloris({
+        theme: 'polaroid',
+        formatToggle: true,
+        themeMode: this.themeMode || 'light',
+        swatches: [
+          'DarkSlateGray',
+          '#2a9d8f',
+          '#e9c46a',
+          'coral',
+          'rgb(231, 111, 81)',
+          'Crimson',
+          '#023e8a',
+          '#0077b6',
+          'hsl(194, 100%, 39%)',
+          '#00b4d8',
+          '#48cae4'
+        ],
+        onChange: (color, inputEl) => {
+          this.value = color;
+        }
+      });
+    }
   }
 
   // ------------------------------------------------------------------ //
@@ -87,17 +66,15 @@ export default class InputDate extends InputBase {
                 ?required="${this.required}"
                 ?disabled="${this.disabled}"
                 ?readonly="${this.readonly}"
-                aria-invalid="${this.valid ? undefined : 'true'}"
-                aria-describedby="${ariaDescribedby}"
                 @input="${this._onInput}"
                 @change="${this._onChange}"
                 @blur="${this._onBlur}"
+                data-coloris
                 autocomplete="${this.autocomplete ?? 'off'}"
                 ${this.autofocus ? 'autofocus' : ''}
               />
               ${this._renderAction()}
           </div>
-          ${this.isDatePickerVisible ? html`<wc-datepicker range></wc-datepicker>` : ''}
           ${this._renderDescription()}
           ${this._renderError()}
         </div>
@@ -114,15 +91,6 @@ export default class InputDate extends InputBase {
 
   _renderAction() {
     if (!this.actionButton) return '';
-
-    if (this.actionButton === 'date-picker') {
-      return html`
-        <button class="i-action i-action-copy" type="button" @click="${this._onActionToggleDatePicker}" title="Copy to clipboard">
-        ${this.isDatePickerVisible ? html`<span class="i-icon i-action-icon-calendar-x"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-calendar-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13 21h-7a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v6.5" /><path d="M16 3v4" /><path d="M8 3v4" /><path d="M4 11h16" /><path d="M22 22l-5 -5" /><path d="M17 22l5 -5" /></svg></span>` : html`<span class="i-icon i-action-icon-calendar"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-calendar"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" /><path d="M16 3v4" /><path d="M8 3v4" /><path d="M4 11h16" /><path d="M11 15h1" /><path d="M12 15v3" /></svg></span>`}
-        </button>
-     `;
-    }
-
     if (this.actionButton === 'copy') {
       return html`<button class="i-action i-action-copy" type="button" @click="${this._onActionCopy}" title="Copy to clipboard">
           <span class="i-icon i-action-icon-copy"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-copy"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></span>
@@ -191,11 +159,6 @@ export default class InputDate extends InputBase {
     this._dispatch('input:change', { value: this.value });
   }
 
-  _onActionToggleDatePicker(e) {
-    e.stopPropagation();
-    this.isDatePickerVisible = !this.isDatePickerVisible;
-  }
-
   // ------------------------------------------------------------------ //
   // Input handlers – delegate to input-base core
   // ------------------------------------------------------------------ //
@@ -222,41 +185,6 @@ export default class InputDate extends InputBase {
 
     if (this.required) {
       schema = schema.min(1, this.requiredMessage || (this.label ? `${this.label} is required` : 'This field is required'));
-    }
-
-    if (this.min) schema = schema.min(Number(this.min), this.minMessage || `Minimum length is ${this.min}`);
-    if (this.max) schema = schema.max(Number(this.max), this.maxMessage || `Maximum length is ${this.max}`);
-
-    if (this.email) schema = schema.email(this.emailMessage || 'Invalid email address');
-    if (this.url) schema = schema.url(this.urlMessage || 'Invalid URL');
-
-    if (this.startsWith) schema = schema.startsWith(this.startsWith, this.startsWithMessage || `Must start with "${this.startsWith}"`);
-    if (this.endsWith) schema = schema.endsWith(this.endsWith, this.endsWithMessage || `Must end with "${this.endsWith}"`);
-    if (this.includes) schema = schema.includes(this.includes, this.includesMessage || `Must include "${this.includes}"`);
-
-    if (this.lowercase) schema = schema.lowercase(this.lowercaseMessage || 'Must be lowercase');
-    if (this.uppercase) schema = schema.uppercase(this.uppercaseMessage || 'Must be uppercase');
-
-    if (this.format) {
-      const msg = this.formatMessage || `Must be a valid ${this.format}`;
-      switch (this.format) {
-        case 'email': schema = schema.email(msg); break;
-        case 'url': schema = schema.url(msg); break;
-        case 'uuid': schema = schema.uuid(msg); break;
-        case 'cuid': schema = schema.cuid(msg); break;
-        case 'cuid2': schema = schema.cuid2(msg); break;
-        case 'ulid': schema = schema.ulid(msg); break;
-        case 'iso-datetime': schema = z.iso.datetime(msg); break;
-        case 'iso-date': schema = z.iso.date(msg); break;
-        case 'emoji': schema = schema.emoji(msg); break;
-        case 'base64': schema = schema.base64(msg); break;
-        case 'hex': schema = schema.hex(msg); break;
-        case 'jwt': schema = schema.jwt(msg); break;
-        case 'nanoid': schema = schema.nanoid(msg); break;
-        case 'ipv4': schema = schema.ipv4(msg); break;
-        case 'ipv6': schema = schema.ipv6(msg); break;
-        // Add more as needed
-      }
     }
 
     if (this.regex) {
@@ -302,3 +230,5 @@ export default class InputDate extends InputBase {
     this.isPasswordVisible = false;
   }
 }
+
+customElements.define('input-color', InputColor);
