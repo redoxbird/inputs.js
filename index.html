@@ -92,7 +92,7 @@
               required
             ></input-text>
 
-            <input-url
+            <input-text
               name="website"
               label="Website"
               placeholder="example.com"
@@ -101,7 +101,7 @@
               prefix-value="https://"
               required
             >
-            </input-url>
+            </input-text>
 
             <input-text
               name="search"
@@ -234,6 +234,8 @@
                 required
             >
             </input-text>
+
+            <button type="submit">Submit</button>
         </form>
     </div>
 
@@ -248,14 +250,21 @@
         //     console.log("Current value:", e.target.value);
         // });
 
-        // document.getElementById("demoForm").addEventListener("submit", async (e) => {
-        //     const emailEl = e.target.querySelector("input-email");
-        //     const result = await emailEl.validate();
-        //     if (!result.valid) {
-        //         e.preventDefault();
-        //         console.error("Validation failed:", result.error);
-        //     }
-        // });
+        document.getElementById("demoForm").addEventListener("submit", async (e) => {
+          const fields = form.querySelectorAll("input-text, input-email, input-number, input-phone");
+
+              let allValid = true;
+              for (const field of fields) {
+                console.log(field)
+                const { valid } = await field.validate();
+                if (!valid) allValid = false;
+              }
+
+              if (!allValid) return;
+
+              const data = new FormData(form);
+              console.log(Object.fromEntries(data.entries()));
+        });
     </script>
 
 </body>
