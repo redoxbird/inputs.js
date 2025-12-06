@@ -1,59 +1,383 @@
+# 🚀 Inputs.js — Modern Form Elements, Simplified
 
-# Inputs.js Documentation
-
-A lightweight, zero-dependency, fully accessible input library built with Lit and form‑associated custom elements.
-
----
-
-## 1. Overview
-
-Inputs.js is a collection of Web Component inputs (e.g. `<input-text>`, `<input-email>`, `<input-number>`, `<input-phone>`) that:
-
-- Enhance native `<input>` elements instead of replacing them
-- Are fully accessible (WCAG AA, ARIA, keyboard support) [6]
-- Integrate natively with HTML forms via `ElementInternals` [6][1]
-- Expose a consistent set of attributes, events, hooks, and methods across all components
-- Use schema-based validation (zod‑mini) configured via HTML attributes
-
-Every Inputs.js component:
-
-- Extends `LitElement` and uses Lit’s rendering and reactivity [6][1]
-- Is a **Form-Associated Custom Element** (`static formAssociated = true`) [6][1]
-- Uses a **strict DOM structure** and class names so you can fully style from the outside [6]
+> **Zero dependencies**, **fully accessible**, **form-native** input components built with Lit. Just drop them in and they work.
 
 ---
 
-## 2. Core Philosophy
+## 📦 Quick Start
 
-From the official spec: [6]
+### Installation
 
-1. **Progressive Enhancement**  
-   Components progressively enhance existing native input behavior. They remain form controls, support `form.reset()`, and participate in native validation mechanisms.
+```bash
+npm install inputs.js
+```
 
-2. **Accessibility First**  
-   - Proper ARIA linkage between label, input, description, and error messages [6][1][2].
-   - Keyboard navigation is fully supported.
-   - WCAG AA compliance is a core requirement.
+Or use directly from CDN:
 
-3. **Hookable**  
-   Every component exposes lifecycle hooks:
+```html
+<script type="module" src="https://unpkg.com/inputs.js"></script>
+```
 
-   - `onInit`
-   - `onBeforeRender`
-   - `onAfterRender`
-   - `onInput`
-   - `onChange`
-   - `onValidate`
-   - `onError`
-   - `onSuccess`  
+### Your First Input
 
-   Hooks are available via:
-   - HTML attributes
-   - JS properties
-   - Custom events [6][1]
+```html
+<script type="module">
+  import 'inputs.js/components/input-text.js';
+</script>
 
-4. **Form-Associated Elements**  
-   All components: [6][1]
+<input-text 
+  name="username" 
+  label="Username" 
+  placeholder="johndoe"
+  required>
+</input-text>
+```
+
+That's it. You now have a fully accessible, form-integrated input component.
+
+---
+
+## ✨ Why You'll Love This
+
+- **🎯 Progressive Enhancement** - Enhances native inputs, doesn't replace them
+- **♿ Accessibility First** - WCAG AA compliant out of the box
+- **📝 Form Native** - Works with `<form>`, `FormData`, `form.reset()` - no wrappers needed
+- **🔧 Zero Dependencies** - Just Lit. Nothing else.
+- **🎨 Style It Your Way** - Uses semantic classes, no forced styling
+- **⚡ Instant Validation** - Schema-based validation with async support
+
+---
+
+## 🎨 Available Components
+
+All components share the same API. Once you learn one, you know them all.
+
+### Text Inputs [8]
+
+```html
+<input-text 
+  name="bio" 
+  label="About you"
+  min="10"
+  max="200"
+  validate-on="input">
+</input-text>
+```
+
+### Email [3]
+
+```html
+<input-email 
+  name="email" 
+  label="Email address"
+  validate-on="blur"
+  required>
+</input-email>
+```
+
+### Password with Show/Hide [5]
+
+```html
+<input-password 
+  name="secret" 
+  label="Password"
+  action-button="hide"
+  min="8"
+  required>
+</input-password>
+```
+
+### Number Input [4]
+
+```html
+<input-number 
+  name="age" 
+  label="Age"
+  min="18"
+  max="120"
+  required>
+</input-number>
+```
+
+### Phone with Country Codes [6]
+
+```html
+<input-phone 
+  name="mobile" 
+  label="Mobile number"
+  validate-on="blur">
+</input-phone>
+```
+
+### URL Input [9]
+
+```html
+<input-url 
+  name="website" 
+  label="Your website"
+  placeholder="https://example.com">
+</input-url>
+```
+
+### Search Input [7]
+
+```html
+<input-search 
+  name="query" 
+  label="Search"
+  placeholder="Type to search..."
+  action-button="clear">
+</input-search>
+```
+
+### Date Input [2]
+
+```html
+<input-date 
+  name="birthday" 
+  label="Birthday"
+  validate-on="change">
+</input-date>
+```
+
+### Color Picker [1]
+
+```html
+<input-color 
+  name="theme" 
+  label="Pick your color"
+  value="#3b82f6">
+</input-color>
+```
+
+---
+
+## 🔥 Validation Made Simple
+
+Validation is declarative. Just add attributes:
+
+```html
+<input-text
+  name="username"
+  label="Username"
+  min="3"
+  min-message="Too short! Need at least 3 chars"
+  max="20"
+  max-message="Whoa there! Max 20 chars"
+  regex="^[a-zA-Z0-9]+$"
+  regex-message="Only letters and numbers allowed"
+  validate-on="input|blur"
+  required>
+</input-text>
+```
+
+### Available Validators
+
+**String validators:**
+- `min`, `max` - Length limits
+- `email`, `url` - Format validation
+- `regex` - Custom patterns
+- `starts-with`, `ends-with` - Prefix/suffix rules
+- `uuid`, `base64`, `hex` - Common formats
+
+**Number validators:**
+- `gt`, `gte`, `lt`, `lte` - Value ranges
+- `positive`, `int` - Type constraints
+- `min`, `max` - Numeric limits
+
+---
+
+## 🎯 Events & Hooks
+
+Listen to what happens:
+
+```javascript
+const input = document.querySelector('input-email');
+
+// Events
+input.addEventListener('input:success', () => {
+  console.log('✅ Valid email!');
+});
+
+input.addEventListener('input:error', (e) => {
+  console.log('❌', e.detail.error);
+});
+
+// Or hooks (simpler)
+input.onValidate = ({ valid, error }) => {
+  if (valid) {
+    // Do something cool
+  }
+};
+```
+
+**Available events:**
+- `input:init` - Component ready
+- `input:input` - User typing
+- `input:change` - Value changed
+- `input:validate` - Validation ran
+- `input:success` - Valid input
+- `input:error` - Invalid input
+
+---
+
+## 🎨 Styling Your Way
+
+No forced styles. Use semantic classes:
+
+```css
+.input-wrapper {
+  margin-bottom: 1rem;
+}
+
+.input-label {
+  font-weight: 600;
+  color: #374151;
+}
+
+.input-input {
+  border: 2px solid #e5e7eb;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+}
+
+.input-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.input-error {
+  color: #ef4444;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.input-error-visible {
+  display: block;
+}
+```
+
+---
+
+## 📝 Form Integration
+
+Works with native forms out of the box:
+
+```html
+<form id="my-form">
+  <input-text name="name" label="Name" required></input-text>
+  <input-email name="email" label="Email" required></input-email>
+  <button type="submit">Submit</button>
+</form>
+
+<script>
+  const form = document.getElementById('my-form');
+  
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    // Validate all inputs
+    const inputs = form.querySelectorAll('input-text, input-email');
+    let allValid = true;
+    
+    for (const input of inputs) {
+      const { valid } = await input.validate();
+      if (!valid) allValid = false;
+    }
+    
+    if (allValid) {
+      const data = new FormData(form);
+      console.log('Form data:', Object.fromEntries(data));
+    }
+  });
+</script>
+```
+
+---
+
+## 🚀 Advanced Features
+
+### Action Buttons
+
+Add copy, clear, or show/hide actions:
+
+```html
+<input-text 
+  action-button="copy"
+  label="API Key">
+</input-text>
+
+<input-password 
+  action-button="hide"
+  label="Password">
+</input-password>
+```
+
+### Prefixes & Icons
+
+```html
+<input-text 
+  prefix="$"
+  label="Amount">
+</input-text>
+
+<input-text 
+  prefix-icon="🔗"
+  label="Website">
+</input-text>
+```
+
+### Shadow DOM (Optional)
+
+```html
+<input-text 
+  shadow
+  label="Encapsulated input">
+</input-text>
+```
+
+---
+
+## 💡 Pro Tips
+
+1. **Debounced Validation** - Validation auto-debounces at 300ms
+2. **Async Validation** - Perfect for checking username availability
+3. **Keyboard Navigation** - Full keyboard support out of the box
+4. **ARIA Compliant** - Screen readers just work
+5. **Form Reset** - `form.reset()` works perfectly
+
+---
+
+## 🎯 One More Thing
+
+All components expose a clean API:
+
+```javascript
+const input = document.querySelector('input-text');
+
+// Properties
+console.log(input.value);     // Current value
+console.log(input.valid);     // true/false
+console.log(input.error);     // Error message or null
+
+// Methods
+await input.validate();       // Run validation
+input.reset();                // Clear value and errors
+input.focus();                // Focus the input
+```
+
+---
+
+## 🤝 Ready to Build?
+
+That's Inputs.js. Simple, powerful, and accessible. Start building better forms today.
+
+**Need more?** Check out each component's specific docs for advanced options.
+
+---
+
+*Built with ❤️ using Lit. No dependencies, just pure web component goodness   All components: [6][1]
 
    - Use `ElementInternals`
    - Participate in native forms
@@ -672,5 +996,3 @@ If you need a new specialized input:
    - `formResetCallback` and `formStateRestoreCallback` [1]
 
 ---
-
-If you need more detail on any specific component (e.g. full API for `<input-phone>` or the exact zod-mini schema mapping), tell me which component or area you want expanded.
