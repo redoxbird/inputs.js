@@ -158,6 +158,9 @@
               label="Date"
               placeholder="2023-01-01"
               validate-on="blur"
+              range
+              range-start-label="Check in"
+              range-end-label="Check Out"
               required
             >
             </input-date>
@@ -251,13 +254,18 @@
         // });
 
         document.getElementById("demoForm").addEventListener("submit", async (e) => {
-          const fields = form.querySelectorAll("input-text, input-email, input-number, input-phone");
+          const form = e.target;
+            e.preventDefault();
+            const fields = form.querySelectorAll("input-text, input-email, input-number, input-phone");
 
               let allValid = true;
               for (const field of fields) {
-                console.log(field)
                 const { valid } = await field.validate();
-                if (!valid) allValid = false;
+                if (!valid) {
+                  allValid = false
+                  field.focus();
+                  break;
+                };
               }
 
               if (!allValid) return;

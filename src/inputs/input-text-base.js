@@ -82,7 +82,7 @@ export default class InputTextBase extends InputBase {
                 type="${this._getInputType()}"
                 .value="${this.value ?? ''}"
                 placeholder="${this.placeholder ?? ''}"
-                ?required="${this.required}"
+                aria-required="${this.required ? 'true' : 'false'}"
                 ?disabled="${this.disabled}"
                 ?readonly="${this.readonly}"
                 aria-invalid="${this.valid ? undefined : 'true'}"

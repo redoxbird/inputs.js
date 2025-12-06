@@ -35,12 +35,35 @@
     height: var(--input-height);
 }
 
+
 /* Label: Bold, associated with input */
 .i-label {
     font-weight: 600;
     color: #374151;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.5rem;
 }
+
+.i-label-group {
+    display: flex;
+    justify-content: flex-start;
+    align-items: baseline;
+    gap: 0.25rem;
+}
+
+.i-label-secondary {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-weight: 400;
+    color: #424242;
+}
+
+.i-label-secondary .i-icon svg {
+    margin: 0 0.25rem;
+    width: 1rem;
+    height: auto;
+}
+
 
 .i-input {
     padding: 0 0.75rem;
@@ -95,6 +118,12 @@
     outline: none;
 }
 
+.i-input::-webkit-inner-spin-button,
+.i-input::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
+
 .i-description {
     font-size: 0.875rem;
     color: #6b7280;
@@ -125,6 +154,7 @@
 
 .i-icon {
     pointer-events: none;
+    line-height: 1;
 }
 
 .i-icon svg {

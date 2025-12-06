@@ -1,4 +1,4 @@
-import InputBase from './input-base.js';
+import InputTextBase from './input-text-base.js';
 import { html } from 'lit';
 import { MaskInput } from "maska";
 import * as z from "zod";
@@ -248,8 +248,7 @@ const COUNTRIES = [
   { code: 'ZW', dial: '+263', flag: '🇿🇼', name: 'Zimbabwe', mask: '## ### ###', maxDigits: 9 },
 ];
 
-export default class InputPhone extends InputBase {
-  static formAssociated = true;
+export default class InputPhone extends InputTextBase {
 
   static properties = {
     // generic (inherited) + phone‑specific props
@@ -264,6 +263,7 @@ export default class InputPhone extends InputBase {
 
   constructor() {
     super();
+    this.inputType = 'tel';
     this.countries = COUNTRIES;
     this.country = 'US';
     this.dialCode = '+1';
@@ -271,6 +271,8 @@ export default class InputPhone extends InputBase {
     this.maxDigits = 10;
     this.localDigits = '';
     this._maskInstance = null;
+    // Add country id
+    this.ids.country = `inputs-country-${Math.random().toString(36).substr(2, 9)}`;
   }
 
   // -----------------------------------------------------------------
@@ -314,9 +316,9 @@ export default class InputPhone extends InputBase {
             class="${inputCls.join(' ')}"
             type="tel"
             placeholder="${this.placeholder}"
-            ?required="${this.required}"
             ?disabled="${this.disabled}"
             ?readonly="${this.readonly}"
+            aria-required="${this.required ? 'true' : 'false'}"
             aria-labelledby="${this.ids.label}"
             aria-describedby="${describedBy}"
             aria-invalid="${!this.valid}"
@@ -334,21 +336,6 @@ export default class InputPhone extends InputBase {
     `;
   }
 
-  _renderDescription() {
-    if (!this.description) return '';
-    return html`<p class="i-description" id="${this.ids.desc}">${this.description || ''}</p>`;
-  }
-
-  _renderError() {
-    if (!this.error) return '';
-    const error = JSON.parse(this.error);
-    if (error.length < 2) {
-      return html`<p class="i-error ${error ? 'i-error-visible' : ''}" id="${this.ids.error}">${error[0].message || ''}</p>`;
-    } else {
-      const errorList = html`<ul>${error.map(err => html`<li>${err.message}</li>`)}</ul>`;
-      return html`<div class="i-error ${error ? 'i-error-visible' : ''}" id="${this.ids.error}">${errorList}</div>`;
-    }
-  }
 
   // -----------------------------------------------------------------
   // Lifecycle – create maska instance and hook up events
@@ -389,25 +376,6 @@ export default class InputPhone extends InputBase {
     this._updateValue();   // updates form value + fires input:input event
   }
 
-  // -----------------------------------------------------------------
-  // Input handling – now very small thanks to maska
-  // -----------------------------------------------------------------
-  //
-
-  _onInput(e) {
-    this._updateValue(e.target.value);     // → dispatches input:input + optional debounce
-    this._callHook('onInput', e);
-  }
-
-  _onChange(e) {
-    this._handleChange();                  // → dispatches input:change + optional validate
-    this._callHook('onChange', e);
-  }
-
-  _onBlur(e) {
-    this._handleBlur();                    // → optional validate on blur
-    this._callHook('onBlur', e);
-  }
 
   // -----------------------------------------------------------------
   // Helper: recompute the formatted representation
@@ -429,47 +397,31 @@ export default class InputPhone extends InputBase {
   }
 
   // -----------------------------------------------------------------
-  // Validation – unchanged, still uses Zod‑mini (same as before)
+  // Validation – uses inherited validate from InputTextBase
   // -----------------------------------------------------------------
-  async validate(options = {}) {
+  async validate() {
+    this._callHook('onValidate');
+    this._dispatch('input:validate');
 
     try {
       const schema = this._buildSchema();
-      const result = schema.safeParse(this.value);
-      this.valid = result.success;
-      this.error = result.success ? null : (result.error?.issues?.[0]?.message ?? 'Invalid phone number');
+      await schema.parseAsync(this.value ?? '');
 
-      if (this.valid) {
-        this.internals.setValidity({});
-        // this.internals.setValidationMessage('');
-      } else {
-        this.internals.setValidity({ customError: true });
-        // this.internals.setValidationMessage(this.error);
-      }
-
-      this._dispatch('input:validate', { valid: this.valid, error: this.error });
-      if (this.valid) {
-        this._dispatch('input:success');
-      } else {
-        this._dispatch('input:error', { error: this.error });
-      }
-      this.requestUpdate();
-      return { valid: this.valid, error: this.error };
-    } catch (e) {
-      // this._handleError(e);
-      return { valid: false, error: this.error };
+      this.setValidState({ valid: true });
+      this._callHook('onSuccess', { value: this.value });
+      return { valid: true, error: null };
+    } catch (err) {
+      const errorMsg = err.errors?.[0]?.message || err.message || 'Invalid value';
+      this.setValidState({ valid: false, error: errorMsg });
+      this._callHook('onError', { error: errorMsg });
+      return { valid: false, error: errorMsg };
     }
   }
-
   _buildSchema() {
     let schema = z.string();
 
     if (this.required) {
       schema = schema.min(1, this.requiredMessage || (this.label ? `${this.label} is required` : 'This field is required'));
-    }
-
-    if (this.maxDigits) {
-      schema = schema.regex(new RegExp(`^${this.dialCode}\\d{${this.maxDigits}}$`), 'Invalid phone number');
     }
 
     if (this.minDigits) {

@@ -12,7 +12,7 @@ var Inputs=(()=>{var me=Object.defineProperty,In=Object.defineProperties,Tn=Obje
                 type="${this._getInputType()}"
                 .value="${(n=this.value)!=null?n:""}"
                 placeholder="${(i=this.placeholder)!=null?i:""}"
-                ?required="${this.required}"
+                aria-required="${this.required?"true":"false"}"
                 ?disabled="${this.disabled}"
                 ?readonly="${this.readonly}"
                 aria-invalid="${this.valid?void 0:"true"}"

@@ -1,69 +1,46 @@
-// input-text-base.js
 import { html } from 'lit';
 import * as z from 'zod';
-import InputBase from './input-base.js';
+import InputTextBase from './input-text-base.js';
 
 /**
- * <input-text-base>
- * Reusable text input foundation (email, password, url, etc.)
- * Inherits ALL core logic from <input-base>:
- *   • Form association
- *   • Hooks + events
- *   • Debounced validation
- *   • Accessibility IDs
- *   • reset(), focus(), validate()
+ * <input-date>
+ * Date input with optional date picker and range support
  */
-export default class InputDate extends InputBase {
+export default class InputDate extends InputTextBase {
   static properties = {
-    // Text-specific UI
-    actionButton: { type: String, attribute: 'action-button' },
-    prefix: { type: String, attribute: 'prefix' },
-    prefixValue: { type: String, attribute: 'prefix-value' },
-    inputType: { type: String },
-    unstyled: { type: Boolean, attribute: 'unstyled' },
-
-    // Text validators (attributes)
-    min: { type: String },
-    max: { type: String },
-    email: { type: Boolean },
-    url: { type: Boolean },
-    startsWith: { type: String, attribute: 'starts-with' },
-    endsWith: { type: String, attribute: 'ends-with' },
-    includes: { type: String },
-    lowercase: { type: Boolean },
-    uppercase: { type: Boolean },
-    regex: { type: String },
-    format: { type: String },
-
-    // Custom messages
-    requiredMessage: { type: String, attribute: 'required-message' },
-    minMessage: { type: String, attribute: 'min-message' },
-    maxMessage: { type: String, attribute: 'max-message' },
-    emailMessage: { type: String, attribute: 'email-message' },
-    urlMessage: { type: String, attribute: 'url-message' },
-    startsWithMessage: { type: String, attribute: 'starts-with-message' },
-    endsWithMessage: { type: String, attribute: 'ends-with-message' },
-    includesMessage: { type: String, attribute: 'includes-message' },
-    lowercaseMessage: { type: String, attribute: 'lowercase-message' },
-    uppercaseMessage: { type: String, attribute: 'uppercase-message' },
-    regexMessage: { type: String, attribute: 'regex-message' },
-    formatMessage: { type: String, attribute: 'format-message' },
-
-    // Internal state
-    isPasswordVisible: { type: Boolean, state: true },
-    isDatePickerVisible: { type: Boolean, state: false },
+    // Date-specific
+    range: { type: Boolean },
+    startValue: { type: String },
+    endValue: { type: String },
+    rangeStartLabel: { type: String, attribute: 'range-start-label' },
+    rangeEndLabel: { type: String, attribute: 'range-end-label' },
+    isDatePickerVisible: { type: Boolean, state: true },
   };
 
   constructor() {
     super();
-    this.isPasswordVisible = false;
+    this.inputType = 'date';
     this.actionButton = 'date-picker';
+    this.startValue = '';
+    this.endValue = '';
+  }
+
+  _parseDate(dateStr) {
+    return dateStr ? new Date(dateStr) : null;
   }
 
   // ------------------------------------------------------------------ //
-  // Render – uses input-base generated IDs
+  // Render – handles single date or range
   // ------------------------------------------------------------------ //
   render() {
+    if (this.range) {
+      return this._renderRange();
+    } else {
+      return this._renderSingle();
+    }
+  }
+
+  _renderSingle() {
     const ariaDescribedby = [
       this.description ? this.ids.desc : null,
       this.error ? this.ids.error : null
@@ -84,9 +61,9 @@ export default class InputDate extends InputBase {
                 type="${this._getInputType()}"
                 .value="${this.value ?? ''}"
                 placeholder="${this.placeholder ?? ''}"
-                ?required="${this.required}"
                 ?disabled="${this.disabled}"
                 ?readonly="${this.readonly}"
+                aria-required="${this.required ? 'true' : 'false'}"
                 aria-invalid="${this.valid ? undefined : 'true'}"
                 aria-describedby="${ariaDescribedby}"
                 @input="${this._onInput}"
@@ -97,19 +74,81 @@ export default class InputDate extends InputBase {
               />
               ${this._renderAction()}
           </div>
-          ${this.isDatePickerVisible ? html`<wc-datepicker range></wc-datepicker>` : ''}
+          ${this.isDatePickerVisible ? html`<wc-datepicker show-clear-button value="${this.value}" @selectDate="${this._onDateChange}"></wc-datepicker>` : ''}
           ${this._renderDescription()}
           ${this._renderError()}
         </div>
       `;
   }
 
-  // ------------------------------------------------------------------ //
-  // EXACT SAME RENDER HELPERS – unchanged
-  // ------------------------------------------------------------------ //
-  _renderPrefix() {
-    if (!this.prefix) return '';
-    return html`<span class="i-prefix">${this.prefix}</span>`;
+  _renderRange() {
+    const startAriaDescribedby = [
+      this.description ? this.ids.desc : null,
+      this.error ? this.ids.error : null
+    ].filter(Boolean).join(' ');
+
+    const endAriaDescribedby = startAriaDescribedby;
+
+    const startInputClasses = this.error ? 'i-input i-input-error' : 'i-input';
+    const endInputClasses = this.error ? 'i-input i-input-error' : 'i-input';
+    const wrapperClasses = this.error ? 'i-wrapper i-wrapper-error' : 'i-wrapper';
+
+    return html`
+        <div class="i-field">
+            <div class="i-label-group">
+                <label class="i-label">${this.label || ''}</label>
+
+                <div class="i-label-secondary">
+                    (<label for="${this.ids.input}-start">${this.rangeStartLabel || 'Start Date'}</label>
+                    <span class="i-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M13 18l6 -6" /><path d="M13 6l6 6" /></svg></span>
+                    <label for="${this.ids.input}-end">${this.rangeEndLabel || 'End Date'}</label>)
+                </div>
+            </div>
+
+          <div class="${wrapperClasses}">
+            <input
+            class="${startInputClasses}"
+            id="${this.ids.input}-start"
+            name="start_date"
+            type="date"
+            .value="${this.startValue ?? ''}"
+            ?disabled="${this.disabled}"
+            ?readonly="${this.readonly}"
+            aria-required="${this.required ? 'true' : 'false'}"
+            aria-invalid="${this.valid ? undefined : 'true'}"
+            aria-describedby="${startAriaDescribedby}"
+            @input="${this._onStartInput}"
+            @change="${this._onStartChange}"
+            @blur="${this._onStartBlur}"
+            autocomplete="${this.autocomplete ?? 'off'}"
+            />
+            <span class="i-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M13 18l6 -6" /><path d="M13 6l6 6" /></svg></span>
+            <input
+            class="${endInputClasses}"
+            id="${this.ids.input}-end"
+            name="end_date"
+            type="date"
+            .value="${this.endValue ?? ''}"
+            ?disabled="${this.disabled}"
+            ?readonly="${this.readonly}"
+            aria-required="${this.required ? 'true' : 'false'}"
+            aria-invalid="${this.valid ? undefined : 'true'}"
+            aria-describedby="${endAriaDescribedby}"
+            @input="${this._onEndInput}"
+            @change="${this._onEndChange}"
+            @blur="${this._onEndBlur}"
+            autocomplete="${this.autocomplete ?? 'off'}"
+            />
+            ${this._renderAction()}
+          </div>
+
+
+
+          ${this.isDatePickerVisible ? html`<wc-datepicker range show-clear-button start-date="${this.startValue}" end-date="${this.endValue}" @selectDate="${this._onRangeChange}"></wc-datepicker>` : ''}
+          ${this._renderDescription()}
+          ${this._renderError()}
+        </div>
+      `;
   }
 
   _renderAction() {
@@ -117,105 +156,67 @@ export default class InputDate extends InputBase {
 
     if (this.actionButton === 'date-picker') {
       return html`
-        <button class="i-action i-action-copy" type="button" @click="${this._onActionToggleDatePicker}" title="Copy to clipboard">
+        <button class="i-action i-action-date-picker" type="button" @click="${this._onActionToggleDatePicker}" title="Toggle date picker">
         ${this.isDatePickerVisible ? html`<span class="i-icon i-action-icon-calendar-x"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-calendar-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13 21h-7a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v6.5" /><path d="M16 3v4" /><path d="M8 3v4" /><path d="M4 11h16" /><path d="M22 22l-5 -5" /><path d="M17 22l5 -5" /></svg></span>` : html`<span class="i-icon i-action-icon-calendar"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-calendar"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" /><path d="M16 3v4" /><path d="M8 3v4" /><path d="M4 11h16" /><path d="M11 15h1" /><path d="M12 15v3" /></svg></span>`}
         </button>
-     `;
+      `;
     }
 
-    if (this.actionButton === 'copy') {
-      return html`<button class="i-action i-action-copy" type="button" @click="${this._onActionCopy}" title="Copy to clipboard">
-          <span class="i-icon i-action-icon-copy"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-copy"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></span>
-          <span class="i-icon i-action-icon-check"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-check"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l5 5l10 -10" /></svg></span>
-      </button>`;
-    }
-    if (this.actionButton === 'show') {
-      const icon = this.inputType === 'password' ? html`<span class="i-icon i-action-icon-eye"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg></span>` : html`<span class="i-icon i-action-icon-eye-closed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye-closed"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M21 9c-2.4 2.667 -5.4 4 -9 4c-3.6 0 -6.6 -1.333 -9 -4" /><path d="M3 15l2.5 -3.8" /><path d="M21 14.976l-2.492 -3.776" /><path d="M9 17l.5 -4" /><path d="M15 17l-.5 -4" /></svg></span>`;
-      return html`<button class="i-action i-action-hide" type="button" @click="${this._onActionShow}" title="Toggle password visibility">
-          ${icon}
-      </button>`;
-    }
-
-    if (this.actionButton === 'clear') {
-      if (this.value === '') return '';
-      return html`<button class="i-action i-action-clear" type="button" @click="${this._onActionClear}" title="Clear input">
-          <span class="i-icon i-action-icon-clear"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg></span>
-      </button>`;
-    }
     return '';
-  }
-
-  _renderDescription() {
-    if (!this.description) return '';
-    return html`<p class="i-description" id="${this.ids.desc}">${this.description || ''}</p>`;
-  }
-
-  _renderError() {
-    if (!this.error) return '';
-    const error = JSON.parse(this.error);
-    if (error.length < 2) {
-      return html`<p class="i-error ${error ? 'i-error-visible' : ''}" id="${this.ids.error}">${error[0].message || ''}</p>`;
-    } else {
-      const errorList = html`<ul>${error.map(err => html`<li>${err.message}</li>`)}</ul>`;
-      return html`<div class="i-error ${error ? 'i-error-visible' : ''}" id="${this.ids.error}">${errorList}</div>`;
-    }
-  }
-
-  _getInputType() {
-    let type = this.inputType || 'text';
-    if (type === 'password' && this.actionButton === 'hide' && this.isPasswordVisible) {
-      type = 'text';
-    }
-    return type;
-  }
-
-  _onActionCopy(e) {
-    e.stopPropagation();
-    navigator.clipboard.writeText(this.value).catch(() => {
-      this._dispatch('input:error', { error: 'Copy failed' });
-    });
-    e.target.classList.add('i-action-copied');
-    setTimeout(() => e.target.classList.remove('i-action-copied'), 1000);
-  }
-
-  _onActionShow(e) {
-    e.stopPropagation();
-    this.inputType = this.inputType === 'password' ? 'text' : 'password';
-  }
-
-  _onActionClear(e) {
-    e.stopPropagation();
-    this.value = '';
-    this.focus();
-    this._dispatch('input:input', { value: this.value });
-    this._dispatch('input:change', { value: this.value });
   }
 
   _onActionToggleDatePicker(e) {
     e.stopPropagation();
     this.isDatePickerVisible = !this.isDatePickerVisible;
+    this.requestUpdate();
   }
 
-  // ------------------------------------------------------------------ //
-  // Input handlers – delegate to input-base core
-  // ------------------------------------------------------------------ //
-  _onInput(e) {
-    this._updateValue(e.target.value);     // → dispatches input:input + optional debounce
+  _onDateChange(e) {
+    this._updateValue(e.detail);
+  }
+
+  _onRangeChange(e) {
+    console.log(e.detail)
+    this.startValue = e.detail[0];
+    this.endValue = e.detail[1];
+    this._updateValue(JSON.stringify({ start: this.startValue, end: this.endValue }));
+    this.validate();
+  }
+
+  _onStartInput(e) {
+    this.startValue = e.target.value;
+    this._updateValue(JSON.stringify({ start: this.startValue, end: this.endValue }));
     this._callHook('onInput', e);
   }
 
-  _onChange(e) {
-    this._handleChange();                  // → dispatches input:change + optional validate
+  _onStartChange(e) {
+    this._handleChange();
     this._callHook('onChange', e);
   }
 
-  _onBlur(e) {
-    this._handleBlur();                    // → optional validate on blur
+  _onStartBlur(e) {
+    this._handleBlur();
+    this._callHook('onBlur', e);
+  }
+
+  _onEndInput(e) {
+    this.endValue = e.target.value;
+    this._updateValue(JSON.stringify({ start: this.startValue, end: this.endValue }));
+    this._callHook('onInput', e);
+  }
+
+  _onEndChange(e) {
+    this._handleChange();
+    this._callHook('onChange', e);
+  }
+
+  _onEndBlur(e) {
+    this._handleBlur();
     this._callHook('onBlur', e);
   }
 
   // ------------------------------------------------------------------ //
-  // Zod schema – text-specific validators only
+  // Override _buildSchema for date validation
   // ------------------------------------------------------------------ //
   _buildSchema() {
     let schema = z.string();
@@ -224,82 +225,46 @@ export default class InputDate extends InputBase {
       schema = schema.min(1, this.requiredMessage || (this.label ? `${this.label} is required` : 'This field is required'));
     }
 
-    if (this.min) schema = schema.min(Number(this.min), this.minMessage || `Minimum length is ${this.min}`);
-    if (this.max) schema = schema.max(Number(this.max), this.maxMessage || `Maximum length is ${this.max}`);
-
-    if (this.email) schema = schema.email(this.emailMessage || 'Invalid email address');
-    if (this.url) schema = schema.url(this.urlMessage || 'Invalid URL');
-
-    if (this.startsWith) schema = schema.startsWith(this.startsWith, this.startsWithMessage || `Must start with "${this.startsWith}"`);
-    if (this.endsWith) schema = schema.endsWith(this.endsWith, this.endsWithMessage || `Must end with "${this.endsWith}"`);
-    if (this.includes) schema = schema.includes(this.includes, this.includesMessage || `Must include "${this.includes}"`);
-
-    if (this.lowercase) schema = schema.lowercase(this.lowercaseMessage || 'Must be lowercase');
-    if (this.uppercase) schema = schema.uppercase(this.uppercaseMessage || 'Must be uppercase');
-
-    if (this.format) {
-      const msg = this.formatMessage || `Must be a valid ${this.format}`;
-      switch (this.format) {
-        case 'email': schema = schema.email(msg); break;
-        case 'url': schema = schema.url(msg); break;
-        case 'uuid': schema = schema.uuid(msg); break;
-        case 'cuid': schema = schema.cuid(msg); break;
-        case 'cuid2': schema = schema.cuid2(msg); break;
-        case 'ulid': schema = schema.ulid(msg); break;
-        case 'iso-datetime': schema = z.iso.datetime(msg); break;
-        case 'iso-date': schema = z.iso.date(msg); break;
-        case 'emoji': schema = schema.emoji(msg); break;
-        case 'base64': schema = schema.base64(msg); break;
-        case 'hex': schema = schema.hex(msg); break;
-        case 'jwt': schema = schema.jwt(msg); break;
-        case 'nanoid': schema = schema.nanoid(msg); break;
-        case 'ipv4': schema = schema.ipv4(msg); break;
-        case 'ipv6': schema = schema.ipv6(msg); break;
-        // Add more as needed
+    if (this.range) {
+      // For range, expect JSON string with start and end
+      schema = schema.refine((val) => {
+        try {
+          const parsed = JSON.parse(val);
+          return parsed.start && parsed.end && parsed.start <= parsed.end;
+        } catch {
+          return false;
+        }
+      }, 'Invalid date range');
+    } else {
+      // For single date, use iso-date if format is set
+      if (this.format === 'iso-date') {
+        schema = z.iso.date(this.formatMessage || 'Invalid date');
       }
-    }
-
-    if (this.regex) {
-      try {
-        schema = schema.regex(new RegExp(this.regex, 'u'), this.regexMessage || 'Invalid format');
-      } catch { }
     }
 
     return schema;
   }
 
   // ------------------------------------------------------------------ //
-  // Validation – uses input-base setValidState()
+  // Override focus for range
   // ------------------------------------------------------------------ //
-  async validate() {
-    this._callHook('onValidate');
-    this._dispatch('input:validate');
-
-    try {
-      const schema = this._buildSchema();
-      const parseValue = this.prefixValue
-        ? (this.value.startsWith(this.prefixValue) ? this.value : this.prefixValue + this.value)
-        : this.value;
-
-      await schema.parseAsync(parseValue ?? '');
-
-      this.setValidState({ valid: true });
-      this._callHook('onSuccess', { value: this.value });
-      return { valid: true, error: null };
-    } catch (err) {
-      const errorMsg = err.errors?.[0]?.message || err.message || 'Invalid value';
-      this.setValidState({ valid: false, error: errorMsg });
-      this._callHook('onError', { error: errorMsg });
-      return { valid: false, error: errorMsg };
+  focus() {
+    if (this.range) {
+      const input = this.renderRoot?.querySelector('#' + this.ids.input + '-start');
+      input?.focus();
+    } else {
+      super.focus();
     }
   }
 
   // ------------------------------------------------------------------ //
-  // Override reset to clear password visibility
+  // Override reset to clear date picker visibility
   // ------------------------------------------------------------------ //
   reset() {
     super.reset();
-    this.isPasswordVisible = false;
+    this.startValue = '';
+    this.endValue = '';
+    this.isDatePickerVisible = false;
   }
 }
 
