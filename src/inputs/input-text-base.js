@@ -305,7 +305,7 @@ export default class InputTextBase extends InputBase {
     if (this.uppercase) schema = schema.uppercase(this.uppercaseMessage || 'Must be uppercase');
 
     if (this.format) {
-      const msg = this.formatMessage || `Must be a valid ${this.format}`;
+      const msg = this.formatMessage || `Must be a valid ${this.label || this.format}`;
       switch (this.format) {
         case 'email': schema = schema.email(msg); break;
         case 'url': schema = schema.url(msg); break;
@@ -328,7 +328,7 @@ export default class InputTextBase extends InputBase {
 
     if (this.regex) {
       try {
-        schema = schema.regex(new RegExp(this.regex, 'u'), this.regexMessage || 'Invalid format');
+        schema = schema.regex(new RegExp(this.regex, 'u'), this.regexMessage || `Enter ${this.label || 'value'} in a valid format`);
       } catch { }
     }
 

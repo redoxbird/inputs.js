@@ -233,7 +233,7 @@ export default class InputDate extends InputTextBase {
         } catch {
           return false;
         }
-      }, 'Invalid date range');
+      }, "Select a valid date range");
     } else {
       // For single date, use iso-date if format is set
       if (this.format === 'iso-date') {

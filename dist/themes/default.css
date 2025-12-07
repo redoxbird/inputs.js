@@ -46,7 +46,7 @@
     
     /* Spacing */
     --input-label-margin-bottom: 0.5rem;
-    --input-description-margin-top: 0.25rem;
+    --input-description-margin-top: 0.5rem;
     --input-error-margin-top: 0.5rem;
     --input-gap: 0.25rem;
     --input-inline-gap: 0.75rem;

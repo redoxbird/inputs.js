@@ -1,13 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <!-- Core meta -->
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <!-- Primary SEO meta -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inputs.js – Modern Form Components</title>
     <meta name="description" content="A lightweight, zero-dependency library for beautiful, accessible form inputs." />
 
@@ -29,254 +24,1050 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-    <!-- Manifest (PWA ready) -->
-
-    <!-- DNS prefetch & preconnect (speed up external resources) -->
-    <link rel="preconnect" href="https://cdn.twind.style" crossorigin />
-
     <!-- Coloris CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.css"/>
     <script src="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js"></script>
+
+
 
     <!-- WC DatePicker -->
     <script type="module" src="https://cdn.jsdelivr.net/npm/wc-datepicker/dist/esm/wc-datepicker.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/wc-datepicker/dist/themes/light.css" />
 
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css">
     <!-- Your demo styles (assuming they're optimized & fingerprinted in prod) -->
-    <link rel="stylesheet" href="./demo.css" />
-    <link rel="stylesheet" href="./dist/themes/default.css" />
-
-    <!-- Optional: Preload critical resources -->
-    <!-- <link rel="preload" href="/fonts/yourfont.woff2" as="font" type="font/woff2" crossorigin /> -->
-
-    <!-- Security headers (you'll set these server-side, but CSP example) -->
-    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.twind.style; style-src 'self' 'unsafe-inline'"> -->
+    <link id="theme-stylesheet" rel="stylesheet" href="./dist/themes/default.css" />
 
     <!-- Theme color (for mobile browsers) -->
     <meta name="theme-color" content="#ffffff" />
 
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="./demo.css">
 </head>
-
-
 <body class="inputs-demo__body">
-    <h1 class="inputs-demo__heading">inputs.js</h1>
+    <!-- Hero Section -->
+    <section class="inputs-demo__hero">
+        <div class="inputs-demo__hero__content">
+            <h1 class="inputs-demo__hero__title">inputs.js</h1>
+            <p class="inputs-demo__hero__subtitle">
+                Modern, accessible, and form-native input components built with Lit.
+                Zero dependencies, maximum flexibility.
+            </p>
+            <div class="inputs-demo__hero__buttons">
+                <button class="inputs-demo__btn inputs-demo__btn--primary" onclick="scrollToSection('installation')">
+                    <i class="fas fa-download"></i> Get Started
+                </button>
+                <a href="https://github.com/redoxbird/inputs.js" target="_blank" class="inputs-demo__btn inputs-demo__btn--secondary">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </div>
+            <div class="inputs-demo__features">
+                <div class="inputs-demo__feature">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Zero Dependencies</span>
+                </div>
+                <div class="inputs-demo__feature">
+                    <i class="fas fa-universal-access"></i>
+                    <span>WCAG AA Compliant</span>
+                </div>
+                <div class="inputs-demo__feature">
+                    <i class="fas fa-code"></i>
+                    <span>Form Native</span>
+                </div>
+                <div class="inputs-demo__feature">
+                    <i class="fas fa-palette"></i>
+                    <span>Fully Customizable</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <div class="inputs-demo__container">
-        <form method="get" action="/" id="demoForm" class="inputs-demo__form">
-            <input-email
-                name="email"
-                label="Email"
-                description="Enter your email address"
-                placeholder="user@example.com"
-                validate-on="blur"
-                required
-                min="5"
-                min-message="Minimum length is 5 characters"
-                max="100"
-                regex="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-                ends-with="gmail.com"
-                lowercase="true"
-            >
-            </input-email>
+    <!-- Installation Section -->
+    <section class="inputs-demo__installation" id="installation">
+        <div class="inputs-demo__installation__content">
+            <h2 class="inputs-demo__section-title">Quick Installation</h2>
+            <p class="inputs-demo__section-subtitle">
+                Get started with Inputs.js in seconds. Choose your preferred installation method.
+            </p>
 
-            <input-text
-              name="username"
-              label="Username"
-              description="3–20 characters, letters and numbers only."
-              placeholder="johndoe"
-              validate-on="blur"
-              min="3"
-              max="20"
-              regex="^[a-zA-Z0-9]+$"
-              regex-message="Only letters and numbers are allowed."
-              required
-            ></input-text>
+            <div class="inputs-demo__install-methods">
+                <!-- NPM Installation -->
+                <div class="inputs-demo__install-card">
+                    <h3>
+                        <i class="fab fa-npm" style="color: #cb3837;"></i>
+                        Install via NPM
+                    </h3>
+                    <p>Perfect for projects using build tools like Vite, Webpack, or Rollup.</p>
+                    <div class="inputs-demo__code-snippet">
+                        <highlight-code lang="bash">npm install inputs.js</highlight-code>
+                    </div>
+                    <div class="inputs-demo__code-snippet">
+                        <highlight-code lang="js">import 'inputs.js/components/input-text.js';
+import 'inputs.js/components/input-email.js';
+// Import other components as needed</highlight-code>
+                    </div>
+                </div>
 
-            <input-text
-              name="website"
-              label="Website"
-              placeholder="example.com"
-              validate-on="blur"
-              prefix="https://"
-              prefix-value="https://"
-              format="url"
-              format-message="Invalid URL format."
-              ends-with=".gov"
-              required
-            >
-            </input-text>
+                <!-- CDN Installation -->
+                <div class="inputs-demo__install-card">
+                    <h3>
+                        <i class="fas fa-globe" style="color: var(--primary);"></i>
+                        Use via CDN
+                    </h3>
+                    <p>Quick and easy - just add a script tag to your HTML.</p>
+                    <h4>JavaScript</h4>
+                    <div class="inputs-demo__code-snippet">
+                        <highlight-code lang="html">&lt;script src="https://cdn.jsdelivr.net/gh/redoxbird/inputs.js@main/dist/index.js"&gt;
+&lt;/script&gt;</highlight-code>
+                    </div>
 
-            <input-text
-              name="search"
-              label="Search"
-              placeholder="Search..."
-              validate-on="blur"
-              action-button="clear"
-              required
-            >
-            </input-text>
+                    <h4>CSS</h4>
+                    <div class="inputs-demo__code-snippet">
+                        <highlight-code lang="html">&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/redoxbird/inputs.js@main/dist/themes/default.css"&gt;</highlight-code>
+                    </div>
+                </div>
+            </div>
 
-            <input-phone
-                name="phone"
-                label="Phone"
-                placeholder="(555) 555-5555"
-                validate-on="blur"
-                required
-            >
-            </input-phone>
+            <div class="inputs-demo__next-steps">
+                <h3>Ready to build amazing forms?</h3>
+                <p>Once installed, you can use any input component immediately. No configuration required!</p>
+                <button class="inputs-demo__btn inputs-demo__btn--primary" style="background: white; color: var(--primary);" onclick="scrollToSection('examples')">
+                    <i class="fas fa-arrow-down"></i> View Examples
+                </button>
+            </div>
+        </div>
+    </section>
 
-            <input-password
-                name="password"
-                label="Password"
-                placeholder="Password"
-                action-button="show"
-                validate-on="blur"
-                required
-            >
-            </input-password>
+    <!-- Examples Section -->
+    <section class="inputs-demo__examples" id="examples">
+        <div class="inputs-demo__examples__content">
+            <div class="inputs-demo__section-header">
+                <h2 class="inputs-demo__section-title">Explore the Components</h2>
+                <p class="inputs-demo__section-subtitle">Interactive examples showcasing the power and flexibility of Inputs.js</p>
+            </div>
 
-            <input-number
-                name="amount"
-                label="Amount"
-                placeholder="100"
-                validate-on="blur"
-                format="number"
-                gte="10"
-                positive
-                required
-            >
-            </input-number>
+            <!-- Theme Toggle -->
+            <div class="inputs-demo__theme-toggle-container">
+                <div class="inputs-demo__theme-toggle-header">
+                    <h3>
+                        <i class="fas fa-palette"></i>
+                        Theme Selector
+                    </h3>
+                    <p>Choose your preferred design theme for the input components</p>
+                </div>
+                <div class="inputs-demo__theme-toggle-group">
+                    <button class="inputs-demo__theme-btn inputs-demo__theme-btn--active" data-theme="default" onclick="switchTheme('default')">
+                        <div class="inputs-demo__theme-preview inputs-demo__theme-preview--default"></div>
+                        <span>Default</span>
+                    </button>
+                    <button class="inputs-demo__theme-btn" data-theme="carbon" onclick="switchTheme('carbon')">
+                        <div class="inputs-demo__theme-preview inputs-demo__theme-preview--carbon"></div>
+                        <span>Carbon</span>
+                    </button>
+                    <button class="inputs-demo__theme-btn" data-theme="fluent" onclick="switchTheme('fluent')">
+                        <div class="inputs-demo__theme-preview inputs-demo__theme-preview--fluent"></div>
+                        <span>Fluent</span>
+                    </button>
+                    <button class="inputs-demo__theme-btn" data-theme="material" onclick="switchTheme('material')">
+                        <div class="inputs-demo__theme-preview inputs-demo__theme-preview--material"></div>
+                        <span>Material</span>
+                    </button>
+                </div>
+            </div>
 
-            <input-color
-              name="color"
-              label="Color"
-              placeholder="#ff0000"
-              validate-on="blur"
-              required
-            >
-            </input-color>
+            <div class="inputs-demo__cards-grid">
+                <!-- Text Input Card -->
+                 <input-demo-card title="Text Input">
+                    <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-letter-case"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17.5 15.5m-3.5 0a3.5 3.5 0 1 0 7 0a3.5 3.5 0 1 0 -7 0" /><path d="M3 19v-10.5a3.5 3.5 0 0 1 7 0v10.5" /><path d="M3 13h7" /><path d="M21 12v7" /></svg>
+                    <input-text
+                        slot="input"
+                        name="username"
+                        label="Username"
+                        placeholder="johndoe"
+                        description="Choose a unique username"
+                        min="3"
+                        max="20"
+                        validate-on="input|blur">
+                    </input-text>
+                    <highlight-code slot="code" lang="html">&lt;input-email
+name="email"
+label="Email Address"
+placeholder="you@example.com"
+validate-on="blur"
+description="We'll never share your email"
+required&gt;
+&lt;/input-email&gt;</highlight-code>
+                </input-demo-card>
 
-            <input-date
-              name="date"
-              label="Date"
-              placeholder="2023-01-01"
-              validate-on="blur"
-              range
-              required
-            >
-            </input-date>
+                <!--Email Input Card-->
+                <input-demo-card title="Email Input">
+                    <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-mail"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" /><path d="M3 7l9 6l9 -6" /></svg>
 
-            <input-text
-              name="emoji"
-              label="Emoji"
-              placeholder="😊"
-              validate-on="blur"
-              format="emoji"
-              required
-            >
-            </input-text>
+                    <input-email
+                        slot="input"
+                        name="email"
+                        label="Email Address"
+                        placeholder="you@example.com"
+                        validate-on="blur"
+                        description="We'll never share your email"
+                        required>
+                    </input-email>
 
-            <input-text
-              name="apiKey"
-              label="API Key"
-              placeholder="e1a6a0d3-3024-4158-a42b-8e2bb041f7f6"
-              validate-on="blur"
-              format="uuid"
-              format-message="Invalid API Key"
-              action-button="copy"
-              required
-            >
-            </input-text>
+                    <pre slot="code" ><code class="language-html">&lt;input-email
+name="email"
+label="Email Address"
+placeholder="you@example.com"
+validate-on="blur"
+description="We'll never share your email"
+required&gt;
+&lt;/input-email&gt;</code></pre>
+                </input-demo-card>
 
-            <input-text
-              name="ip4"
-              label="IPv4"
-              placeholder="192.168.0.1"
-              validate-on="blur"
-              format="ipv4"
-              starts-with="192"
-              mask="ip"
-              required
-            >
-            </input-text>
 
-            <input-text
-              name="date"
-              label="Date"
-              placeholder="2022-01-01"
-              validate-on="blur"
-              format="iso-date"
-              required
-            >
-            </input-text>
 
-            <input-text
-              name="date-time"
-              label="Date Time"
-              placeholder="2022-01-01T12:00:00"
-              validate-on="blur"
-              format="iso-datetime"
-              required
-            >
-            </input-text>
+                <!-- Password Input Card -->
+                <div class="inputs-demo__input-card">
+                    <div class="inputs-demo__card-header">
+                        <div class="inputs-demo__card-title">
+                            <i class="fas fa-lock"></i>
+                            Password Input
+                        </div>
+                        <button class="inputs-demo__code-toggle" onclick="toggleCode(this)">
+                            <i class="fas fa-code"></i> Code
+                        </button>
+                    </div>
+                    <div class="inputs-demo__card-content">
+                        <input-password
+                            name="password"
+                            label="Password"
+                            action-button="show"
+                            placeholder="Enter secure password"
+                            min="8"
+                            validate-on="input"
+                            description="Use a strong password"
+                            required>
+                        </input-password>
+                    </div>
+                    <div class="inputs-demo__code-block">
+                        <button class="inputs-demo__copy-code" onclick="copyCode(this)">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                        <pre>&lt;input-password
+  name="password"
+  label="Password"
+  action-button="hide"
+  placeholder="Enter secure password"
+  min="8"
+  validate-on="input"
+  description="Use a strong password"
+  required&gt;
+&lt;/input-password&gt;</pre>
+                    </div>
+                </div>
 
-            <input-text
-                name="base64"
-                label="Base64"
-                placeholder="SGVsbG8gd29ybGQ="
-                validate-on="blur"
-                format="base64"
-                required
-            >
-            </input-text>
+                <!-- Number Input Card -->
+                <div class="inputs-demo__input-card">
+                    <div class="inputs-demo__card-header">
+                        <div class="inputs-demo__card-title">
+                            <i class="fas fa-hashtag"></i>
+                            Number Input
+                        </div>
+                        <button class="inputs-demo__code-toggle" onclick="toggleCode(this)">
+                            <i class="fas fa-code"></i> Code
+                        </button>
+                    </div>
+                    <div class="inputs-demo__card-content">
+                        <input-number
+                            name="age"
+                            label="Age"
+                            placeholder="25"
+                            min="18"
+                            max="100"
+                            validate-on="change"
+                            description="Enter your age"
+                            required>
+                        </input-number>
+                    </div>
+                    <div class="inputs-demo__code-block">
+                        <button class="inputs-demo__copy-code" onclick="copyCode(this)">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                        <pre>&lt;input-number
+  name="age"
+  label="Age"
+  placeholder="25"
+  min="18"
+  max="100"
+  validate-on="change"
+  description="Enter your age"
+  required&gt;
+&lt;/input-number&gt;</pre>
+                    </div>
+                </div>
 
-            <input-text
-                name="base64url"
-                label="Base64URL"
-                placeholder="SGVsbG8gd29ybGQ="
-                validate-on="blur"
-                format="base64url"
-                required
-            >
-            </input-text>
+                <!-- Phone Input Card -->
+                <div class="inputs-demo__input-card">
+                    <div class="inputs-demo__card-header">
+                        <div class="inputs-demo__card-title">
+                            <i class="fas fa-phone"></i>
+                            Phone Input
+                        </div>
+                        <button class="inputs-demo__code-toggle" onclick="toggleCode(this)">
+                            <i class="fas fa-code"></i> Code
+                        </button>
+                    </div>
+                    <div class="inputs-demo__card-content">
+                        <input-phone
+                            name="phone"
+                            label="Phone Number"
+                            placeholder="(555) 123-4567"
+                            validate-on="blur"
+                            description="Include country code">
+                        </input-phone>
+                    </div>
+                    <div class="inputs-demo__code-block">
+                        <button class="inputs-demo__copy-code" onclick="copyCode(this)">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                        <pre>&lt;input-phone
+  name="phone"
+  label="Phone Number"
+  placeholder="+1 (555) 123-4567"
+  validate-on="blur"
+  description="Include country code"&gt;
+&lt;/input-phone&gt;</pre>
+                    </div>
+                </div>
 
-            <button type="submit">Submit</button>
-        </form>
-    </div>
+                <!-- URL Input Card -->
+                <div class="inputs-demo__input-card">
+                    <div class="inputs-demo__card-header">
+                        <div class="inputs-demo__card-title">
+                            <i class="fas fa-link"></i>
+                            URL Input
+                        </div>
+                        <button class="inputs-demo__code-toggle" onclick="toggleCode(this)">
+                            <i class="fas fa-code"></i> Code
+                        </button>
+                    </div>
+                    <div class="inputs-demo__card-content">
+                        <input-url
+                            name="website"
+                            label="Website URL"
+                            placeholder="https://example.com"
+                            validate-on="blur"
+                            description="Enter your website URL">
+                        </input-url>
+                    </div>
+                    <div class="inputs-demo__code-block">
+                        <button class="inputs-demo__copy-code" onclick="copyCode(this)">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                        <pre>&lt;input-url
+  name="website"
+  label="Website URL"
+  placeholder="https://example.com"
+  validate-on="blur"
+  description="Enter your website URL"&gt;
+&lt;/input-url&gt;</pre>
+                    </div>
+                </div>
 
+                <!-- Search Input Card -->
+                <div class="inputs-demo__input-card">
+                    <div class="inputs-demo__card-header">
+                        <div class="inputs-demo__card-title">
+                            <i class="fas fa-search"></i>
+                            Search Input
+                        </div>
+                        <button class="inputs-demo__code-toggle" onclick="toggleCode(this)">
+                            <i class="fas fa-code"></i> Code
+                        </button>
+                    </div>
+                    <div class="inputs-demo__card-content">
+                        <input-search
+                            name="query"
+                            label="Search"
+                            placeholder="Search products..."
+                            action-button="clear"
+                            validate-on="input"
+                            min="2"
+                            description="Type at least 2 characters">
+                        </input-search>
+                    </div>
+                    <div class="inputs-demo__code-block">
+                        <button class="inputs-demo__copy-code" onclick="copyCode(this)">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                        <pre>&lt;input-search
+  name="query"
+  label="Search"
+  placeholder="Search products..."
+  action-button="clear"
+  validate-on="input"
+  min="2"
+  description="Type at least 2 characters"&gt;
+&lt;/input-search&gt;</pre>
+                    </div>
+                </div>
+
+                <!-- Date Input Card -->
+                <div class="inputs-demo__input-card">
+                    <div class="inputs-demo__card-header">
+                        <div class="inputs-demo__card-title">
+                            <i class="fas fa-calendar"></i>
+                            Date Input
+                        </div>
+                        <button class="inputs-demo__code-toggle" onclick="toggleCode(this)">
+                            <i class="fas fa-code"></i> Code
+                        </button>
+                    </div>
+                    <div class="inputs-demo__card-content">
+                        <input-date
+                            name="birthday"
+                            label="Birth Date"
+                            validate-on="change"
+                            description="Select your birth date">
+                        </input-date>
+                    </div>
+                    <div class="inputs-demo__code-block">
+                        <button class="inputs-demo__copy-code" onclick="copyCode(this)">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                        <pre>&lt;input-date
+  name="birthday"
+  label="Birth Date"
+  validate-on="change"
+  description="Select your birth date"&gt;
+&lt;/input-date&gt;</pre>
+                    </div>
+                </div>
+
+                <input-demo-card title="Date Range Input">
+                    <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-calendar-week"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" /><path d="M16 3v4" /><path d="M8 3v4" /><path d="M4 11h16" /><path d="M7 14h.013" /><path d="M10.01 14h.005" /><path d="M13.01 14h.005" /><path d="M16.015 14h.005" /><path d="M13.015 17h.005" /><path d="M7.01 17h.005" /><path d="M10.01 17h.005" /></svg>
+                    <input-date
+                        slot="input"
+                        name="check"
+                        label="Date"
+                        validate-on="change"
+                        range
+                        description="Select checkin and checkout date">
+                    </input-date>
+                </input-demo-card>
+
+                <!-- Color Input Card -->
+                <div class="inputs-demo__input-card">
+                    <div class="inputs-demo__card-header">
+                        <div class="inputs-demo__card-title">
+                            <i class="fas fa-palette"></i>
+                            Color Input
+                        </div>
+                        <button class="inputs-demo__code-toggle" onclick="toggleCode(this)">
+                            <i class="fas fa-code"></i> Code
+                        </button>
+                    </div>
+                    <div class="inputs-demo__card-content">
+                        <input-color
+                            name="theme"
+                            label="Theme Color"
+                            value="#6366f1"
+                            validate-on="change"
+                            description="Choose your theme color"
+                            >
+                        </input-color>
+                    </div>
+                    <div class="inputs-demo__code-block">
+                        <button class="inputs-demo__copy-code" onclick="copyCode(this)">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                        <pre>&lt;input-color
+  name="theme"
+  label="Theme Color"
+  value="#6366f1"
+  validate-on="change"
+  description="Choose your theme color"
+  action-button="copy"&gt;
+&lt;/input-color&gt;</pre>
+                    </div>
+                </div>
+
+                <!-- Email with Advanced Validation Card -->
+                <input-demo-card title="Advanced Email">
+                    <i slot="icon" class="fas fa-envelope"></i>
+                    <input-email
+                        slot="input"
+                        name="advanced_email"
+                        label="Email Address"
+                        description="Enter your email address"
+                        placeholder="user@example.com"
+                        validate-on="blur"
+                        required
+                        min="5"
+                        min-message="Minimum length is 5 characters"
+                        max="100"
+                        regex="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                        ends-with="gmail.com"
+                        lowercase="true">
+                    </input-email>
+                    <pre slot="code"><input-email
+  name="advanced_email"
+  label="Email Address"
+  description="Enter your email address"
+  placeholder="user@example.com"
+  validate-on="blur"
+  required
+  min="5"
+  min-message="Minimum length is 5 characters"
+  max="100"
+  regex="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+  ends-with="gmail.com"
+  lowercase="true">
+</input-email></pre>
+                </input-demo-card>
+
+                <!-- Website URL Card -->
+                <input-demo-card title="Website URL">
+                    <i slot="icon" class="fas fa-globe"></i>
+                    <input-text
+                        slot="input"
+                        name="website"
+                        label="Website"
+                        placeholder="example.com"
+                        validate-on="blur"
+                        prefix="https://"
+                        prefix-value="https://"
+                        format="url"
+                        format-message="Invalid URL format."
+                        ends-with=".gov"
+                        required>
+                    </input-text>
+                    <pre slot="code"><input-text
+  name="website"
+  label="Website"
+  placeholder="example.com"
+  validate-on="blur"
+  prefix="https://"
+  prefix-value="https://"
+  format="url"
+  format-message="Invalid URL format."
+  ends-with=".gov"
+  required>
+</input-text></pre>
+                </input-demo-card>
+
+                <!-- Emoji Input Card -->
+                <input-demo-card title="Emoji Input">
+                    <i slot="icon" class="fas fa-smile"></i>
+                    <input-text
+                        slot="input"
+                        name="emoji"
+                        label="Emoji"
+                        placeholder="😊"
+                        validate-on="blur"
+                        format="emoji"
+                        required>
+                    </input-text>
+                    <pre slot="code"><input-text
+  name="emoji"
+  label="Emoji"
+  placeholder="😊"
+  validate-on="blur"
+  format="emoji"
+  required>
+</input-text></pre>
+                </input-demo-card>
+
+                <!-- API Key Input Card -->
+                <input-demo-card title="API Key">
+                    <i slot="icon" class="fas fa-key"></i>
+                    <input-text
+                        slot="input"
+                        name="apiKey"
+                        label="API Key"
+                        placeholder="e1a6a0d3-3024-4158-a42b-8e2bb041f7f6"
+                        validate-on="blur"
+                        format="uuid"
+                        format-message="Invalid API Key"
+                        action-button="copy"
+                        required>
+                    </input-text>
+                    <pre slot="code"><input-text
+  name="apiKey"
+  label="API Key"
+  placeholder="e1a6a0d3-3024-4158-a42b-8e2bb041f7f6"
+  validate-on="blur"
+  format="uuid"
+  format-message="Invalid API Key"
+  action-button="copy"
+  required>
+</input-text></pre>
+                </input-demo-card>
+
+                <!-- IPv4 Input Card -->
+                <input-demo-card title="IPv4 Address">
+                    <i slot="icon" class="fas fa-network-wired"></i>
+                    <input-text
+                        slot="input"
+                        name="ip4"
+                        label="IPv4"
+                        placeholder="192.168.0.1"
+                        validate-on="blur"
+                        format="ipv4"
+                        starts-with="192"
+                        mask="ip"
+                        required>
+                    </input-text>
+                    <pre slot="code"><input-text
+  name="ip4"
+  label="IPv4"
+  placeholder="192.168.0.1"
+  validate-on="blur"
+  format="ipv4"
+  starts-with="192"
+  mask="ip"
+  required>
+</input-text></pre>
+                </input-demo-card>
+
+                <!-- ISO Date Input Card -->
+                <input-demo-card title="ISO Date">
+                    <i slot="icon" class="fas fa-calendar-alt"></i>
+                    <input-text
+                        slot="input"
+                        name="iso_date"
+                        label="Date"
+                        placeholder="2022-01-01"
+                        validate-on="blur"
+                        format="iso-date"
+                        required>
+                    </input-text>
+                    <pre slot="code"><input-text
+  name="iso_date"
+  label="Date"
+  placeholder="2022-01-01"
+  validate-on="blur"
+  format="iso-date"
+  required>
+</input-text></pre>
+                </input-demo-card>
+
+                <!-- ISO DateTime Input Card -->
+                <input-demo-card title="ISO DateTime">
+                    <i slot="icon" class="fas fa-clock"></i>
+                    <input-text
+                        slot="input"
+                        name="date_time"
+                        label="Date Time"
+                        placeholder="2022-01-01T12:00:00"
+                        validate-on="blur"
+                        format="iso-datetime"
+                        required>
+                    </input-text>
+                    <pre slot="code"><input-text
+  name="date_time"
+  label="Date Time"
+  placeholder="2022-01-01T12:00:00"
+  validate-on="blur"
+  format="iso-datetime"
+  required>
+</input-text></pre>
+                </input-demo-card>
+
+                <!-- Base64 Input Card -->
+                <input-demo-card title="Base64">
+                    <i slot="icon" class="fas fa-code"></i>
+                    <input-text
+                        slot="input"
+                        name="base64"
+                        label="Base64"
+                        placeholder="SGVsbG8gd29ybGQ="
+                        validate-on="blur"
+                        format="base64"
+                        required>
+                    </input-text>
+                    <pre slot="code"><input-text
+  name="base64"
+  label="Base64"
+  placeholder="SGVsbG8gd29ybGQ="
+  validate-on="blur"
+  format="base64"
+  required>
+</input-text></pre>
+                </input-demo-card>
+
+                <!-- Base64URL Input Card -->
+                <input-demo-card title="Base64URL">
+                    <i slot="icon" class="fas fa-link"></i>
+                    <input-text
+                        slot="input"
+                        name="base64url"
+                        label="Base64URL"
+                        placeholder="SGVsbG8gd29ybGQ="
+                        validate-on="blur"
+                        format="base64url"
+                        required>
+                    </input-text>
+                    <pre slot="code"><input-text
+  name="base64url"
+  label="Base64URL"
+  placeholder="SGVsbG8gd29ybGQ="
+  validate-on="blur"
+  format="base64url"
+  required>
+</input-text></pre>
+                </input-demo-card>
+
+                <!-- Password with Show Button Card -->
+                <input-demo-card title="Password (Show)">
+                    <i slot="icon" class="fas fa-eye"></i>
+                    <input-password
+                        slot="input"
+                        name="show_password"
+                        label="Password"
+                        placeholder="Password"
+                        action-button="show"
+                        validate-on="blur"
+                        required>
+                    </input-password>
+                    <pre slot="code"><input-password
+  name="show_password"
+  label="Password"
+  placeholder="Password"
+  action-button="show"
+  validate-on="blur"
+  required>
+</input-password></pre>
+                </input-demo-card>
+
+                <!-- Number with Validation Card -->
+                <input-demo-card title="Amount">
+                    <i slot="icon" class="fas fa-dollar-sign"></i>
+                    <input-number
+                        slot="input"
+                        name="amount"
+                        label="Amount"
+                        placeholder="100"
+                        validate-on="blur"
+                        format="number"
+                        gte="10"
+                        positive
+                        required>
+                    </input-number>
+                    <pre slot="code"><input-number
+  name="amount"
+  label="Amount"
+  placeholder="100"
+  validate-on="blur"
+  format="number"
+  gte="10"
+  positive
+  required>
+</input-number></pre>
+                </input-demo-card>
+
+                <!-- Date with Range Card -->
+                <input-demo-card title="Date Range">
+                    <i slot="icon" class="fas fa-calendar-week"></i>
+                    <input-date
+                        slot="input"
+                        name="range_date"
+                        label="Date"
+                        placeholder="2023-01-01"
+                        validate-on="blur"
+                        range
+                        required>
+                    </input-date>
+                    <pre slot="code"><input-date
+  name="range_date"
+  label="Date"
+  placeholder="2023-01-01"
+  validate-on="blur"
+  range
+  required>
+</input-date></pre>
+                </input-demo-card>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advanced Usage Section -->
+    <section class="inputs-demo__advanced-usage" id="advanced">
+        <div class="inputs-demo__section-header">
+            <h2 class="inputs-demo__section-title">Advanced Usage Examples</h2>
+            <p class="inputs-demo__section-subtitle">Explore powerful validation patterns, custom actions, and complex form scenarios</p>
+        </div>
+
+        <div class="inputs-demo__advanced-cards">
+            <!-- Multi-Validation Example -->
+            <div class="inputs-demo__advanced-card">
+                <div class="inputs-demo__card-badge">Multi-Validation</div>
+                <div class="inputs-demo__card-header">
+                    <div class="inputs-demo__card-title">
+                        <i class="fas fa-shield-alt" style="color: var(--secondary);"></i>
+                        Secure Password
+                    </div>
+                </div>
+                <div class="inputs-demo__card-content">
+                    <input-password
+                        name="secure_password"
+                        label="Create Strong Password"
+                        action-button="hide"
+                        placeholder="Enter secure password"
+                        validate-on="input|blur"
+                        min="12"
+                        min-message="Password must be at least 12 characters"
+                        regex="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]"
+                        regex-message="Must include: uppercase, lowercase, number, and special character"
+                        description="Password strength indicator will appear as you type"
+                        required>
+                    </input-password>
+                </div>
+                <div class="inputs-demo__validation-feedback">
+                    <p>
+                        <i class="fas fa-info-circle"></i>
+                        Real-time validation with multiple rules and custom error messages
+                    </p>
+                </div>
+            </div>
+
+            <!-- Conditional Validation Example -->
+            <div class="inputs-demo__advanced-card">
+                <div class="inputs-demo__card-badge">Conditional Logic</div>
+                <div class="inputs-demo__card-header">
+                    <div class="inputs-demo__card-title">
+                        <i class="fas fa-globe" style="color: var(--secondary);"></i>
+                        URL with Domain Rules
+                    </div>
+                </div>
+                <div class="inputs-demo__card-content">
+                    <input-url
+                        name="company_url"
+                        label="Company Website"
+                        placeholder="https://yourcompany.com"
+                        validate-on="blur"
+                        url
+                        url-message="Please enter a valid URL"
+                        starts-with="https://"
+                        starts-with-message="Must use HTTPS for security"
+                        regex="^https:\/\/(www\.)?[a-zA-Z0-9-]+\.(com|org|io|dev)\/?$"
+                        regex-message="Only .com, .org, .io, or .dev domains allowed"
+                        description="Enter your company's official website"
+                        action-button="copy"
+                        required>
+                    </input-url>
+                </div>
+                <div class="inputs-demo__validation-feedback">
+                    <p>
+                        <i class="fas fa-info-circle"></i>
+                        Multiple validation layers with domain restrictions
+                    </p>
+                </div>
+            </div>
+
+            <!-- Complex Number Validation -->
+            <div class="inputs-demo__advanced-card">
+                <div class="inputs-demo__card-badge">Business Logic</div>
+                <div class="inputs-demo__card-header">
+                    <div class="inputs-demo__card-title">
+                        <i class="fas fa-dollar-sign" style="color: var(--secondary);"></i>
+                        Investment Amount
+                    </div>
+                </div>
+                <div class="inputs-demo__card-content">
+                    <input-number
+                        name="investment"
+                        label="Investment Amount"
+                        prefix="$"
+                        placeholder="1,000"
+                        validate-on="input|change"
+                        gte="1000"
+                        gte-message="Minimum investment is $1,000"
+                        lte="100000"
+                        lte-message="Maximum investment is $100,000"
+                        positive
+                        positive-message="Amount must be positive"
+                        int
+                        int-message="Whole dollar amounts only"
+                        description="Investment range: $1,000 - $100,000"
+                        required>
+                    </input-number>
+                </div>
+                <div class="inputs-demo__validation-feedback">
+                    <p>
+                        <i class="fas fa-info-circle"></i>
+                        Business rules enforced with multiple number constraints
+                    </p>
+                </div>
+            </div>
+
+            <!-- Phone with Country Validation -->
+            <div class="inputs-demo__advanced-card">
+                <div class="inputs-demo__card-badge">Regional Rules</div>
+                <div class="inputs-demo__card-header">
+                    <div class="inputs-demo__card-title">
+                        <i class="fas fa-phone-alt" style="color: var(--secondary);"></i>
+                        US Business Phone
+                    </div>
+                </div>
+                <div class="inputs-demo__card-content">
+                    <input-phone
+                        name="business_phone"
+                        label="Business Phone Number"
+                        validate-on="blur"
+                        starts-with="+1"
+                        starts-with-message="Must be a US phone number"
+                        regex="^\+1 \(\d{3}\) \d{3}-\d{4}$"
+                        regex-message="Format: +1 (XXX) XXX-XXXX"
+                        description="Enter your US business phone number with country code"
+                        action-button="copy"
+                        required>
+                    </input-phone>
+                </div>
+                <div class="inputs-demo__validation-feedback">
+                    <p>
+                        <i class="fas fa-info-circle"></i>
+                        Country-specific formatting and validation
+                    </p>
+                </div>
+            </div>
+
+            <!-- Text with Pattern Matching -->
+            <div class="inputs-demo__advanced-card">
+                <div class="inputs-demo__card-badge">Pattern Matching</div>
+                <div class="inputs-demo__card-header">
+                    <div class="inputs-demo__card-title">
+                        <i class="fas fa-id-badge" style="color: var(--secondary);"></i>
+                        Employee ID
+                    </div>
+                </div>
+                <div class="inputs-demo__card-content">
+                    <input-text
+                        name="employee_id"
+                        label="Employee ID"
+                        prefix="EMP-"
+                        placeholder="2024-001"
+                        validate-on="blur"
+                        regex="^\d{4}-\d{3}$"
+                        regex-message="Format: YYYY-NNN (e.g., 2024-001)"
+                        min="8"
+                        max="12"
+                        description="Format: Year followed by 3-digit number"
+                        action-button="copy"
+                        required>
+                    </input-text>
+                </div>
+                <div class="inputs-demo__validation-feedback">
+                    <p>
+                        <i class="fas fa-info-circle"></i>
+                        Strict pattern matching with visual prefix
+                    </p>
+                </div>
+            </div>
+
+            <!-- Search with Async Validation -->
+            <div class="inputs-demo__advanced-card">
+                <div class="inputs-demo__card-badge">Async Validation</div>
+                <div class="inputs-demo__card-header">
+                    <div class="inputs-demo__card-title">
+                        <i class="fas fa-search" style="color: var(--secondary);"></i>
+                        Username Availability
+                    </div>
+                </div>
+                <div class="inputs-demo__card-content">
+                    <input-search
+                        name="username_check"
+                        label="Choose Username"
+                        placeholder="Enter desired username"
+                        validate-on="blur"
+                        min="3"
+                        min-message="Username must be at least 3 characters"
+                        max="20"
+                        max-message="Username cannot exceed 20 characters"
+                        regex="^[a-zA-Z0-9_]+$"
+                        regex-message="Only letters, numbers, and underscores allowed"
+                        description="We'll check availability when you finish typing"
+                        action-button="clear"
+                        required>
+                    </input-search>
+                </div>
+                <div class="inputs-demo__validation-feedback">
+                    <p>
+                        <i class="fas fa-info-circle"></i>
+                        Simulated async validation (check console for events)
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Demo Section -->
+        <div class="inputs-demo__interactive-demo">
+            <h3 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 20px; color: var(--dark); text-align: center;">
+                🚀 Try It Yourself
+            </h3>
+            <p style="color: var(--gray); text-align: center; margin-bottom: 30px;">
+                Fill out this form to see advanced validation in action
+            </p>
+
+            <form id="advanced-demo-form" class="inputs-demo__form" style="display: grid; gap: 20px;">
+                <input-text
+                    name="project_name"
+                    label="Project Name"
+                    placeholder="My Awesome Project"
+                    validate-on="blur"
+                    min="5"
+                    max="50"
+                    regex="^[a-zA-Z0-9\s\-_]+$"
+                    regex-message="Only letters, numbers, spaces, hyphens, and underscores"
+                    required>
+                </input-text>
+
+                <input-email
+                    name="team_email"
+                    label="Team Email"
+                    placeholder="team@company.com"
+                    validate-on="blur"
+                    email
+                    ends-with="@company.com"
+                    ends-with-message="Must use company email domain"
+                    required>
+                </input-email>
+
+                <input-number
+                    name="budget"
+                    label="Project Budget ($)"
+                    prefix="$"
+                    placeholder="5000"
+                    validate-on="change"
+                    gte="1000"
+                    lte="50000"
+                    positive
+                    description="Budget range: $1,000 - $50,000"
+                    required>
+                </input-number>
+
+                <div style="display: flex; gap: 15px; justify-content: center; margin-top: 20px;">
+                    <button type="button" onclick="validateAdvancedForm()" style="background: var(--gradient); color: white; padding: 12px 30px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: transform 0.3s ease;">
+                        <i class="fas fa-check-circle"></i> Validate Form
+                    </button>
+                    <button type="button" onclick="resetAdvancedForm()" style="background: var(--light-gray); color: var(--dark); padding: 12px 30px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: transform 0.3s ease;">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                </div>
+            </form>
+
+            <div id="form-status"></div>
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
     <script src="./dist/index.js"></script>
-
-    <script>
-        // ---------------------------------------------------------------
-        // 15. Demo Form Submission
-        // ---------------------------------------------------------------
-
-        // document.querySelector("input-email").addEventListener("input:error", (e) => {
-        //     console.log("Current value:", e.target.value);
-        // });
-
-        document.getElementById("demoForm").addEventListener("submit", async (e) => {
-          const form = e.target;
-            e.preventDefault();
-            const fields = form.querySelectorAll("input-text, input-email, input-number, input-phone");
-
-              let allValid = true;
-              for (const field of fields) {
-                const { valid } = await field.validate();
-                if (!valid) {
-                  allValid = false
-                  field.focus();
-                  break;
-                };
-              }
-
-              if (!allValid) return;
-
-              const data = new FormData(form);
-              console.log(Object.fromEntries(data.entries()));
-        });
-    </script>
+    <script src="./demo.js"></script>
 
 </body>
-
 </html>
