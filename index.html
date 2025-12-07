@@ -771,27 +771,6 @@ required&gt;
 </input-number></pre>
                 </input-demo-card>
 
-                <!-- Date with Range Card -->
-                <input-demo-card title="Date Range">
-                    <i slot="icon" class="fas fa-calendar-week"></i>
-                    <input-date
-                        slot="input"
-                        name="range_date"
-                        label="Date"
-                        placeholder="2023-01-01"
-                        validate-on="blur"
-                        range
-                        required>
-                    </input-date>
-                    <pre slot="code"><input-date
-  name="range_date"
-  label="Date"
-  placeholder="2023-01-01"
-  validate-on="blur"
-  range
-  required>
-</input-date></pre>
-                </input-demo-card>
             </div>
         </div>
     </section>
@@ -858,7 +837,6 @@ required&gt;
                         regex="^https:\/\/(www\.)?[a-zA-Z0-9-]+\.(com|org|io|dev)\/?$"
                         regex-message="Only .com, .org, .io, or .dev domains allowed"
                         description="Enter your company's official website"
-                        action-button="copy"
                         required>
                     </input-url>
                 </div>
@@ -980,7 +958,7 @@ required&gt;
                     </div>
                 </div>
                 <div class="inputs-demo__card-content">
-                    <input-search
+                    <input-text
                         name="username_check"
                         label="Choose Username"
                         placeholder="Enter desired username"
@@ -994,7 +972,7 @@ required&gt;
                         description="We'll check availability when you finish typing"
                         action-button="clear"
                         required>
-                    </input-search>
+                    </input-text>
                 </div>
                 <div class="inputs-demo__validation-feedback">
                     <p>

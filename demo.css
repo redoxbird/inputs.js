@@ -422,13 +422,19 @@
     padding: 15px;
     background: #f0f9ff;
     border-radius: 8px;
-    border-left: 4px solid var(--primary);
+    border: 1px solid #0369a1;
 }
 
 .inputs-demo__validation-feedback p {
     font-size: 0.9rem;
     color: #0369a1;
     margin: 0;
+}
+
+.inputs-demo__validation-feedback i {
+    color: #0369a1;
+    margin-right: 2px;
+    font-size: 0.8rem;
 }
 
 .inputs-demo__interactive-demo {
