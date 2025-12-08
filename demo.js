@@ -190,8 +190,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Add keyboard navigation for theme switching
   document.addEventListener('keydown', (e) => {
-    if (e.altKey && e.key >= '1' && e.key <= '4') {
-      const themes = ['default', 'carbon', 'fluent', 'material'];
+    if (e.altKey && e.key >= '1' && e.key <= '5') {
+      const themes = ['default', 'carbon', 'fluent', 'material', 'newspaper'];
       const themeIndex = parseInt(e.key) - 1;
       if (themeIndex < themes.length) {
         switchTheme(themes[themeIndex]);
@@ -440,22 +440,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const code = this.innerHTML.trim();
       const language = this.getAttribute('lang');
 
-      const escapeHtml = (str) => {
-        let escaped = '';
-        for (let i = 0; i < str.length; i++) {
-          const char = str[i];
-          switch (char) {
-            case '&': escaped += '&'; break;
-            case '<': escaped += '<'; break;
-            case '>': escaped += '>'; break;
-            case '"': escaped += '"'; break;
-            case "'": escaped += '&' + '#39;'; break;
-            default: escaped += char;
-          }
-        }
-        return escaped;
+      const unescapeHtml = (str) => {
+        const textarea = document.createElement('textarea');
+        textarea.innerHTML = str;
+        return textarea.value;
       };
-      const escaped = escapeHtml(code);
+      const unescaped = unescapeHtml(code);
 
       this.shadowRoot.innerHTML = `
         <style>
@@ -499,7 +489,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <button class="copy-btn" onclick="this.getRootNode().host.copyCode()">
             <i class="fas fa-copy"></i> Copy
           </button>
-          <pre><code class="language-${language}">${escaped}</code></pre>
+          <pre><code class="language-${language}">${code}</code></pre>
         </div>
       `;
 
@@ -510,7 +500,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     copyCode() {
       const code = this.innerHTML.trim();
-      navigator.clipboard.writeText(code).then(() => {
+      const unescapeHtml = (str) => {
+        const textarea = document.createElement('textarea');
+        textarea.innerHTML = str;
+        return textarea.value;
+      };
+      const unescaped = unescapeHtml(code);
+      navigator.clipboard.writeText(unescaped).then(() => {
         const button = this.shadowRoot.querySelector('.copy-btn');
         const originalHTML = button.innerHTML;
         button.innerHTML = '<i class="fas fa-check"></i> Copied!';

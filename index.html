@@ -28,13 +28,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.css"/>
     <script src="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js"></script>
 
-
-
     <!-- WC DatePicker -->
     <script type="module" src="https://cdn.jsdelivr.net/npm/wc-datepicker/dist/esm/wc-datepicker.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/wc-datepicker/dist/themes/light.css" />
 
-
+<script type="module" src="https://cdn.jsdelivr.net/npm/range-slider-element@2/+esm"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css">
     <!-- Your demo styles (assuming they're optimized & fingerprinted in prod) -->
     <link id="theme-stylesheet" rel="stylesheet" href="./dist/themes/default.css" />
@@ -178,6 +176,10 @@ import 'inputs.js/components/input-email.js';
                         <div class="inputs-demo__theme-preview inputs-demo__theme-preview--material"></div>
                         <span>Material</span>
                     </button>
+                    <button class="inputs-demo__theme-btn" data-theme="newspaper" onclick="switchTheme('newspaper')">
+                        <div class="inputs-demo__theme-preview inputs-demo__theme-preview--newspaper"></div>
+                        <span>Newspaper</span>
+                    </button>
                 </div>
             </div>
 
@@ -195,14 +197,15 @@ import 'inputs.js/components/input-email.js';
                         max="20"
                         validate-on="input|blur">
                     </input-text>
-                    <highlight-code slot="code" lang="html">&lt;input-email
-name="email"
-label="Email Address"
-placeholder="you@example.com"
-validate-on="blur"
-description="We'll never share your email"
-required&gt;
-&lt;/input-email&gt;</highlight-code>
+                    <highlight-code slot="code" lang="html">&lt;input-text
+    name=&quot;username&quot;
+    label=&quot;Username&quot;
+    placeholder=&quot;johndoe&quot;
+    description=&quot;Choose a unique username&quot;
+    min=&quot;3&quot;
+    max=&quot;20&quot;
+    validate-on=&quot;input|blur&quot;&gt;
+&lt;/input-text&gt;</highlight-code>
                 </input-demo-card>
 
                 <!--Email Input Card-->
@@ -219,131 +222,87 @@ required&gt;
                         required>
                     </input-email>
 
-                    <pre slot="code" ><code class="language-html">&lt;input-email
-name="email"
-label="Email Address"
-placeholder="you@example.com"
-validate-on="blur"
-description="We'll never share your email"
-required&gt;
-&lt;/input-email&gt;</code></pre>
+                    <highlight-code slot="code" lang="html">&lt;input-email
+    name=&quot;email&quot;
+    label=&quot;Email Address&quot;
+    placeholder=&quot;you@example.com&quot;
+    validate-on=&quot;blur&quot;
+    description=&quot;We&#39;ll never share your email&quot;
+    required&gt;
+&lt;/input-email&gt;</highlight-code>
                 </input-demo-card>
 
 
+                <input-demo-card title="Password Input">
+                    <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6z" /><path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" /><path d="M8 11v-4a4 4 0 1 1 8 0v4" /></svg>
+                    <input-password
+                        slot="input"
+                        name="password"
+                        label="Password"
+                        action-button="show"
+                        placeholder="Enter secure password"
+                        min="8"
+                        validate-on="input"
+                        description="Use a strong password"
+                        required>
+                    </input-password>
+                    <highlight-code slot="code" lang="html">&lt;input-password
+    name=&quot;password&quot;
+    label=&quot;Password&quot;
+    action-button=&quot;show&quot;
+    placeholder=&quot;Enter secure password&quot;
+    min=&quot;8&quot;
+    validate-on=&quot;input&quot;
+    description=&quot;Use a strong password&quot;
+    required&gt;
+&lt;/input-password&gt;</highlight-code>
+                </input-demo-card>
 
-                <!-- Password Input Card -->
-                <div class="inputs-demo__input-card">
-                    <div class="inputs-demo__card-header">
-                        <div class="inputs-demo__card-title">
-                            <i class="fas fa-lock"></i>
-                            Password Input
-                        </div>
-                        <button class="inputs-demo__code-toggle" onclick="toggleCode(this)">
-                            <i class="fas fa-code"></i> Code
-                        </button>
-                    </div>
-                    <div class="inputs-demo__card-content">
-                        <input-password
-                            name="password"
-                            label="Password"
-                            action-button="show"
-                            placeholder="Enter secure password"
-                            min="8"
-                            validate-on="input"
-                            description="Use a strong password"
-                            required>
-                        </input-password>
-                    </div>
-                    <div class="inputs-demo__code-block">
-                        <button class="inputs-demo__copy-code" onclick="copyCode(this)">
-                            <i class="fas fa-copy"></i> Copy
-                        </button>
-                        <pre>&lt;input-password
-  name="password"
-  label="Password"
-  action-button="hide"
-  placeholder="Enter secure password"
-  min="8"
-  validate-on="input"
-  description="Use a strong password"
-  required&gt;
-&lt;/input-password&gt;</pre>
-                    </div>
-                </div>
+                <input-demo-card title="Number Input">
+                    <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-hash"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg>
+                    <input-number
+                        slot="input"
+                        name="age"
+                        label="Age"
+                        placeholder="25"
+                        min="18"
+                        max="100"
+                        validate-on="change"
+                        description="Enter your age"
+                        required>
+                    </input-number>
 
-                <!-- Number Input Card -->
-                <div class="inputs-demo__input-card">
-                    <div class="inputs-demo__card-header">
-                        <div class="inputs-demo__card-title">
-                            <i class="fas fa-hashtag"></i>
-                            Number Input
-                        </div>
-                        <button class="inputs-demo__code-toggle" onclick="toggleCode(this)">
-                            <i class="fas fa-code"></i> Code
-                        </button>
-                    </div>
-                    <div class="inputs-demo__card-content">
-                        <input-number
-                            name="age"
-                            label="Age"
-                            placeholder="25"
-                            min="18"
-                            max="100"
-                            validate-on="change"
-                            description="Enter your age"
-                            required>
-                        </input-number>
-                    </div>
-                    <div class="inputs-demo__code-block">
-                        <button class="inputs-demo__copy-code" onclick="copyCode(this)">
-                            <i class="fas fa-copy"></i> Copy
-                        </button>
-                        <pre>&lt;input-number
-  name="age"
-  label="Age"
-  placeholder="25"
-  min="18"
-  max="100"
-  validate-on="change"
-  description="Enter your age"
-  required&gt;
-&lt;/input-number&gt;</pre>
-                    </div>
-                </div>
+                    <highlight-code slot="code" lang="html">&lt;input-number
+    name=&quot;age&quot;
+    label=&quot;Age&quot;
+    placeholder=&quot;25&quot;
+    min=&quot;18&quot;
+    max=&quot;100&quot;
+    validate-on=&quot;change&quot;
+    description=&quot;Enter your age&quot;
+    required&gt;
+&lt;/input-number&gt;</highlight-code>
+                </input-demo-card>
 
-                <!-- Phone Input Card -->
-                <div class="inputs-demo__input-card">
-                    <div class="inputs-demo__card-header">
-                        <div class="inputs-demo__card-title">
-                            <i class="fas fa-phone"></i>
-                            Phone Input
-                        </div>
-                        <button class="inputs-demo__code-toggle" onclick="toggleCode(this)">
-                            <i class="fas fa-code"></i> Code
-                        </button>
-                    </div>
-                    <div class="inputs-demo__card-content">
-                        <input-phone
-                            name="phone"
-                            label="Phone Number"
-                            placeholder="(555) 123-4567"
-                            validate-on="blur"
-                            description="Include country code">
-                        </input-phone>
-                    </div>
-                    <div class="inputs-demo__code-block">
-                        <button class="inputs-demo__copy-code" onclick="copyCode(this)">
-                            <i class="fas fa-copy"></i> Copy
-                        </button>
-                        <pre>&lt;input-phone
-  name="phone"
-  label="Phone Number"
-  placeholder="+1 (555) 123-4567"
-  validate-on="blur"
-  description="Include country code"&gt;
-&lt;/input-phone&gt;</pre>
-                    </div>
-                </div>
+                <input-demo-card title="Phone Input">
+                    <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-phone"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" /></svg>
+                    <input-phone
+                        slot="input"
+                        name="phone"
+                        label="Phone Number"
+                        placeholder="(555) 123-4567"
+                        validate-on="blur"
+                        description="Include country code">
+                    </input-phone>
+
+                    <highlight-code slot="code" lang="html">&lt;input-phone
+    name=&quot;phone&quot;
+    label=&quot;Phone Number&quot;
+    placeholder=&quot;(555) 123-4567&quot;
+    validate-on=&quot;blur&quot;
+    description=&quot;Include country code&quot;&gt;
+&lt;/input-phone&gt;</highlight-code>
+                </input-demo-card>
 
                 <!-- URL Input Card -->
                 <div class="inputs-demo__input-card">
@@ -459,6 +418,31 @@ required&gt;
                         range
                         description="Select checkin and checkout date">
                     </input-date>
+                </input-demo-card>
+
+                <input-demo-card title="Range Input">
+                    <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-adjustments"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 10a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M6 4v4" /><path d="M6 12v8" /><path d="M10 16a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M12 4v10" /><path d="M12 18v2" /><path d="M16 7a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M18 4v1" /><path d="M18 9v11" /></svg>
+                    <input-range
+                        slot="input"
+                        name="range"
+                        label="Range"
+                        min="0"
+                        max="100"
+                        step="5"
+                        validate-on="change"
+                        range
+                        description="Select a value range">
+                    </input-range>
+                    <highlight-code slot="code" lang="html"><input-range
+   name="range"
+   label="Range"
+   min="0"
+   max="100"
+   step="5"
+   validate-on="change"
+   range
+   description="Select a value range">
+</input-range></highlight-code>
                 </input-demo-card>
 
                 <!-- Color Input Card -->

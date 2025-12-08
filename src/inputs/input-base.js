@@ -42,7 +42,6 @@ export default class InputBase extends LitElement {
   constructor() {
     super();
     this.internals = this.attachInternals();
-
     // Defaults
     this.value = '';
     this.valid = true;

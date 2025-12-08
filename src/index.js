@@ -7,3 +7,4 @@ export * from "./inputs/input-number";
 export * from "./inputs/input-phone";
 export * from "./inputs/input-color";
 export * from "./inputs/input-date";
+export * from "./inputs/input-range";
