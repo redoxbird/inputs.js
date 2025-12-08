@@ -30,9 +30,10 @@
 
     <!-- WC DatePicker -->
     <script type="module" src="https://cdn.jsdelivr.net/npm/wc-datepicker/dist/esm/wc-datepicker.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/wc-datepicker/dist/themes/light.css" />
 
-<script type="module" src="https://cdn.jsdelivr.net/npm/range-slider-element@2/+esm"></script>
+    <!-- Range-slider  -->
+    <script type="module" src="https://cdn.jsdelivr.net/npm/range-slider-element@2/+esm"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css">
     <!-- Your demo styles (assuming they're optimized & fingerprinted in prod) -->
     <link id="theme-stylesheet" rel="stylesheet" href="./dist/themes/default.css" />
@@ -304,6 +305,26 @@ import 'inputs.js/components/input-email.js';
 &lt;/input-phone&gt;</highlight-code>
                 </input-demo-card>
 
+                <input-demo-card title="URL Input">
+                    <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-link"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 15l6 -6" /><path d="M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464" /><path d="M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463" /></svg>
+                    <input-url
+                        slot="input"
+                        name="website"
+                        label="Website URL"
+                        placeholder="https://example.com"
+                        validate-on="blur"
+                        description="Enter your website URL">
+                    </input-url>
+
+                    <highlight-code slot="code" lang="html">&lt;input-url
+    name=&quot;website&quot;
+    label=&quot;Website URL&quot;
+    placeholder=&quot;https://example.com&quot;
+    validate-on=&quot;blur&quot;
+    description=&quot;Enter your website URL&quot;&gt;
+&lt;/input-url&gt;</highlight-code>
+                </input-demo-card>
+
                 <!-- URL Input Card -->
                 <div class="inputs-demo__input-card">
                     <div class="inputs-demo__card-header">
@@ -376,37 +397,116 @@ import 'inputs.js/components/input-email.js';
                     </div>
                 </div>
 
+                <!-- Select Input Card -->
+                <input-demo-card title="Select Input">
+                    <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-down"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg>
+                    <input-select
+                        slot="input"
+                        name="country"
+                        label="Country"
+                        placeholder="Select a country"
+                        validate-on="change"
+                        description="Choose your country from the list">
+                        <input-select-option value="us">United States</input-select-option>
+                        <input-select-option value="ca">Canada</input-select-option>
+                        <input-select-option value="uk">United Kingdom</input-select-option>
+                        <input-select-option value="de">Germany</input-select-option>
+                        <input-select-option value="fr">France</input-select-option>
+                        <input-select-option value="jp">Japan</input-select-option>
+                        <input-select-option value="au">Australia</input-select-option>
+                        <input-select-option value="br">Brazil</input-select-option>
+                        <input-select-option value="in">India</input-select-option>
+                        <input-select-option value="cn">China</input-select-option>
+                        <input-select-option value="ru">Russia</input-select-option>
+                        <input-select-option value="za">South Africa</input-select-option>
+                        <input-select-option value="mx">Mexico</input-select-option>
+                        <input-select-option value="kr">South Korea</input-select-option>
+                        <input-select-option value="it">Italy</input-select-option>
+                        <input-select-option value="es">Spain</input-select-option>
+                        <input-select-option value="nl">Netherlands</input-select-option>
+                        <input-select-option value="se">Sweden</input-select-option>
+                        <input-select-option value="no">Norway</input-select-option>
+                        <input-select-option value="dk">Denmark</input-select-option>
+                        <input-select-option value="fi">Finland</input-select-option>
+                        <input-select-option value="pl">Poland</input-select-option>
+                        <input-select-option value="tr">Turkey</input-select-option>
+                        <input-select-option value="ar">Argentina</input-select-option>
+                        <input-select-option value="co">Colombia</input-select-option>
+                        <input-select-option value="pe">Peru</input-select-option>
+                        <input-select-option value="cl">Chile</input-select-option>
+                        <input-select-option value="ve">Venezuela</input-select-option>
+                        <input-select-option value="ec">Ecuador</input-select-option>
+                        <input-select-option value="uy">Uruguay</input-select-option>
+                        <input-select-option value="py">Paraguay</input-select-option>
+                        <input-select-option value="bo">Bolivia</input-select-option>
+                        <input-select-option value="gy">Guyana</input-select-option>
+                        <input-select-option value="sr">Suriname</input-select-option>
+                        <input-select-option value="gf">French Guiana</input-select-option>
+                        <input-select-option value="fk">Falkland Islands</input-select-option>
+                    </input-select>
+                    <highlight-code slot="code" lang="html">&lt;input-select
+    name=&quot;country&quot;
+    label=&quot;Country&quot;
+    placeholder=&quot;Select a country&quot;
+    searchable
+    validate-on=&quot;change&quot;
+    description=&quot;Choose your country from the list&quot;&gt;
+    &lt;input-select-option value=&quot;us&quot;&gt;United States&lt;/input-select-option&gt;
+    &lt;input-select-option value=&quot;ca&quot;&gt;Canada&lt;/input-select-option&gt;
+    &lt;input-select-option value=&quot;uk&quot;&gt;United Kingdom&lt;/input-select-option&gt;
+    &lt;input-select-option value=&quot;de&quot;&gt;Germany&lt;/input-select-option&gt;
+    &lt;input-select-option value=&quot;fr&quot;&gt;France&lt;/input-select-option&gt;
+    &lt;input-select-option value=&quot;jp&quot;&gt;Japan&lt;/input-select-option&gt;
+    &lt;input-select-option value=&quot;au&quot;&gt;Australia&lt;/input-select-option&gt;
+    &lt;input-select-option value=&quot;br&quot;&gt;Brazil&lt;/input-select-option&gt;
+    &lt;input-select-option value=&quot;in&quot;&gt;India&lt;/input-select-option&gt;
+    &lt;input-select-option value=&quot;cn&quot;&gt;China&lt;/input-select-option&gt;
+    &lt;input-select-option value=&quot;ru&quot;&gt;Russia&lt;/input-select-option&gt;
+    &lt;input-select-option value=&quot;za&quot;&gt;South Africa&lt;/input-select-option&gt;
+    &lt;input-select-option value=&quot;mx&quot;&gt;Mexico&lt;/input-select-option&gt;
+    &lt;input-select-option value=&quot;kr&quot;&gt;South Korea&lt;/input-select-option&gt;
+    &lt;input-select-option value=&quot;it&quot;&gt;Italy&lt;/input-select-option&gt;
+    &lt;input-select-option value=&quot;es&quot;&gt;Spain&lt;/input-select-option&gt;
+    &lt;input-select-option value=&quot;nl&quot;&gt;Netherlands&lt;/input-select-option&gt;
+    &lt;input-select-option value=&quot;se&quot;&gt;Sweden&lt;/input-select-option&gt;
+    &lt;input-select-option value=&quot;no&quot;&gt;Norway&lt;/input-select-option&gt;
+    &lt;input-select-option value=&quot;dk&quot;&gt;Denmark&lt;/input-select-option&gt;
+    &lt;input-select-option value=&quot;fi&quot;&gt;Finland&lt;/input-select-option&gt;
+    &lt;input-select-option value=&quot;pl&quot;&gt;Poland&lt;/input-select-option&gt;
+    &lt;input-select-option value=&quot;tr&quot;&gt;Turkey&lt;/input-select-option&gt;
+    &lt;input-select-option value=&quot;ar&quot;&gt;Argentina&lt;/input-select-option&gt;
+    &lt;input-select-option value=&quot;co&quot;&gt;Colombia&lt;/input-select-option&gt;
+    &lt;input-select-option value=&quot;pe&quot;&gt;Peru&lt;/input-select-option&gt;
+    &lt;input-select-option value=&quot;cl&quot;&gt;Chile&lt;/input-select-option&gt;
+    &lt;input-select-option value=&quot;ve&quot;&gt;Venezuela&lt;/input-select-option&gt;
+    &lt;input-select-option value=&quot;ec&quot;&gt;Ecuador&lt;/input-select-option&gt;
+    &lt;input-select-option value=&quot;uy&quot;&gt;Uruguay&lt;/input-select-option&gt;
+    &lt;input-select-option value=&quot;py&quot;&gt;Paraguay&lt;/input-select-option&gt;
+    &lt;input-select-option value=&quot;bo&quot;&gt;Bolivia&lt;/input-select-option&gt;
+    &lt;input-select-option value=&quot;gy&quot;&gt;Guyana&lt;/input-select-option&gt;
+    &lt;input-select-option value=&quot;sr&quot;&gt;Suriname&lt;/input-select-option&gt;
+    &lt;input-select-option value=&quot;gf&quot;&gt;French Guiana&lt;/input-select-option&gt;
+    &lt;input-select-option value=&quot;fk&quot;&gt;Falkland Islands&lt;/input-select-option&gt;
+&lt;/input-select&gt;</highlight-code>
+                </input-demo-card>
+
                 <!-- Date Input Card -->
-                <div class="inputs-demo__input-card">
-                    <div class="inputs-demo__card-header">
-                        <div class="inputs-demo__card-title">
-                            <i class="fas fa-calendar"></i>
-                            Date Input
-                        </div>
-                        <button class="inputs-demo__code-toggle" onclick="toggleCode(this)">
-                            <i class="fas fa-code"></i> Code
-                        </button>
-                    </div>
-                    <div class="inputs-demo__card-content">
-                        <input-date
-                            name="birthday"
-                            label="Birth Date"
-                            validate-on="change"
-                            description="Select your birth date">
-                        </input-date>
-                    </div>
-                    <div class="inputs-demo__code-block">
-                        <button class="inputs-demo__copy-code" onclick="copyCode(this)">
-                            <i class="fas fa-copy"></i> Copy
-                        </button>
-                        <pre>&lt;input-date
-  name="birthday"
-  label="Birth Date"
-  validate-on="change"
-  description="Select your birth date"&gt;
-&lt;/input-date&gt;</pre>
-                    </div>
-                </div>
+                 <input-demo-card title="Date Input">
+                    <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-calendar"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" /><path d="M16 3v4" /><path d="M8 3v4" /><path d="M4 11h16" /><path d="M11 15h1" /><path d="M12 15v3" /></svg>
+                    <input-date
+                        slot="input"
+                        name="birthday"
+                        label="Birth Date"
+                        validate-on="change"
+                        description="Select your birth date">
+                    </input-date>
+                    <highlight-code slot="code" lang="html">&lt;input-date
+    name=&quot;birthday&quot;
+    label=&quot;Birth Date&quot;
+    validate-on=&quot;change&quot;
+    description=&quot;Select your birth date&quot;&gt;
+&lt;/input-date&gt;</highlight-code>
+                </input-demo-card>
 
                 <input-demo-card title="Date Range Input">
                     <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-calendar-week"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" /><path d="M16 3v4" /><path d="M8 3v4" /><path d="M4 11h16" /><path d="M7 14h.013" /><path d="M10.01 14h.005" /><path d="M13.01 14h.005" /><path d="M16.015 14h.005" /><path d="M13.015 17h.005" /><path d="M7.01 17h.005" /><path d="M10.01 17h.005" /></svg>
@@ -418,6 +518,13 @@ import 'inputs.js/components/input-email.js';
                         range
                         description="Select checkin and checkout date">
                     </input-date>
+                    <highlight-code slot="code" lang="html">&lt;input-date
+    name=&quot;check&quot;
+    label=&quot;Date&quot;
+    validate-on=&quot;change&quot;
+    range
+    description=&quot;Select checkin and checkout date&quot;&gt;
+&lt;/input-date&gt;</highlight-code>
                 </input-demo-card>
 
                 <input-demo-card title="Range Input">
@@ -428,11 +535,11 @@ import 'inputs.js/components/input-email.js';
                         label="Range"
                         min="0"
                         max="100"
-                        step="5"
+                        step="1"
                         validate-on="change"
-                        range
                         description="Select a value range">
                     </input-range>
+                    
                     <highlight-code slot="code" lang="html">&lt;input-range
    name=&quot;range&quot;
    label=&quot;Range&quot;
@@ -921,6 +1028,7 @@ import 'inputs.js/components/input-email.js';
                         max="12"
                         description="Format: Year followed by 3-digit number"
                         action-button="copy"
+                        mask="####-###"
                         required>
                     </input-text>
                 </div>

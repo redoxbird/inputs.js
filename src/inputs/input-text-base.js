@@ -294,8 +294,8 @@ export default class InputTextBase extends InputBase {
     if (this.min) schema = schema.min(Number(this.min), this.minMessage || `Minimum length is ${this.min}`);
     if (this.max) schema = schema.max(Number(this.max), this.maxMessage || `Maximum length is ${this.max}`);
 
-    if (this.email) schema = schema.email(this.emailMessage || 'Invalid email address');
-    if (this.url) schema = schema.url(this.urlMessage || 'Invalid URL');
+    if (this.email) schema = schema.email(this.emailMessage || 'Please enter a valid email address');
+    if (this.url) schema = schema.url(this.urlMessage || 'Please enter a valid URL');
 
     if (this.startsWith) schema = schema.startsWith(this.startsWith, this.startsWithMessage || `Must start with "${this.startsWith}"`);
     if (this.endsWith) schema = schema.endsWith(this.endsWith, this.endsWithMessage || `Must end with "${this.endsWith}"`);

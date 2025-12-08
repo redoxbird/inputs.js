@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import * as z from 'zod';
 import InputBase from './input-base.js';
-import 'range-slider-element';
 
 export default class InputRange extends InputBase {
   static properties = {
@@ -20,21 +19,16 @@ export default class InputRange extends InputBase {
     this.step = 1;
     this.valueMin = 25;
     this.valueMax = 75;
-    this.range = true;
-    this.value = JSON.stringify({ min: this.valueMin, max: this.valueMax });
+    this.range = false;
+    this.value = this.range ? JSON.stringify({ min: this.valueMin, max: this.valueMax }) : this.valueMin.toString();
   }
 
   render() {
-    const ariaDescribedby = [
-      this.description ? this.ids.desc : null,
-      this.error ? this.ids.error : null
-    ].filter(Boolean).join(' ');
-
     return html`
       <div class="i-field">
         <label class="i-label" for="${this.ids.input}">${this.label || ''}</label>
-        <div class="i-wrapper">
-          ${this.range ? this._renderRangeSlider() : this._renderSingleRange()}
+        <div class="i-wrapper-range">
+          ${this._renderSlider()}
         </div>
         ${this._renderDescription()}
         ${this._renderError()}
@@ -42,36 +36,31 @@ export default class InputRange extends InputBase {
     `;
   }
 
-  _renderSingleRange() {
-    return html`<input
-      class="i-input"
-      id="${this.ids.input}"
-      type="range"
-      min="${this.min}"
-      max="${this.max}"
-      step="${this.step}"
-      .value="${this.value}"
-      ?disabled="${this.disabled}"
-      ?readonly="${this.readonly}"
-      aria-required="${this.required ? 'true' : 'false'}"
-      aria-invalid="${this.valid ? undefined : 'true'}"
-      aria-describedby="${ariaDescribedby}"
-      @input="${this._onInput}"
-      @change="${this._onChange}"
-      @blur="${this._onBlur}"
-      ${this.autofocus ? 'autofocus' : ''}
-    />`;
+  _renderDescription() {
+    if (!this.description) return '';
+    return html`<p class="i-description" id="${this.ids.desc}">${this.description || ''}</p>`;
   }
 
-  _renderRangeSlider() {
+  _renderError() {
+    if (!this.error) return '';
+    const error = JSON.parse(this.error);
+    if (error.length < 2) {
+      return html`<p class="i-error ${error ? 'i-error-visible' : ''}" id="${this.ids.error}">${error[0].message || ''}</p>`;
+    } else {
+      const errorList = html`<ul>${error.map(err => html`<li>${err.message}</li>`)}</ul>`;
+      return html`<div class="i-error ${error ? 'i-error-visible' : ''}" id="${this.ids.error}">${errorList}</div>`;
+    }
+  }
+
+  _renderSlider() {
     return html`
       <range-slider
-        value="${this.valueMin},${this.valueMax}"
+        value="${this.range ? `${this.valueMin},${this.valueMax}` : this.value}"
         min="${this.min}"
         max="${this.max}"
         step="${this.step}"
         name="${this.name}"
-        aria-label="${this.label || 'Range'}"
+        aria-label="${this.label || 'Choose a value'}"
         ?disabled="${this.disabled}"
         @input="${this._onRangeInput}"
         @change="${this._onRangeChange}"
@@ -79,34 +68,22 @@ export default class InputRange extends InputBase {
         <div data-track></div>
         <div data-track-fill></div>
         <div data-runnable-track>
-          <div data-thumb aria-label="Minimum ${this.label || 'value'}"></div>
-          <div data-thumb aria-label="Maximum ${this.label || 'value'}"></div>
+          <div data-thumb aria-label="${this.range ? `Minimum ${this.label || 'value'}` : this.label || 'Choose a value'}"></div>
+          ${this.range ? html`<div data-thumb aria-label="Maximum ${this.label || 'value'}"></div>` : ''}
         </div>
       </range-slider>
     `;
   }
 
-  _onInput(e) {
-    this.value = e.target.value;
-    this._updateValue(this.value);
-    this._callHook('onInput', e);
-  }
-
-  _onChange(e) {
-    this._handleChange();
-    this._callHook('onChange', e);
-  }
-
-  _onBlur(e) {
-    this._handleBlur();
-    this._callHook('onBlur', e);
-  }
-
   _onRangeInput(e) {
-    const values = e.target.value.split(',').map(Number);
-    this.valueMin = values[0];
-    this.valueMax = values[1];
-    this.value = JSON.stringify({ min: this.valueMin, max: this.valueMax });
+    if (this.range) {
+      const values = e.target.value.split(',').map(Number);
+      this.valueMin = values[0];
+      this.valueMax = values[1];
+      this.value = JSON.stringify({ min: this.valueMin, max: this.valueMax });
+    } else {
+      this.value = e.target.value;
+    }
     this.internals.setFormValue(this.value);
     this.dispatchInput();
     this._callHook('onInput', e);
@@ -118,6 +95,27 @@ export default class InputRange extends InputBase {
   _onRangeChange(e) {
     this._handleChange();
     this._callHook('onChange', e);
+  }
+
+  async validate() {
+    this._callHook('onValidate');
+    this._dispatch('input:validate');
+
+    try {
+      const schema = this._buildSchema();
+      const parseValue = this.value ?? '';
+
+      await schema.parseAsync(parseValue);
+
+      this.setValidState({ valid: true });
+      this._callHook('onSuccess', { value: this.value });
+      return { valid: true, error: null };
+    } catch (err) {
+      const errorMsg = err.errors?.[0]?.message || err.message || 'Invalid value';
+      this.setValidState({ valid: false, error: JSON.stringify([{ message: errorMsg }]) });
+      this._callHook('onError', { error: errorMsg });
+      return { valid: false, error: errorMsg };
+    }
   }
 
   _buildSchema() {
@@ -147,6 +145,7 @@ export default class InputRange extends InputBase {
     super.reset();
     this.valueMin = this.min;
     this.valueMax = this.max;
+    this.value = this.range ? JSON.stringify({ min: this.valueMin, max: this.valueMax }) : this.valueMin.toString();
   }
 
   focus() {

@@ -8,3 +8,4 @@ export * from "./inputs/input-phone";
 export * from "./inputs/input-color";
 export * from "./inputs/input-date";
 export * from "./inputs/input-range";
+export * from "./inputs/input-select";
