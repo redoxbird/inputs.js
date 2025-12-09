@@ -24,10 +24,6 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-    <!-- Coloris CDN -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.css"/>
-    <script src="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js"></script>
-
     <!-- WC DatePicker -->
     <script type="module" src="https://cdn.jsdelivr.net/npm/wc-datepicker/dist/esm/wc-datepicker.js"></script>
 
@@ -325,77 +321,30 @@ import 'inputs.js/components/input-email.js';
 &lt;/input-url&gt;</highlight-code>
                 </input-demo-card>
 
-                <!-- URL Input Card -->
-                <div class="inputs-demo__input-card">
-                    <div class="inputs-demo__card-header">
-                        <div class="inputs-demo__card-title">
-                            <i class="fas fa-link"></i>
-                            URL Input
-                        </div>
-                        <button class="inputs-demo__code-toggle" onclick="toggleCode(this)">
-                            <i class="fas fa-code"></i> Code
-                        </button>
-                    </div>
-                    <div class="inputs-demo__card-content">
-                        <input-url
-                            name="website"
-                            label="Website URL"
-                            placeholder="https://example.com"
-                            validate-on="blur"
-                            description="Enter your website URL">
-                        </input-url>
-                    </div>
-                    <div class="inputs-demo__code-block">
-                        <button class="inputs-demo__copy-code" onclick="copyCode(this)">
-                            <i class="fas fa-copy"></i> Copy
-                        </button>
-                        <pre>&lt;input-url
-  name="website"
-  label="Website URL"
-  placeholder="https://example.com"
-  validate-on="blur"
-  description="Enter your website URL"&gt;
-&lt;/input-url&gt;</pre>
-                    </div>
-                </div>
-
                 <!-- Search Input Card -->
-                <div class="inputs-demo__input-card">
-                    <div class="inputs-demo__card-header">
-                        <div class="inputs-demo__card-title">
-                            <i class="fas fa-search"></i>
-                            Search Input
-                        </div>
-                        <button class="inputs-demo__code-toggle" onclick="toggleCode(this)">
-                            <i class="fas fa-code"></i> Code
-                        </button>
-                    </div>
-                    <div class="inputs-demo__card-content">
-                        <input-search
-                            name="query"
-                            label="Search"
-                            placeholder="Search products..."
-                            action-button="clear"
-                            validate-on="input"
-                            min="2"
-                            description="Type at least 2 characters">
-                        </input-search>
-                    </div>
-                    <div class="inputs-demo__code-block">
-                        <button class="inputs-demo__copy-code" onclick="copyCode(this)">
-                            <i class="fas fa-copy"></i> Copy
-                        </button>
-                        <pre>&lt;input-search
-  name="query"
-  label="Search"
-  placeholder="Search products..."
-  action-button="clear"
-  validate-on="input"
-  min="2"
-  description="Type at least 2 characters"&gt;
-&lt;/input-search&gt;</pre>
-                    </div>
-                </div>
+                <input-demo-card title="Search Input">
+                    <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
+                    <input-text
+                        slot="input"
+                        name="query"
+                        label="Search"
+                        placeholder="Search products..."
+                        action-button="clear"
+                        validate-on="input"
+                        min="2"
+                        description="Type at least 2 characters">
+                    </input-text>
+                    
+                    <highlight-code slot="code" lang="html">&lt;input-search
+    name=&quot;query&quot;
+    label=&quot;Search&quot;
+    placeholder=&quot;Search products...&quot;
+    action-button=&quot;clear&quot;
+    validate-on=&quot;input&quot;
+    min=&quot;2&quot;
+    description=&quot;Type at least 2 characters&quot;&gt;
+&lt;/input-search&gt;</highlight-code>
+                </input-demo-card>
 
                 <!-- Select Input Card -->
                 <input-demo-card title="Select Input">
@@ -490,6 +439,34 @@ import 'inputs.js/components/input-email.js';
 &lt;/input-select&gt;</highlight-code>
                 </input-demo-card>
 
+                <!-- Radio Input Card -->
+                <input-demo-card title="Radio Input">
+                    <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-circle"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /></svg>
+                    <input-radio
+                        slot="input"
+                        name="contact_method"
+                        label="Preferred Contact Method"
+                        value="email"
+                        validate-on="change"
+                        description="How would you like us to contact you?"
+                        required>
+                        <input-radio-option selected value="email" label="Email" description="Receive notifications via email"></input-radio-option>
+                        <input-radio-option value="phone" label="Phone" description="Receive notifications via phone call"></input-radio-option>
+                        <input-radio-option value="sms" label="SMS" description="Receive notifications via text message"></input-radio-option>
+                    </input-radio>
+                    <highlight-code slot="code" lang="html">&lt;input-radio
+    name=&quot;contact_method&quot;
+    label=&quot;Preferred Contact Method&quot;
+    value=&quot;email&quot;
+    validate-on=&quot;change&quot;
+    description=&quot;How would you like us to contact you?&quot;
+    required&gt;
+    &lt;input-radio-option value=&quot;email&quot;&gt;Email&lt;/input-radio-option&gt;
+    &lt;input-radio-option value=&quot;phone&quot;&gt;Phone&lt;/input-radio-option&gt;
+    &lt;input-radio-option value=&quot;sms&quot;&gt;SMS&lt;/input-radio-option&gt;
+&lt;/input-radio&gt;</highlight-code>
+                </input-demo-card>
+
                 <!-- Date Input Card -->
                  <input-demo-card title="Date Input">
                     <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-calendar"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" /><path d="M16 3v4" /><path d="M8 3v4" /><path d="M4 11h16" /><path d="M11 15h1" /><path d="M12 15v3" /></svg>
@@ -552,41 +529,27 @@ import 'inputs.js/components/input-email.js';
 &lt;/input-range&gt;</highlight-code>
                 </input-demo-card>
 
-                <!-- Color Input Card -->
-                <div class="inputs-demo__input-card">
-                    <div class="inputs-demo__card-header">
-                        <div class="inputs-demo__card-title">
-                            <i class="fas fa-palette"></i>
-                            Color Input
-                        </div>
-                        <button class="inputs-demo__code-toggle" onclick="toggleCode(this)">
-                            <i class="fas fa-code"></i> Code
-                        </button>
-                    </div>
-                    <div class="inputs-demo__card-content">
-                        <input-color
-                            name="theme"
-                            label="Theme Color"
-                            value="#6366f1"
-                            validate-on="change"
-                            description="Choose your theme color"
-                            >
-                        </input-color>
-                    </div>
-                    <div class="inputs-demo__code-block">
-                        <button class="inputs-demo__copy-code" onclick="copyCode(this)">
-                            <i class="fas fa-copy"></i> Copy
-                        </button>
-                        <pre>&lt;input-color
-  name="theme"
-  label="Theme Color"
-  value="#6366f1"
-  validate-on="change"
-  description="Choose your theme color"
-  action-button="copy"&gt;
-&lt;/input-color&gt;</pre>
-                    </div>
-                </div>
+
+                <input-demo-card title="Color Input">
+                    <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-palette"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 21a9 9 0 0 1 0 -18c4.97 0 9 3.582 9 8c0 1.06 -.474 2.078 -1.318 2.828c-.844 .75 -1.989 1.172 -3.182 1.172h-2.5a2 2 0 0 0 -1 3.75a1.3 1.3 0 0 1 -1 2.25" /><path d="M8.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12.5 7.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M16.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /></svg>
+                    <input-color
+                        slot="input"
+                        name="theme"
+                        label="Theme Color"
+                        value="#6366f1"
+                        validate-on="change"
+                        description="Choose your theme color"
+                        >
+                    </input-color>
+                    <highlight-code slot="code" lang="html">&lt;input-color
+    name=&quot;theme&quot;
+    label=&quot;Theme Color&quot;
+    value=&quot;#6366f1&quot;
+    validate-on=&quot;change&quot;
+    description=&quot;Choose your theme color&quot;
+    &gt;
+&lt;/input-color&gt;</highlight-code>
+                </input-demo-card>
 
                 <!-- Email with Advanced Validation Card -->
                 <input-demo-card title="Advanced Email">
@@ -606,20 +569,20 @@ import 'inputs.js/components/input-email.js';
                         ends-with="gmail.com"
                         lowercase="true">
                     </input-email>
-                    <pre slot="code"><input-email
-  name="advanced_email"
-  label="Email Address"
-  description="Enter your email address"
-  placeholder="user@example.com"
-  validate-on="blur"
-  required
-  min="5"
-  min-message="Minimum length is 5 characters"
-  max="100"
-  regex="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-  ends-with="gmail.com"
-  lowercase="true">
-</input-email></pre>
+                    <highlight-code slot="code" lang="html">&lt;input-email
+    name=&quot;advanced_email&quot;
+    label=&quot;Email Address&quot;
+    description=&quot;Enter your email address&quot;
+    placeholder=&quot;user@example.com&quot;
+    validate-on=&quot;blur&quot;
+    required
+    min=&quot;5&quot;
+    min-message=&quot;Minimum length is 5 characters&quot;
+    max=&quot;100&quot;
+    regex=&quot;^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$&quot;
+    ends-with=&quot;gmail.com&quot;
+    lowercase=&quot;true&quot;&gt;
+&lt;/input-email&gt;</highlight-code>
                 </input-demo-card>
 
                 <!-- Website URL Card -->
@@ -887,7 +850,6 @@ import 'inputs.js/components/input-email.js';
                     <input-password
                         name="secure_password"
                         label="Create Strong Password"
-                        action-button="hide"
                         placeholder="Enter secure password"
                         validate-on="input|blur"
                         min="12"
@@ -1122,7 +1084,7 @@ import 'inputs.js/components/input-email.js';
                 </input-number>
 
                 <div style="display: flex; gap: 15px; justify-content: center; margin-top: 20px;">
-                    <button type="button" onclick="validateAdvancedForm()" style="background: var(--gradient); color: white; padding: 12px 30px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: transform 0.3s ease;">
+                    <button type="button" onclick="validateAdvancedForm()" style="background: var(--primary); color: white; padding: 12px 30px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: transform 0.3s ease;">
                         <i class="fas fa-check-circle"></i> Validate Form
                     </button>
                     <button type="button" onclick="resetAdvancedForm()" style="background: var(--light-gray); color: var(--dark); padding: 12px 30px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: transform 0.3s ease;">

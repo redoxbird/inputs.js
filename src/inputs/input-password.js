@@ -4,6 +4,7 @@ class InputPassword extends InputTextBase {
   constructor() {
     super();
     this.inputType = 'password';
+    this.actionButton = 'show'
   }
 }
 
