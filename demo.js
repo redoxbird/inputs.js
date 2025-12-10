@@ -190,8 +190,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Add keyboard navigation for theme switching
   document.addEventListener('keydown', (e) => {
-    if (e.altKey && e.key >= '1' && e.key <= '5') {
-      const themes = ['default', 'carbon', 'fluent', 'material', 'newspaper'];
+    if (e.altKey && e.key >= '1' && e.key <= '6') {
+      const themes = ['default', 'carbon', 'fluent', 'material', 'newspaper', 'classic'];
       const themeIndex = parseInt(e.key) - 1;
       if (themeIndex < themes.length) {
         switchTheme(themes[themeIndex]);
