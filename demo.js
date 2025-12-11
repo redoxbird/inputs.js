@@ -231,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         .inputs-demo__input-card {
           background: var(--white);
-          border-radius: 16px;
+          border-radius: 8px;
           padding: 30px;
           box-shadow: var(--card-shadow);
           transition: all 0.3s ease;

@@ -1274,3 +1274,57 @@ wc-datepicker {
     background: linear-gradient(to right, transparent, black);
     background-size: 100%;
 }
+
+/* Password strength meter styles */
+.i-strength-meter {
+    display: flex;
+    align-items: center;
+    margin-top: var(--input-description-margin-top);
+    gap: 0.5rem;
+}
+
+.i-strength-bar {
+    display: flex;
+    flex: 1;
+    height: 4px;
+    gap: 2px;
+}
+
+.i-strength-level {
+    flex: 1;
+    border-radius: 2px;
+    background-color: var(--input-border);
+    transition: var(--input-transition);
+}
+
+.i-strength-meter.weak .i-strength-level.active {
+    background-color: #ef4444; /* red */
+}
+
+.i-strength-meter.medium .i-strength-level.active {
+    background-color: #f97316; /* orange */
+}
+
+.i-strength-meter.strong .i-strength-level.active {
+    background-color: #22c55e; /* green */
+}
+
+.i-strength-label {
+    font-size: var(--input-secondary-font-size);
+    line-height: var(--input-secondary-line-height);
+    font-weight: 500;
+    text-transform: capitalize;
+    transition: var(--input-transition);
+}
+
+.i-strength-meter.weak .i-strength-label {
+    color: #ef4444; /* red */
+}
+
+.i-strength-meter.medium .i-strength-label {
+    color: #f97316; /* orange */
+}
+
+.i-strength-meter.strong .i-strength-label {
+    color: #22c55e; /* green */
+}
