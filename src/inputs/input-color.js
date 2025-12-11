@@ -244,28 +244,6 @@ export default class InputColor extends InputTextBase {
     }
   }
 
-  _onInput(e) {
-    const inputValue = e.target.value;
-    
-    // Validate color format
-    if (inputValue && !this._isValidColor(inputValue)) {
-      // Revert to previous valid value
-      e.target.value = this.value || this.defaultColor;
-      return;
-    }
-    
-    super._onInput(e);
-    
-    // Update Pickr preview if available
-    if (this._pickr && this._pickr.isOpen()) {
-      try {
-        this._pickr.setColor(inputValue || this.defaultColor);
-      } catch (error) {
-        console.warn('Error updating color picker:', error);
-      }
-    }
-  }
-
   _isValidColor(color) {
     // Basic hex color validation
     if (!color) return false;

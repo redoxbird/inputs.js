@@ -235,6 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
           box-shadow: var(--card-shadow);
           transition: all 0.3s ease;
           position: relative;
+          border: 1px solid #e4eaf1;
         }
 
         @media (max-width: 768px) {
@@ -256,30 +257,50 @@ document.addEventListener('DOMContentLoaded', () => {
           margin-bottom: 25px;
         }
 
-        .inputs-demo__card-title {
-          font-size: 1.25rem;
-          font-weight: 700;
-          color: var(--dark);
+        .inputs-demo__card-head {
           display: flex;
+          justify-content: flex-start;
           align-items: center;
-          gap: 10px;
+          gap: 16px;
         }
 
-        .inputs-demo__card-title [name="icon"] {
+        .inputs-demo__card-title {
+          display: flex;
+          flex-direction: column;
+          gap: 2px;       
+        }
+
+        .inputs-demo__card-title h3 {
+          font-size: 1rem;
+          font-weight: 700;
+          color: var(--dark);
+          margin: 0;
+        }
+
+        .inputs-demo__card-title p {
+          margin: 0;
+          font-size: 0.875rem;
+        }
+       
+        .inputs-demo__card-icon {
+          background-color: #faf5ff;
           color: var(--primary);
-          font-size: 1.1rem;
-          width: 1rem;
-          height: auto;
+          width: 3rem;
+          height: 3rem;
+          border-radius: 8px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
 
         .inputs-demo__code-toggle {
-          background: var(--light-gray);
+          background: #f1f5f9;
           border: none;
-          padding: 8px 12px;
-          border-radius: 6px;
+          padding: 10px 16px;
+          border-radius: 4px;
           cursor: pointer;
           transition: all 0.3s ease;
-          color: var(--gray);
+          color: #334155;
           font-size: 0.9rem;
           display: inline-flex;
           justify-content: center;
@@ -354,12 +375,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
       <div class="inputs-demo__input-card">
         <div class="inputs-demo__card-header">
-          <div class="inputs-demo__card-title">
-            <slot name="icon"></slot>
-            ${title}
+          <div class="inputs-demo__card-head">
+            <div class="inputs-demo__card-icon">
+              <slot name="icon"></slot>
+            </div>
+            <div class="inputs-demo__card-title">
+              <h3>${title}</h3>
+              <p>Standard single file input</p>
+            </div>
           </div>
           <button class="inputs-demo__code-toggle" onclick="this.getRootNode().host.toggleCode()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-code"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 8l-4 4l4 4" /><path d="M17 8l4 4l-4 4" /><path d="M14 4l-4 16" /></svg> Code
+            <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code-icon lucide-code"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg> Code
           </button>
         </div>
         <div class="inputs-demo__card-content">
@@ -367,7 +393,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
         <div class="inputs-demo__code-block">
           <button class="inputs-demo__copy-code" onclick="this.getRootNode().host.copyCode()">
-            <i class="fas fa-copy"></i> Copy
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code-icon lucide-code"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg> Copy
           </button>
           <slot name="code"></slot>
         </div>
@@ -487,7 +513,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </style>
         <div class="highlight-code-container">
           <button class="copy-btn" onclick="this.getRootNode().host.copyCode()">
-            <i class="fas fa-copy"></i> Copy
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code-icon lucide-code"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg> Copy
           </button>
           <pre><code class="language-${language}">${code}</code></pre>
         </div>
