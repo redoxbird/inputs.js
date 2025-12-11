@@ -143,7 +143,7 @@ import 'inputs.js/components/input-email.js';
     <section class="inputs-demo__examples" id="examples">
         <div class="inputs-demo__examples__content">
             <div class="inputs-demo__section-header">
-                <h2 class="inputs-demo__section-title">Explore the Components</h2>
+                <h2 class="inputs-demo__section-title">Input Examples</h2>
                 <p class="inputs-demo__section-subtitle">Interactive examples showcasing the power and flexibility of Inputs.js</p>
             </div>
 
@@ -188,7 +188,8 @@ import 'inputs.js/components/input-email.js';
                 <!-- Text Input Card -->
                  <input-demo-card
                     title="Text Input"
-                    style="--primary: #9333ea;">
+                    description="Standard single file input"
+                    style="--primary: #9333ea; --primary-100: #faf5ff">
                     <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-letter-case"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17.5 15.5m-3.5 0a3.5 3.5 0 1 0 7 0a3.5 3.5 0 1 0 -7 0" /><path d="M3 19v-10.5a3.5 3.5 0 0 1 7 0v10.5" /><path d="M3 13h7" /><path d="M21 12v7" /></svg>
                     <input-text
                         slot="input"
@@ -212,7 +213,10 @@ import 'inputs.js/components/input-email.js';
                 </input-demo-card>
 
                 <!--Email Input Card-->
-                <input-demo-card title="Email Input">
+                <input-demo-card 
+                    title="Email Input"
+                    description="Collect and validate email addresses" 
+                    style="--primary: #ef4444; --primary-100: #fff5f5">
                     <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-mail"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" /><path d="M3 7l9 6l9 -6" /></svg>
 
                     <input-email

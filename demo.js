@@ -218,6 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     render() {
       const title = this.getAttribute('title') || '';
+      const description = this.getAttribute('description') || '';
       const iconClass = this.getAttribute('icon-class') || '';
 
       this.shadowRoot.innerHTML = `
@@ -280,10 +281,11 @@ document.addEventListener('DOMContentLoaded', () => {
         .inputs-demo__card-title p {
           margin: 0;
           font-size: 0.875rem;
+          color: #475569;
         }
        
         .inputs-demo__card-icon {
-          background-color: #faf5ff;
+          background-color: var(--primary-100);
           color: var(--primary);
           width: 3rem;
           height: 3rem;
@@ -301,11 +303,12 @@ document.addEventListener('DOMContentLoaded', () => {
           cursor: pointer;
           transition: all 0.3s ease;
           color: #334155;
-          font-size: 0.9rem;
+          font-size: 0.8rem;
           display: inline-flex;
           justify-content: center;
           align-items: center;
           gap: 0.25rem;
+          font-weight: 500;
         }
 
         .inputs-demo__code-toggle:hover {
@@ -319,7 +322,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         .inputs-demo__card-content {
-          margin-bottom: 20px;
         }
 
         .inputs-demo__code-block {
@@ -381,11 +383,11 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
             <div class="inputs-demo__card-title">
               <h3>${title}</h3>
-              <p>Standard single file input</p>
+              <p>${description}</p>
             </div>
           </div>
           <button class="inputs-demo__code-toggle" onclick="this.getRootNode().host.toggleCode()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code-icon lucide-code"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg> Code
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code-icon lucide-code"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg> Code
           </button>
         </div>
         <div class="inputs-demo__card-content">
