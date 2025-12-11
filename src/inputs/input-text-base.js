@@ -156,7 +156,10 @@ export default class InputTextBase extends InputBase {
 
     return html`
         <div class="i-field">
-          <label class="i-label" for="${this.ids.input}">${this.label || ''}</label>
+          <label class="i-label" for="${this.ids.input}">
+            ${this.label || ''}
+            ${this.required ? html`<span class="i-required">Required</span>` : ''}
+          </label>
           <div class="${wrapperClasses}">
               ${this._renderPrefix()}
               <input

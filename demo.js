@@ -312,12 +312,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         .inputs-demo__code-toggle:hover {
-          background: var(--primary);
+          background: #020617;
           color: var(--white);
         }
 
         .inputs-demo__code-toggle--active {
-          background: var(--primary);
+          background: #020617;
           color: var(--white);
         }
 
@@ -368,6 +368,9 @@ document.addEventListener('DOMContentLoaded', () => {
           cursor: pointer;
           font-size: 0.8rem;
           transition: all 0.3s ease;
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
         }
 
         .inputs-demo__copy-code:hover {
@@ -395,7 +398,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
         <div class="inputs-demo__code-block">
           <button class="inputs-demo__copy-code" onclick="this.getRootNode().host.copyCode()">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code-icon lucide-code"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg> Copy
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code-icon lucide-code"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg> Copy
           </button>
           <slot name="code"></slot>
         </div>
@@ -504,6 +507,10 @@ document.addEventListener('DOMContentLoaded', () => {
             cursor: pointer;
             font-size: 0.8rem;
             transition: all 0.3s ease;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
           }
 
           .copy-btn:hover {
@@ -515,7 +522,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </style>
         <div class="highlight-code-container">
           <button class="copy-btn" onclick="this.getRootNode().host.copyCode()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code-icon lucide-code"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg> Copy
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code-icon lucide-code"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg> Copy
           </button>
           <pre><code class="language-${language}">${code}</code></pre>
         </div>
