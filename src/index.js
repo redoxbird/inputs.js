@@ -1,4 +1,5 @@
 export * from "./inputs/input-text";
+export * from "./inputs/input-textarea";
 export * from "./inputs/input-email";
 export * from "./inputs/input-url";
 export * from "./inputs/input-search";

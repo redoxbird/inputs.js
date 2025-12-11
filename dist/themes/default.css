@@ -2,7 +2,7 @@
 :root {
     /* Colors */
     --input-border: #e2e8f0;
-    --input-border-focus: #3b82f6;
+    --primary: #3b82f6;
     --input-border-error: #ef4444;
     --input-bg: #f8fafc;
     --input-text: #111827;
@@ -81,7 +81,6 @@
     background-color: var(--input-bg);
     border-radius: var(--input-radius);
     overflow: hidden;
-    height: var(--input-height);
     box-shadow: var(--input-shadow);
     transition: var(--input-transition);
 }
@@ -160,16 +159,40 @@
     font-family: inherit;
 }
 
+/* Textarea styles */
+.i-textarea {
+    padding: var(--input-padding-y) var(--input-padding-x);
+    background: var(--input-bg);
+    color: var(--input-text);
+    font-size: var(--input-font-size);
+    transition: var(--input-transition);
+    border: none !important;
+    flex-grow: 1;
+    height: auto;
+    font-family: inherit;
+    resize: vertical;
+    min-height: calc(var(--input-height) * 2);
+}
+
 /* Focus and error states */
 .i-wrapper:focus-within {
     outline: none;
-    border-color: var(--input-border-focus);
+    border-color: var(--primary);
     box-shadow: var(--input-shadow-focus);
 }
 
 .i-wrapper-error {
     border-color: var(--input-border-error);
     box-shadow: var(--input-shadow-error);
+}
+
+/* Character count */
+.i-char-count {
+    font-size: var(--input-secondary-font-size);
+    line-height: var(--input-secondary-line-height);
+    color: var(--input-label-secondary-color);
+    text-align: right;
+    margin-top: 0.25rem;
 }
 
 /* Date picker styles */
@@ -239,7 +262,7 @@ wc-datepicker {
 
 .wc-datepicker--disabled .wc-datepicker__date--selected:hover > * {
   color: #fff;
-  background-color: var(--input-border-focus);
+  background-color: var(--primary);
 }
 
 .wc-datepicker__header {
@@ -331,7 +354,7 @@ wc-datepicker {
 }
 
 .wc-datepicker__date:focus > * {
-  outline: 0.125rem solid var(--input-border-focus);
+  outline: 0.125rem solid var(--primary);
 }
 
 .wc-datepicker__date:hover > * {
@@ -364,7 +387,7 @@ wc-datepicker {
 .wc-datepicker__date--selected > *,
 .wc-datepicker__date--selected:hover > * {
   color: #fff;
-  background-color: var(--input-border-focus);
+  background-color: var(--primary);
   font-weight: 500;
 }
 
@@ -698,11 +721,11 @@ wc-datepicker {
     }
 
     range-slider [data-track-fill] {
-        background-color: var(--input-border-focus);
+        background-color: var(--primary);
     }
 
     range-slider [data-thumb] {
-        background-color: var(--input-border-focus);
+        background-color: var(--primary);
         border-radius: 100%;
     }
 }
@@ -748,7 +771,7 @@ wc-datepicker {
 }
 
 .i-option-selected {
-    background-color: var(--input-border-focus);
+    background-color: var(--primary);
     color: #fff;
 }
 
@@ -758,7 +781,7 @@ wc-datepicker {
 }
 
 .i-option-selected.i-option-highlighted {
-    background-color: var(--input-border-focus);
+    background-color: var(--primary);
     color: #fff;
 }
 
@@ -806,8 +829,8 @@ wc-datepicker {
     padding: 0;
 }
 
-.i-radio-option input[type="radio"]:focus + .i-radio-label::before {
-    outline: 2px solid var(--input-border-focus);
+.i-radio-option input[type="radio"]:focus + div .i-radio-label::before {
+    outline: 2px solid var(--primary);
     outline-offset: 2px;
 }
 
@@ -835,13 +858,13 @@ wc-datepicker {
     box-sizing: border-box;
 }
 
-.i-radio-option input[type="radio"]:checked + .i-radio-label::before {
-    border-color: var(--input-border-focus);
-    background-color: var(--input-border-focus);
+.i-radio-option input[type="radio"]:checked + div .i-radio-label::before {
+    border-color: var(--primary);
+    background-color: var(--primary);
     box-shadow: inset 0 0 0 3px var(--input-bg);
 }
 
-.i-radio-option input[type="radio"]:checked + .i-radio-label::after {
+.i-radio-option input[type="radio"]:checked + div .i-radio-label::after {
     content: '';
     position: absolute;
     left: 0.25rem;
@@ -850,7 +873,7 @@ wc-datepicker {
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 50%;
-    background-color: var(--input-bg);
+    background-color: var(--primary);
     opacity: 1;
     transition: var(--input-transition);
 }
@@ -987,19 +1010,19 @@ wc-datepicker {
 
 /* Focus indicators for accessibility */
 .pcr-app .pcr-swatches > button:focus {
-    outline: 2px solid var(--input-border-focus);
+    outline: 2px solid var(--primary);
     outline-offset: 2px;
 }
 
 .pcr-app .pcr-interaction input:focus {
-    outline: 2px solid var(--input-border-focus);
+    outline: 2px solid var(--primary);
     outline-offset: 2px;
 }
 
 .pcr-app .pcr-interaction .pcr-save:focus,
 .pcr-app .pcr-interaction .pcr-cancel:focus,
 .pcr-app .pcr-interaction .pcr-clear:focus {
-    outline: 2px solid var(--input-border-focus);
+    outline: 2px solid var(--primary);
     outline-offset: 2px;
 }
 
@@ -1149,18 +1172,18 @@ wc-datepicker {
 }
 
 .pcr-app .pcr-interaction .pcr-result::-moz-selection {
-    background: var(--input-border-focus);
+    background: var(--primary);
     color: #fff;
 }
 
 .pcr-app .pcr-interaction .pcr-result::selection {
-    background: var(--input-border-focus);
+    background: var(--primary);
     color: #fff;
 }
 
 .pcr-app .pcr-interaction .pcr-type.active {
     color: #fff;
-    background: var(--input-border-focus);
+    background: var(--primary);
 }
 
 .pcr-app .pcr-interaction .pcr-save, .pcr-app .pcr-interaction .pcr-cancel, .pcr-app .pcr-interaction .pcr-clear {
@@ -1177,7 +1200,7 @@ wc-datepicker {
 }
 
 .pcr-app .pcr-interaction .pcr-save {
-    background: var(--input-border-focus);
+    background: var(--primary);
 }
 
 .pcr-app .pcr-interaction .pcr-clear, .pcr-app .pcr-interaction .pcr-cancel {
