@@ -1,15 +1,20 @@
 import { html } from 'lit';
+import uFuzzy from '@leeoniya/ufuzzy';
 import InputBase from './input-base.js';
 
-export default class InputSelect extends InputBase {
+export default class InputCombobox extends InputBase {
   static properties = {
-    // Select-specific properties
+    // Combobox-specific properties
     multiple: { type: Boolean },
     placeholder: { type: String },
 
     // Internal state
     isOpen: { type: Boolean, state: true },
+    filteredOptions: { type: Array, state: true },
+    searchQuery: { type: String, state: true },
     selectedOptions: { type: Array, state: true },
+    virtualStart: { type: Number, state: true },
+    virtualEnd: { type: Number, state: true },
     highlightedIndex: { type: Number, state: true },
   };
 
@@ -17,8 +22,13 @@ export default class InputSelect extends InputBase {
     super();
     this.multiple = false;
     this.isOpen = false;
+    this.filteredOptions = [];
+    this.searchQuery = '';
     this.selectedOptions = [];
+    this.virtualStart = 0;
+    this.virtualEnd = 50; // Render 50 items at a time for lazy rendering
     this.highlightedIndex = -1;
+    this.uf = new uFuzzy();
     this.options = [];
   }
 
@@ -47,14 +57,16 @@ export default class InputSelect extends InputBase {
   }
 
   _collectOptions() {
-    this.options = Array.from(this.querySelectorAll('input-select-option')).map((opt, index) => ({
-      value: opt.value || opt.textContent,
-      text: opt.textContent,
+    this.options = Array.from(this.querySelectorAll('input-combobox-option')).map((opt, index) => ({
+      value: opt.value || opt.label || opt.textContent,
+      text: opt.label || opt.textContent,
+      description: opt.description || '',
       index,
     }));
+    this.filteredOptions = [...this.options];
     this._updateSelectedOptions();
     // Hide the option elements since they are data-only
-    this.querySelectorAll('input-select-option').forEach(opt => opt.style.display = 'none');
+    this.querySelectorAll('input-combobox-option').forEach(opt => opt.style.display = 'none');
   }
 
   _updateSelectedOptions() {
@@ -68,6 +80,41 @@ export default class InputSelect extends InputBase {
     this.selectedOptions = this.options.filter(opt => opt.selected);
   }
 
+  _renderChips() {
+    if (!this.multiple || this.selectedOptions.length === 0) return '';
+
+    return html`
+      <div class="i-chips">
+        ${this.selectedOptions.map(opt => html`
+          <div class="i-chip">
+            <span class="i-chip-text">${opt.text}</span>
+            <button
+              class="i-chip-remove"
+              type="button"
+              @click="${(e) => this._removeChip(opt, e)}"
+              aria-label="Remove ${opt.text}">
+              <span class="i-chip-remove-icon">×</span>
+            </button>
+          </div>
+        `)}
+      </div>
+    `;
+  }
+
+  _removeChip(opt, e) {
+    e.stopPropagation();
+    if (this.multiple && Array.isArray(this.value)) {
+      const currentValue = [...this.value];
+      const index = currentValue.indexOf(opt.value);
+      if (index > -1) {
+        currentValue.splice(index, 1);
+        this.value = currentValue;
+        this._updateValue(this.value);
+        this._updateSelectedOptions();
+      }
+    }
+  }
+
   render() {
     const ariaDescribedby = [
       this.description ? this.ids.desc : null,
@@ -79,20 +126,21 @@ export default class InputSelect extends InputBase {
     return html`
       <div class="i-field">
         <label class="i-label" for="${this.ids.input}">${this.label || ''}</label>
+        ${this._renderChips()}
         <div class="${wrapperClasses}" @click="${this._toggleDropdown}">
           <input
             class="i-input"
             id="${this.ids.input}"
-            .value="${this._getDisplayValue()}"
-            placeholder="${this.placeholder ?? ''}"
+            .value="${this.isOpen ? this.searchQuery : this._getDisplayValue()}"
+            placeholder="${this.isOpen ? 'Search...' : (this.placeholder ?? '')}"
             ?disabled="${this.disabled}"
+            @input="${this._onInput}"
             @keydown="${this._onKeydown}"
             @focus="${this._onFocus}"
             @click="${(e) => e.stopPropagation()}"
             aria-expanded="${this.isOpen}"
             aria-haspopup="listbox"
             aria-describedby="${ariaDescribedby}"
-            readonly
           />
           <button class="i-action i-action-dropdown" type="button" @click="${this._toggleDropdown}">
             <span class="i-icon">
@@ -126,14 +174,17 @@ export default class InputSelect extends InputBase {
   }
 
   _renderDropdown() {
+    const visibleOptions = this.filteredOptions.slice(this.virtualStart, this.virtualEnd);
     return html`
       <div class="i-dropdown" role="listbox">
         <div
           class="i-options"
+          @scroll="${this._onScroll}"
           style="max-height: 200px; overflow-y: auto;"
         >
-          ${this.options.map((opt, index) => {
-            const isHighlighted = index === this.highlightedIndex;
+          ${visibleOptions.map((opt, index) => {
+            const globalIndex = this.virtualStart + index;
+            const isHighlighted = globalIndex === this.highlightedIndex;
             return html`
               <div
                 class="i-option ${opt.selected ? 'i-option-selected' : ''} ${isHighlighted ? 'i-option-highlighted' : ''}"
@@ -141,7 +192,8 @@ export default class InputSelect extends InputBase {
                 role="option"
                 aria-selected="${opt.selected}"
               >
-                ${opt.text}
+                <div class="i-option-label">${opt.text}</div>
+                ${opt.description ? html`<div class="i-option-description">${opt.description}</div>` : ''}
               </div>
             `;
           })}
@@ -155,9 +207,13 @@ export default class InputSelect extends InputBase {
     if (!this.disabled) {
       this.isOpen = !this.isOpen;
       if (this.isOpen) {
+        this.searchQuery = '';
+        this.filteredOptions = [...this.options];
+        this.virtualStart = 0;
+        this.virtualEnd = 50;
         // Find the first selected option and highlight it, or highlight the first option
-        const firstSelectedIndex = this.options.findIndex(opt => opt.selected);
-        this.highlightedIndex = firstSelectedIndex >= 0 ? firstSelectedIndex : (this.options.length > 0 ? 0 : -1);
+        const firstSelectedIndex = this.filteredOptions.findIndex(opt => opt.selected);
+        this.highlightedIndex = firstSelectedIndex >= 0 ? firstSelectedIndex : (this.filteredOptions.length > 0 ? 0 : -1);
         this.requestUpdate();
         setTimeout(() => this._scrollToHighlighted(), 0);
       } else {
@@ -166,6 +222,32 @@ export default class InputSelect extends InputBase {
     }
   }
 
+  _onInput(e) {
+    this.searchQuery = e.target.value;
+    if (this.searchQuery.trim()) {
+      let haystack = this.options.map(o => o.text);
+      let [idxs] = this.uf.search(haystack, this.searchQuery);
+      this.filteredOptions = idxs ? idxs.map(i => this.options[i]) : [];
+    } else {
+      this.filteredOptions = [...this.options];
+    }
+    this.virtualStart = 0;
+    this.virtualEnd = Math.min(50, this.filteredOptions.length);
+    this.highlightedIndex = this.filteredOptions.length > 0 ? 0 : -1;
+    if (!this.isOpen) {
+      this.isOpen = true;
+    }
+    this.requestUpdate();
+    setTimeout(() => this._scrollToHighlighted(), 0);
+  }
+
+  _onScroll(e) {
+    const { scrollTop, scrollHeight, clientHeight } = e.target;
+    const atBottom = scrollTop + clientHeight >= scrollHeight - 10;
+    if (atBottom && this.virtualEnd < this.filteredOptions.length) {
+      this.virtualEnd = Math.min(this.virtualEnd + 50, this.filteredOptions.length);
+    }
+  }
 
   _onKeydown(e) {
     if (e.key === 'ArrowDown') {
@@ -173,7 +255,7 @@ export default class InputSelect extends InputBase {
       if (!this.isOpen) {
         this._toggleDropdown();
       } else {
-        this.highlightedIndex = Math.min(this.highlightedIndex + 1, this.options.length - 1);
+        this.highlightedIndex = Math.min(this.highlightedIndex + 1, this.filteredOptions.length - 1);
         this.requestUpdate();
         setTimeout(() => this._scrollToHighlighted(), 0);
       }
@@ -184,11 +266,13 @@ export default class InputSelect extends InputBase {
       setTimeout(() => this._scrollToHighlighted(), 0);
     } else if (e.key === 'Enter') {
       e.preventDefault();
-      if (this.highlightedIndex >= 0 && this.highlightedIndex < this.options.length) {
-        this._selectOption(this.options[this.highlightedIndex]);
+      if (this.highlightedIndex >= 0 && this.highlightedIndex < this.filteredOptions.length) {
+        this._selectOption(this.filteredOptions[this.highlightedIndex]);
       }
     } else if (e.key === 'Escape') {
       this.isOpen = false;
+      this.searchQuery = '';
+      this.filteredOptions = [...this.options];
       this.highlightedIndex = -1;
     }
   }
@@ -249,6 +333,8 @@ export default class InputSelect extends InputBase {
     super.reset();
     this.selectedOptions = [];
     this.isOpen = false;
+    this.searchQuery = '';
+    this.filteredOptions = [...this.options];
     this.highlightedIndex = -1;
     this._updateSelectedOptions();
   }
@@ -259,7 +345,7 @@ export default class InputSelect extends InputBase {
   }
 }
 
-class InputSelectOption extends HTMLElement {
+class InputComboboxOption extends HTMLElement {
   constructor() {
     super();
   }
@@ -271,7 +357,15 @@ class InputSelectOption extends HTMLElement {
   set value(val) {
     this.setAttribute('value', val);
   }
+
+  get label() {
+    return this.getAttribute('label') || this.textContent;
+  }
+
+  get description() {
+    return this.getAttribute('description') || '';
+  }
 }
 
-customElements.define('input-select-option', InputSelectOption);
-customElements.define('input-select', InputSelect);
+customElements.define('input-combobox-option', InputComboboxOption);
+customElements.define('input-combobox', InputCombobox);

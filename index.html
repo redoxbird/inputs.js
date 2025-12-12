@@ -31,6 +31,7 @@
     <script type="module" src="https://cdn.jsdelivr.net/npm/range-slider-element@2/+esm"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css">
+    
     <!-- Your demo styles (assuming they're optimized & fingerprinted in prod) -->
     <link id="theme-stylesheet" rel="stylesheet" href="./dist/themes/default.css" />
 
@@ -185,11 +186,12 @@ import 'inputs.js/components/input-email.js';
             </div>
 
             <div class="inputs-demo__cards-grid">
+
                 <!-- Text Input Card -->
-                 <input-demo-card
-                    title="Text Input"
-                    description="Standard single file input"
-                    style="--primary: #3b82f6; --primary-100: #eff6ff">
+                  <input-demo-card
+                     title="Text Input"
+                     description="Standard single file input"
+                     style="--primary: #3b82f6; --primary-100: #eff6ff">
                     <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-letter-case"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17.5 15.5m-3.5 0a3.5 3.5 0 1 0 7 0a3.5 3.5 0 1 0 -7 0" /><path d="M3 19v-10.5a3.5 3.5 0 0 1 7 0v10.5" /><path d="M3 13h7" /><path d="M21 12v7" /></svg>
                     <input-text
                         slot="input"
@@ -471,6 +473,67 @@ import 'inputs.js/components/input-email.js';
 &lt;/input-select&gt;</highlight-code>
                 </input-demo-card>
 
+                <!-- Combobox Input Card -->
+                <input-demo-card
+                    title="Combobox Input"
+                    description="Searchable dropdown with filtering"
+                    style="--primary: #10b981; --primary-100: #ecfdf5">
+                    <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
+                    <input-combobox
+                        slot="input"
+                        name="programming_language"
+                        label="Programming Language"
+                        placeholder="Search languages..."
+                        validate-on="change"
+                        description="Search and select your favorite programming language">
+                        <input-combobox-option value="javascript" label="JavaScript" description="Popular scripting language"></input-combobox-option>
+                        <input-combobox-option value="typescript" label="TypeScript" description="Typed JavaScript superset"></input-combobox-option>
+                        <input-combobox-option value="python" label="Python" description="Versatile general-purpose language"></input-combobox-option>
+                        <input-combobox-option value="java" label="Java" description="Enterprise-grade object-oriented language"></input-combobox-option>
+                        <input-combobox-option value="csharp" label="C#" description="Microsoft's modern .NET language"></input-combobox-option>
+                        <input-combobox-option value="php" label="PHP" description="Server-side web development language"></input-combobox-option>
+                        <input-combobox-option value="ruby" label="Ruby" description="Elegant scripting language"></input-combobox-option>
+                        <input-combobox-option value="go" label="Go" description="Google's concurrent programming language"></input-combobox-option>
+                        <input-combobox-option value="rust" label="Rust" description="Systems programming with memory safety"></input-combobox-option>
+                        <input-combobox-option value="swift" label="Swift" description="Apple's modern programming language"></input-combobox-option>
+                        <input-combobox-option value="kotlin" label="Kotlin" description="Modern JVM language"></input-combobox-option>
+                        <input-combobox-option value="dart" label="Dart" description="Google's UI-focused language"></input-combobox-option>
+                        <input-combobox-option value="scala" label="Scala" description="Scalable JVM language"></input-combobox-option>
+                        <input-combobox-option value="r" label="R" description="Statistical computing language"></input-combobox-option>
+                        <input-combobox-option value="perl" label="Perl" description="Powerful text processing language"></input-combobox-option>
+                        <input-combobox-option value="lua" label="Lua" description="Lightweight scripting language"></input-combobox-option>
+                        <input-combobox-option value="elixir" label="Elixir" description="Functional language on Erlang VM"></input-combobox-option>
+                        <input-combobox-option value="clojure" label="Clojure" description="Lisp dialect on JVM"></input-combobox-option>
+                        <input-combobox-option value="haskell" label="Haskell" description="Purely functional programming language"></input-combobox-option>
+                    </input-combobox>
+                    <highlight-code slot="code" lang="html">&lt;input-combobox
+    name=&quot;programming_language&quot;
+    label=&quot;Programming Language&quot;
+    placeholder=&quot;Search languages...&quot;
+    validate-on=&quot;change&quot;
+    description=&quot;Search and select your favorite programming language&quot;&gt;
+    &lt;input-combobox-option value=&quot;javascript&quot; label=&quot;JavaScript&quot; description=&quot;Popular scripting language&quot;&gt;&lt;/input-combobox-option&gt;
+    &lt;input-combobox-option value=&quot;typescript&quot; label=&quot;TypeScript&quot; description=&quot;Typed JavaScript superset&quot;&gt;&lt;/input-combobox-option&gt;
+    &lt;input-combobox-option value=&quot;python&quot; label=&quot;Python&quot; description=&quot;Versatile general-purpose language&quot;&gt;&lt;/input-combobox-option&gt;
+    &lt;input-combobox-option value=&quot;java&quot; label=&quot;Java&quot; description=&quot;Enterprise-grade object-oriented language&quot;&gt;&lt;/input-combobox-option&gt;
+    &lt;input-combobox-option value=&quot;csharp&quot; label=&quot;C#&quot; description=&quot;Microsoft&#39;s modern .NET language&quot;&gt;&lt;/input-combobox-option&gt;
+    &lt;input-combobox-option value=&quot;php&quot; label=&quot;PHP&quot; description=&quot;Server-side web development language&quot;&gt;&lt;/input-combobox-option&gt;
+    &lt;input-combobox-option value=&quot;ruby&quot; label=&quot;Ruby&quot; description=&quot;Elegant scripting language&quot;&gt;&lt;/input-combobox-option&gt;
+    &lt;input-combobox-option value=&quot;go&quot; label=&quot;Go&quot; description=&quot;Google&#39;s concurrent programming language&quot;&gt;&lt;/input-combobox-option&gt;
+    &lt;input-combobox-option value=&quot;rust&quot; label=&quot;Rust&quot; description=&quot;Systems programming with memory safety&quot;&gt;&lt;/input-combobox-option&gt;
+    &lt;input-combobox-option value=&quot;swift&quot; label=&quot;Swift&quot; description=&quot;Apple&#39;s modern programming language&quot;&gt;&lt;/input-combobox-option&gt;
+    &lt;input-combobox-option value=&quot;kotlin&quot; label=&quot;Kotlin&quot; description=&quot;Modern JVM language&quot;&gt;&lt;/input-combobox-option&gt;
+    &lt;input-combobox-option value=&quot;dart&quot; label=&quot;Dart&quot; description=&quot;Google&#39;s UI-focused language&quot;&gt;&lt;/input-combobox-option&gt;
+    &lt;input-combobox-option value=&quot;scala&quot; label=&quot;Scala&quot; description=&quot;Scalable JVM language&quot;&gt;&lt;/input-combobox-option&gt;
+    &lt;input-combobox-option value=&quot;r&quot; label=&quot;R&quot; description=&quot;Statistical computing language&quot;&gt;&lt;/input-combobox-option&gt;
+    &lt;input-combobox-option value=&quot;perl&quot; label=&quot;Perl&quot; description=&quot;Powerful text processing language&quot;&gt;&lt;/input-combobox-option&gt;
+    &lt;input-combobox-option value=&quot;lua&quot; label=&quot;Lua&quot; description=&quot;Lightweight scripting language&quot;&gt;&lt;/input-combobox-option&gt;
+    &lt;input-combobox-option value=&quot;elixir&quot; label=&quot;Elixir&quot; description=&quot;Functional language on Erlang VM&quot;&gt;&lt;/input-combobox-option&gt;
+    &lt;input-combobox-option value=&quot;clojure&quot; label=&quot;Clojure&quot; description=&quot;Lisp dialect on JVM&quot;&gt;&lt;/input-combobox-option&gt;
+    &lt;input-combobox-option value=&quot;haskell&quot; label=&quot;Haskell&quot; description=&quot;Purely functional programming language&quot;&gt;&lt;/input-combobox-option&gt;
+&lt;/input-combobox&gt;</highlight-code>
+                </input-demo-card>
+
                 <!-- Radio Input Card -->
                 <input-demo-card
                     title="Radio Input"
@@ -501,6 +564,32 @@ import 'inputs.js/components/input-email.js';
 &lt;/input-radio&gt;</highlight-code>
                 </input-demo-card>
 
+                <!-- Toggle Input Card -->
+                <input-demo-card
+                    title="Toggle Input"
+                    description="On/Off switch with labels"
+                    style="--primary: #8b5cf6; --primary-100: #faf5ff">
+                    <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-toggle-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 12a8 8 0 0 1 16 0a8 8 0 0 1 -16 0" /><path d="M8 12a4 4 0 0 0 8 0a4 4 0 0 0 -8 0" /></svg>
+                    <input-toggle
+                        slot="input"
+                        name="notifications"
+                        label="Enable Notifications"
+                        description="Receive push notifications"
+                        on-label="On"
+                        off-label="Off"
+                        validate-on="change"
+                        required>
+                    </input-toggle>
+                    <highlight-code slot="code" lang="html">&lt;input-toggle
+    name=&quot;notifications&quot;
+    label=&quot;Enable Notifications&quot;
+    description=&quot;Receive push notifications&quot;
+    on-label=&quot;On&quot;
+    off-label=&quot;Off&quot;
+    validate-on=&quot;change&quot;
+    required&gt;
+&lt;/input-toggle&gt;</highlight-code>
+                </input-demo-card>
                 
                 <!-- Textarea Input Card -->
                 <input-demo-card
@@ -846,14 +935,14 @@ import 'inputs.js/components/input-email.js';
                         format="base64"
                         required>
                     </input-text>
-                    <pre slot="code"><input-text
-  name="base64"
-  label="Base64"
-  placeholder="SGVsbG8gd29ybGQ="
-  validate-on="blur"
-  format="base64"
-  required>
-</input-text></pre>
+                    <pre slot="code">&lt;input-text
+  name=&quot;base64&quot;
+  label=&quot;Base64&quot;
+  placeholder=&quot;SGVsbG8gd29ybGQ=&quot;
+  validate-on=&quot;blur&quot;
+  format=&quot;base64&quot;
+  required&gt;
+&lt;/input-text&gt;</pre>
                 </input-demo-card>
 
                 <!-- Base64URL Input Card -->
@@ -871,14 +960,14 @@ import 'inputs.js/components/input-email.js';
                         format="base64url"
                         required>
                     </input-text>
-                    <pre slot="code"><input-text
-  name="base64url"
-  label="Base64URL"
-  placeholder="SGVsbG8gd29ybGQ="
-  validate-on="blur"
-  format="base64url"
-  required>
-</input-text></pre>
+                    <pre slot="code">&lt;input-text
+  name=&quot;base64url&quot;
+  label=&quot;Base64URL&quot;
+  placeholder=&quot;SGVsbG8gd29ybGQ=&quot;
+  validate-on=&quot;blur&quot;
+  format=&quot;base64url&quot;
+  required&gt;
+&lt;/input-text&gt;</pre>
                 </input-demo-card>
 
                 <!-- Password with Show Button Card -->
@@ -896,14 +985,14 @@ import 'inputs.js/components/input-email.js';
                         validate-on="blur"
                         required>
                     </input-password>
-                    <pre slot="code"><input-password
-  name="show_password"
-  label="Password"
-  placeholder="Password"
-  action-button="show"
-  validate-on="blur"
-  required>
-</input-password></pre>
+                    <pre slot="code">&lt;input-password
+  name=&quot;show_password&quot;
+  label=&quot;Password&quot;
+  placeholder=&quot;Password&quot;
+  action-button=&quot;show&quot;
+  validate-on=&quot;blur&quot;
+  required&gt;
+&lt;/input-password&gt;</pre>
                 </input-demo-card>
 
                 <!-- Number with Validation Card -->
@@ -923,16 +1012,16 @@ import 'inputs.js/components/input-email.js';
                         positive
                         required>
                     </input-number>
-                    <pre slot="code"><input-number
-  name="amount"
-  label="Amount"
-  placeholder="100"
-  validate-on="blur"
-  format="number"
-  gte="10"
+                    <pre slot="code">&lt;input-number
+  name=&quot;amount&quot;
+  label=&quot;Amount&quot;
+  placeholder=&quot;100&quot;
+  validate-on=&quot;blur&quot;
+  format=&quot;number&quot;
+  gte=&quot;10&quot;
   positive
-  required>
-</input-number></pre>
+  required&gt;
+&lt;/input-number&gt;</pre>
                 </input-demo-card>
 
             </div>

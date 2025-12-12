@@ -802,6 +802,61 @@ wc-datepicker {
     }
 }
 
+/* Chips styles for multiple selection */
+.i-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    min-height: 1.5rem;
+}
+
+.i-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--primary);
+    color: white;
+    padding: 0.25rem 0.25rem 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: var(--input-secondary-font-size);
+    line-height: var(--input-secondary-line-height);
+    font-weight: 600;
+    transition: var(--input-transition);
+}
+
+.i-chip-remove {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    font-size: 0.75rem;
+    line-height: 1;
+    transition: var(--input-transition);
+}
+
+.i-chip-remove:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.i-chip-remove:focus {
+    outline: 2px solid white;
+    outline-offset: 2px;
+}
+
+.i-chip-remove-icon {
+    display: block;
+    line-height: 1;
+}
+
 /* Select dropdown styles */
 .i-dropdown {
     z-index: 9999;
@@ -835,10 +890,31 @@ wc-datepicker {
     cursor: pointer;
     color: var(--input-text);
     transition: var(--input-transition);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.i-option-label {
+    font-size: var(--input-font-size);
+    line-height: var(--input-line-height);
+    font-weight: 500;
+}
+
+.i-option-description {
+    font-size: var(--input-secondary-font-size);
+    line-height: var(--input-secondary-line-height);
+    color: var(--input-label-secondary-color);
+    font-weight: 400;
 }
 
 .i-option:hover {
     background-color: var(--input-action-hover-bg);
+    color: var(--input-text);
+}
+
+.i-option:hover .i-option-label,
+.i-option:hover .i-option-description {
     color: var(--input-text);
 }
 
@@ -847,13 +923,28 @@ wc-datepicker {
     color: #fff;
 }
 
+.i-option-selected .i-option-label,
+.i-option-selected .i-option-description {
+    color: #fff;
+}
+
 .i-option-highlighted {
     background-color: var(--input-action-hover-bg);
     color: var(--input-text);
 }
 
+.i-option-highlighted .i-option-label,
+.i-option-highlighted .i-option-description {
+    color: var(--input-text);
+}
+
 .i-option-selected.i-option-highlighted {
     background-color: var(--primary);
+    color: #fff;
+}
+
+.i-option-selected.i-option-highlighted .i-option-label,
+.i-option-selected.i-option-highlighted .i-option-description {
     color: #fff;
 }
 
@@ -1439,4 +1530,169 @@ wc-datepicker {
 
 .i-strength-meter.strong .i-strength-label {
     color: #22c55e; /* green */
+}
+
+/* Toggle switch styles */
+
+.i-field.i-toggle-field {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+}
+
+.i-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    user-select: none;
+    transition: var(--input-transition);
+    position: relative;
+}
+
+.i-toggle:has(.i-toggle-input:disabled) {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.i-toggle-input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.i-toggle-track {
+    position: relative;
+    width: var(--toggle-width, 2.5rem);
+    height: var(--toggle-height, 1.25rem);
+    background-color: var(--input-border);
+    border-radius: 9999px;
+    transition: var(--input-transition);
+    display: flex;
+    align-items: center;
+    padding: 0.125rem;
+}
+
+.i-toggle-thumb {
+    width: var(--toggle-thumb-size, 1rem);
+    height: var(--toggle-thumb-size, 1rem);
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    transition: var(--input-transition);
+    flex-shrink: 0;
+}
+
+.i-toggle-labels {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    min-width: 3rem;
+}
+
+.i-toggle-label {
+    font-size: var(--input-secondary-font-size);
+    line-height: var(--input-secondary-line-height);
+    color: var(--input-label-secondary-color);
+    transition: var(--input-transition);
+    text-align: right;
+}
+
+.i-toggle-label-on {
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.i-toggle-label-off {
+    font-weight: 400;
+}
+
+/* Checked state */
+.i-toggle.i-toggle-checked .i-toggle-track {
+    background-color: var(--primary);
+}
+
+.i-toggle.i-toggle-checked .i-toggle-thumb {
+    transform: translateX(100%);
+}
+
+.i-toggle.i-toggle-checked .i-toggle-label-on {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.i-toggle.i-toggle-checked .i-toggle-label-off {
+    color: var(--input-label-secondary-color);
+    font-weight: 400;
+}
+
+/* Focus state */
+.i-toggle-input:focus + .i-toggle-track {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* Sizes */
+.i-toggle.i-toggle-sm {
+    --toggle-width: 2rem;
+    --toggle-height: 1rem;
+    --toggle-thumb-size: 0.75rem;
+    --input-secondary-font-size: 0.6875rem;
+}
+
+.i-toggle.i-toggle-md {
+    --toggle-width: 2.5rem;
+    --toggle-height: 1.25rem;
+    --toggle-thumb-size: 1rem;
+    --input-secondary-font-size: 0.75rem;
+}
+
+.i-toggle.i-toggle-lg {
+    --toggle-width: 3rem;
+    --toggle-height: 1.5rem;
+    --toggle-thumb-size: 1.25rem;
+    --input-secondary-font-size: 0.875rem;
+}
+
+/* Content wrapper for label and description on left, toggle on right */
+.i-toggle-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex: 1;
+}
+
+.i-toggle-content .i-label {
+    margin-bottom: 0;
+}
+
+.i-toggle-content .i-description {
+    margin-top: 0;
+}
+
+.i-toggle-content .i-error {
+    margin-top: 0.25rem;
+}
+
+/* Wrapper for toggle field */
+.i-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.i-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+.i-wrapper.i-wrapper-error {
+    /* Error styles handled by existing wrapper-error class */
 }

@@ -10,4 +10,6 @@ export * from "./inputs/input-color";
 export * from "./inputs/input-date";
 export * from "./inputs/input-range";
 export * from "./inputs/input-select";
+export * from "./inputs/input-combobox";
 export * from "./inputs/input-radio";
+export * from "./inputs/input-toggle";
