@@ -10,7 +10,7 @@ export default class InputRange extends InputBase {
     valueMin: { type: Number },
     valueMax: { type: Number },
     range: { type: Boolean },
-    valueType: { type: String },
+    valueType: { type: String, attribute: 'value-type' },
     currencySymbol: { type: String },
   };
 
@@ -48,10 +48,11 @@ export default class InputRange extends InputBase {
   render() {
     return html`
       <div class="i-field">
-        <label class="i-label" for="${this.ids.input}">${this.label || ''}</label>
+        <label class="i-label" for="${this.ids.input}">
+          ${this.label || ''} <span class="i-value-display">${this._getDisplayValue()}</span>
+        </label>
         <div class="i-wrapper-range">
           ${this._renderSlider()}
-          <span class="i-value-display">${this._getDisplayValue()}</span>
         </div>
         <div class="i-range-limits">
           <span>${this._formatValue(this.min)}</span>
