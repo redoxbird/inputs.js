@@ -287,8 +287,8 @@ document.addEventListener('DOMContentLoaded', () => {
         .inputs-demo__card-icon {
           background-color: var(--primary-100);
           color: var(--primary);
-          width: 3rem;
-          height: 3rem;
+          width: 2.5rem;
+          height: 2.5rem;
           border-radius: 8px;
           display: flex;
           justify-content: center;

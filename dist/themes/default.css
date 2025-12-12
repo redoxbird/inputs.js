@@ -105,6 +105,21 @@
     transition: none;
 }
 
+.i-value-display {
+    margin-left: auto;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.i-range-limits {
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--input-secondary-font-size);
+    line-height: var(--input-secondary-line-height);
+    color: var(--input-label-secondary-color);
+    margin-top: 0.25rem;
+}
+
 /* Label styles */
 .i-label {
     font-weight: var(--input-label-font-weight);
@@ -508,6 +523,32 @@ wc-datepicker {
 .i-action:hover {
     background-color: var(--input-action-hover-bg);
     color: #374151;
+}
+
+/* Number input actions */
+.i-number-actions {
+    display: flex;
+    height: 100%;
+}
+
+.i-action-increase,
+.i-action-decrease {
+    height: calc(var(--input-height));
+    line-height: calc(var(--input-height));
+    border-radius: 0;
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+    border-left: 1px solid var(--input-border);
+}
+
+.i-action-increase {
+    border-radius: 0 var(--input-radius) 0 0;
+    border-bottom: none;
+}
+
+.i-action-decrease {
+    border-radius: 0 0 var(--input-radius) 0;
 }
 
 /* Icon styles */
@@ -1310,7 +1351,7 @@ wc-datepicker {
     display: flex;
     flex: 1;
     height: 4px;
-    gap: 2px;
+    gap: 4px;
 }
 
 .i-strength-level {

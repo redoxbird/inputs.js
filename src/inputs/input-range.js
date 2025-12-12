@@ -10,6 +10,8 @@ export default class InputRange extends InputBase {
     valueMin: { type: Number },
     valueMax: { type: Number },
     range: { type: Boolean },
+    valueType: { type: String },
+    currencySymbol: { type: String },
   };
 
   constructor() {
@@ -20,7 +22,27 @@ export default class InputRange extends InputBase {
     this.valueMin = 25;
     this.valueMax = 75;
     this.range = false;
+    this.valueType = 'number';
+    this.currencySymbol = '$';
     this.value = this.range ? JSON.stringify({ min: this.valueMin, max: this.valueMax }) : this.valueMin.toString();
+  }
+
+  _formatValue(val) {
+    if (this.valueType === 'percentage') {
+      return `${val}%`;
+    } else if (this.valueType === 'currency') {
+      return `${this.currencySymbol}${val}`;
+    } else {
+      return val.toString();
+    }
+  }
+
+  _getDisplayValue() {
+    if (this.range) {
+      return `${this._formatValue(this.valueMin)} - ${this._formatValue(this.valueMax)}`;
+    } else {
+      return this._formatValue(Number(this.value));
+    }
   }
 
   render() {
@@ -29,6 +51,11 @@ export default class InputRange extends InputBase {
         <label class="i-label" for="${this.ids.input}">${this.label || ''}</label>
         <div class="i-wrapper-range">
           ${this._renderSlider()}
+          <span class="i-value-display">${this._getDisplayValue()}</span>
+        </div>
+        <div class="i-range-limits">
+          <span>${this._formatValue(this.min)}</span>
+          <span>${this._formatValue(this.max)}</span>
         </div>
         ${this._renderDescription()}
         ${this._renderError()}
