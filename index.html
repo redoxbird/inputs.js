@@ -481,12 +481,11 @@ import 'inputs.js/components/input-email.js';
                         slot="input"
                         name="contact_method"
                         label="Preferred Contact Method"
-                        value="email"
                         validate-on="change"
                         description="How would you like us to contact you?"
                         required>
-                        <input-radio-option selected value="email" label="Email" description="Receive notifications via email"></input-radio-option>
-                        <input-radio-option value="phone" label="Phone" description="Receive notifications via phone call"></input-radio-option>
+                        <input-radio-option value="email" label="Email" description="Receive notifications via email"></input-radio-option>
+                        <input-radio-option selected value="phone" label="Phone" description="Receive notifications via phone call" badge="Recommended"></input-radio-option>
                         <input-radio-option value="sms" label="SMS" description="Receive notifications via text message"></input-radio-option>
                     </input-radio>
                     <highlight-code slot="code" lang="html">&lt;input-radio
@@ -586,11 +585,11 @@ import 'inputs.js/components/input-email.js';
                         min="0"
                         max="100"
                         step="1"
-                        value-type="percentage"
+                        value-type="currency"
                         validate-on="change"
                         description="Select a value range">
                     </input-range>
-                    
+
                     <highlight-code slot="code" lang="html">&lt;input-range
    name=&quot;range&quot;
    label=&quot;Range&quot;

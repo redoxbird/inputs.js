@@ -12,6 +12,13 @@ export default class InputRange extends InputBase {
     range: { type: Boolean },
     valueType: { type: String, attribute: 'value-type' },
     currencySymbol: { type: String },
+    locale: { type: String },
+    currencyCode: { type: String, attribute: 'currency-code' },
+    currencyDisplay: { type: String, attribute: 'currency-display' },
+    currencyStyle: { type: String, attribute: 'currency-style' },
+    numberFormatOptions: { type: String, attribute: 'number-format-options' },
+    relativeTimeFormatOptions: { type: String, attribute: 'relative-time-format-options' },
+    listFormatOptions: { type: String, attribute: 'list-format-options' },
   };
 
   constructor() {
@@ -24,17 +31,84 @@ export default class InputRange extends InputBase {
     this.range = false;
     this.valueType = 'number';
     this.currencySymbol = '$';
+    this.locale = navigator.language || 'en-US';
+    this.currencyCode = 'USD';
+    this.currencyDisplay = 'symbol';
+    this.currencyStyle = 'currency';
+    this.numberFormatOptions = '{}';
+    this.relativeTimeFormatOptions = '{}';
+    this.listFormatOptions = '{}';
     this.value = this.range ? JSON.stringify({ min: this.valueMin, max: this.valueMax }) : this.valueMin.toString();
   }
 
   _formatValue(val) {
     if (this.valueType === 'percentage') {
-      return `${val}%`;
+      return `${this._formatNumber(val)}%`;
     } else if (this.valueType === 'currency') {
-      return `${this.currencySymbol}${val}`;
+      return this._formatCurrency(val);
+    } else if (this.valueType === 'relativetime') {
+      return this._formatRelativeTime(val);
+    } else if (this.valueType === 'list') {
+      return this._formatList(val);
     } else {
-      return val.toString();
+      return this._formatNumber(val);
     }
+  }
+
+  _getNumberFormatOptions() {
+    try {
+      const options = JSON.parse(this.numberFormatOptions || '{}');
+      return options;
+    } catch {
+      return {};
+    }
+  }
+
+  _getRelativeTimeFormatOptions() {
+    try {
+      const options = JSON.parse(this.relativeTimeFormatOptions || '{}');
+      return options;
+    } catch {
+      return {};
+    }
+  }
+
+  _getListFormatOptions() {
+    try {
+      const options = JSON.parse(this.listFormatOptions || '{}');
+      return options;
+    } catch {
+      return {};
+    }
+  }
+
+  _formatNumber(value) {
+    const options = this._getNumberFormatOptions();
+    const formatter = new Intl.NumberFormat(this.locale, options);
+    return formatter.format(value);
+  }
+
+  _formatCurrency(value) {
+    const options = this._getNumberFormatOptions();
+    const formatter = new Intl.NumberFormat(this.locale, {
+      style: this.currencyStyle,
+      currency: this.currencyCode,
+      currencyDisplay: this.currencyDisplay,
+      ...options
+    });
+    return formatter.format(value);
+  }
+
+  _formatRelativeTime(value) {
+    const options = this._getRelativeTimeFormatOptions();
+    const formatter = new Intl.RelativeTimeFormat(this.locale, options);
+    return formatter.format(value, 'day'); // Default to days, can be customized
+  }
+
+  _formatList(items) {
+    const options = this._getListFormatOptions();
+    const formatter = new Intl.ListFormat(this.locale, options);
+    return formatter.format(items);
   }
 
   _getDisplayValue() {
@@ -42,6 +116,20 @@ export default class InputRange extends InputBase {
       return `${this._formatValue(this.valueMin)} - ${this._formatValue(this.valueMax)}`;
     } else {
       return this._formatValue(Number(this.value));
+    }
+  }
+
+  _formatValue(val) {
+    if (this.valueType === 'percentage') {
+      return `${this._formatNumber(val)}%`;
+    } else if (this.valueType === 'currency') {
+      return this._formatCurrency(val);
+    } else if (this.valueType === 'relativetime') {
+      return this._formatRelativeTime(val);
+    } else if (this.valueType === 'list') {
+      return this._formatList(val);
+    } else {
+      return this._formatNumber(val);
     }
   }
 

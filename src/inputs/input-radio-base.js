@@ -30,6 +30,7 @@ export default class InputRadioBase extends InputBase {
       value: opt.value || opt.label,
       label: opt.label,
       description: opt.description,
+      badge: opt.badge,
       disabled: opt.disabled,
       selected: opt.selected,
       index,
@@ -93,7 +94,10 @@ export default class InputRadioBase extends InputBase {
           aria-describedby="${this.description ? this.ids.desc : ''}"
         />
         <div>
-          <span class="i-radio-label">${option.label}</span>
+          <span class="i-radio-label">
+            ${option.label} 
+            ${option.badge ? html`<span class="i-radio-badge">${option.badge}</span>` : ''}
+          </span>
           ${option.description ? html`<span class="i-radio-description">${option.description}</span>` : ''}
         </div>
       </label>
@@ -211,6 +215,18 @@ export class InputRadioOption extends HTMLElement {
 
   set description(val) {
     this.setAttribute('description', val);
+  }
+
+  get badge() {
+    return this.getAttribute('badge');
+  }
+
+  set badge(val) {
+    if (val) {
+      this.setAttribute('badge', val);
+    } else {
+      this.removeAttribute('badge');
+    }
   }
 
   get disabled() {
