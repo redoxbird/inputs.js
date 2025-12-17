@@ -241,7 +241,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         @media (max-width: 768px) {
           .inputs-demo__input-card {
-            max-width: 20rem;
             width: 100%;
           }
         }
