@@ -564,6 +564,37 @@ import 'inputs.js/components/input-email.js';
 &lt;/input-radio&gt;</highlight-code>
                 </input-demo-card>
 
+                
+                <!-- Checkbox Input Card -->
+                <input-demo-card
+                    title="Checkbox Input"
+                    description="Select multiple options"
+                    style="--primary: #10b981; --primary-100: #f0fdfa">
+                    <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-checkbox"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 11l3 3l8 -8" /><path d="M20 12v6a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h9" /></svg>
+                    <input-checkbox
+                        slot="input"
+                        name="interests"
+                        label="Interests"
+                        description="Select your interests"
+                        validate-on="change"
+                        required>
+                        <input-checkbox-option value="sports" label="Sports" description="Stay updated on sports news"></input-checkbox-option>
+                        <input-checkbox-option value="music" label="Music" description="Get the latest music updates"></input-checkbox-option>
+                        <input-checkbox-option value="technology" label="Technology" description="Explore new tech trends"></input-checkbox-option>
+                    </input-checkbox>
+                    <highlight-code slot="code" lang="html">&lt;input-checkbox
+    name=&quot;interests&quot;
+    label=&quot;Interests&quot;
+    description=&quot;Select your interests&quot;
+    validate-on=&quot;change&quot;
+    required&gt;
+    &lt;input-checkbox-option value=&quot;sports&quot;&gt;Sports&lt;/input-checkbox-option&gt;
+    &lt;input-checkbox-option value=&quot;music&quot;&gt;Music&lt;/input-checkbox-option&gt;
+    &lt;input-checkbox-option value=&quot;technology&quot;&gt;Technology&lt;/input-checkbox-option&gt;
+&lt;/input-checkbox&gt;</highlight-code>
+                </input-demo-card>
+
+
                 <!-- Toggle Input Card -->
                 <input-demo-card
                     title="Toggle Input"

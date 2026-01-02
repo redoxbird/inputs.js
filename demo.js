@@ -237,11 +237,13 @@ document.addEventListener('DOMContentLoaded', () => {
           transition: all 0.3s ease;
           position: relative;
           border: 1px solid #e4eaf1;
+          max-width: 100vw;
         }
 
         @media (max-width: 768px) {
           .inputs-demo__input-card {
             width: 100%;
+        
           }
         }
 

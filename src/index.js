@@ -12,4 +12,5 @@ export * from "./inputs/input-range";
 export * from "./inputs/input-select";
 export * from "./inputs/input-combobox";
 export * from "./inputs/input-radio";
+export * from "./inputs/input-checkbox";
 export * from "./inputs/input-toggle";
