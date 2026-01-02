@@ -29,7 +29,7 @@ const commonOptions = {
 // 1. Single bundle (all inputs)
 const singleCtx = await esbuild.context({
   entryPoints: ['./src/index.js'],
-  outfile: 'dist/index.js',
+  outfile: './dist/index.js',
   ...commonOptions,
 });
 

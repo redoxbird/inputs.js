@@ -41,19 +41,6 @@ export default class InputRange extends InputBase {
     this.value = this.range ? JSON.stringify({ min: this.valueMin, max: this.valueMax }) : this.valueMin.toString();
   }
 
-  _formatValue(val) {
-    if (this.valueType === 'percentage') {
-      return `${this._formatNumber(val)}%`;
-    } else if (this.valueType === 'currency') {
-      return this._formatCurrency(val);
-    } else if (this.valueType === 'relativetime') {
-      return this._formatRelativeTime(val);
-    } else if (this.valueType === 'list') {
-      return this._formatList(val);
-    } else {
-      return this._formatNumber(val);
-    }
-  }
 
   _getNumberFormatOptions() {
     try {
