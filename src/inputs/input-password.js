@@ -5,7 +5,8 @@ class InputPassword extends InputTextBase {
   static get properties() {
     return {
       ...super.properties,
-      strength: { type: String, state: true }
+      strength: { type: String, state: true },
+      disableStrengthMeter: { type: Boolean, attribute: 'disable-strength-meter', default: false }
     };
   }
 
@@ -35,7 +36,7 @@ class InputPassword extends InputTextBase {
   }
 
   _renderStrengthMeter() {
-    if (this.inputType !== 'password') return '';
+    if (this.inputType !== 'password' || this.disableStrengthMeter) return '';
     const levels = ['weak', 'medium', 'strong'];
     const currentIndex = levels.indexOf(this.strength);
     return html`
