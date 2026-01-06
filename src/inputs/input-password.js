@@ -6,7 +6,18 @@ class InputPassword extends InputTextBase {
     return {
       ...super.properties,
       strength: { type: String, state: true },
-      disableStrengthMeter: { type: Boolean, attribute: 'disable-strength-meter', default: false }
+      strengthMeter: {
+        type: Boolean,
+        attribute: 'strength-meter',
+        reflect: true,
+        converter: {
+          fromAttribute: (value) => {
+            if (value === null) return true;
+            return value === 'true' || value === '';
+          },
+          toAttribute: (value) => (value ? '' : 'false'),
+        },
+      }
     };
   }
 
@@ -15,6 +26,7 @@ class InputPassword extends InputTextBase {
     this.inputType = 'password';
     this.actionButton = 'show';
     this.strength = 'weak';
+    this.strengthMeter = true;
   }
 
   _calculateStrength(value) {
@@ -36,7 +48,9 @@ class InputPassword extends InputTextBase {
   }
 
   _renderStrengthMeter() {
-    if (this.inputType !== 'password' || this.disableStrengthMeter) return '';
+    console.log('Rendering strength meter:', this.strengthMeter);
+    if (this.inputType !== 'password') return '';
+    if (this.strengthMeter === false) return '';
     const levels = ['weak', 'medium', 'strong'];
     const currentIndex = levels.indexOf(this.strength);
     return html`
