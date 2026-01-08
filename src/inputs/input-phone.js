@@ -255,7 +255,6 @@ export default class InputPhone extends InputTextBase {
     dialCode: { type: String },
     mask: { type: String },
     localDigits: { type: String },
-
     requiredMessage: { type: String, attribute: 'required-message' },
   };
 

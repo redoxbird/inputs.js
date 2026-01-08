@@ -48,7 +48,6 @@ class InputPassword extends InputTextBase {
   }
 
   _renderStrengthMeter() {
-    console.log('Rendering strength meter:', this.strengthMeter);
     if (this.inputType !== 'password') return '';
     if (this.strengthMeter === false) return '';
     const levels = ['weak', 'medium', 'strong'];
